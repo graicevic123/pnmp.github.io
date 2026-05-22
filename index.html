@@ -3,200 +3,208 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PNMP – Kvizi in gradiva</title>
+<title>PNMP – Portal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --navy: #0D1B2A; --navy-mid: #1B3A5C; --navy-light: #2A5580;
-    --red: #C0392B; --amber: #D68910; --green: #1E8449;
-    --white: #FFFFFF; --muted: #8A9BB0; --border: rgba(255,255,255,0.08);
-    --card-bg: rgba(255,255,255,0.04);
-  }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--navy);
-    color: var(--white);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-  body::before {
-    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(44,85,128,0.35) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 80%, rgba(192,57,43,0.15) 0%, transparent 55%);
-  }
-  .wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 20px 80px; }
-
-  /* ── Hero ── */
-  .hero { padding: 64px 0 52px; text-align: center; }
-  .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
-  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 10vw, 96px); line-height: 0.9; letter-spacing: 0.03em; margin-bottom: 20px; }
-  .hero h1 span.sub { font-size: 0.42em; letter-spacing: 0.14em; color: rgba(255,255,255,0.5); display: block; margin: 6px 0 3px; }
-  .hero h1 span.red { color: var(--red); }
-  .hero-sub { font-size: 15px; color: var(--muted); max-width: 460px; margin: 0 auto; line-height: 1.7; }
-
-  /* ── Divider ── */
-  .section-header { display: flex; align-items: center; gap: 16px; margin: 48px 0 24px; }
-  .section-header-line { flex: 1; height: 0.5px; background: var(--border); }
-  .section-header-badge { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); background: rgba(255,255,255,0.04); border: 0.5px solid var(--border); border-radius: 4px; padding: 4px 10px; white-space: nowrap; }
-
-  /* ── Quiz grid ── */
-  .quiz-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-
-  /* ── Quiz card ── */
-  .quiz-card {
-    display: block;
-    text-decoration: none;
-    background: var(--card-bg);
-    border: 0.5px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    transition: background 0.15s, border-color 0.15s, transform 0.1s;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .quiz-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.16); transform: translateY(-2px); }
-  .quiz-card:active { transform: translateY(0) scale(0.99); }
-  .quiz-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; border-radius: 12px 0 0 12px; }
-  .quiz-card.red::before { background: var(--red); }
-  .quiz-card.amber::before { background: var(--amber); }
-  .quiz-card.green::before { background: var(--green); }
-  .quiz-card.blue::before { background: #2A5580; }
-
-  .card-type { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
-  .card-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.03em; line-height: 1; color: var(--white); margin-bottom: 4px; }
-  .card-sub { font-size: 0.45em; letter-spacing: 0.12em; color: rgba(255,255,255,0.45); display: block; margin-top: 3px; font-family: 'DM Mono', monospace; }
-  .card-desc { font-size: 13px; color: var(--muted); line-height: 1.55; margin: 12px 0 18px; }
-  .card-meta { display: flex; align-items: center; justify-content: space-between; }
-  .card-count { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
-  .card-arrow { font-size: 16px; color: var(--muted); transition: color 0.15s, transform 0.15s; }
-  .quiz-card:hover .card-arrow { color: var(--white); transform: translateX(4px); }
-
-  /* Badge */
-  .badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; padding: 3px 9px; border-radius: 100px; margin-bottom: 12px; }
-  .badge-red   { background: rgba(192,57,43,0.2); color: #F4A09A; border: 0.5px solid rgba(192,57,43,0.3); }
-  .badge-amber { background: rgba(214,137,16,0.2); color: #FAC775; border: 0.5px solid rgba(214,137,16,0.3); }
-  .badge-green { background: rgba(30,132,73,0.2); color: #7FE8A8; border: 0.5px solid rgba(30,132,73,0.3); }
-  .badge-blue  { background: rgba(42,85,128,0.3); color: #85B7EB; border: 0.5px solid rgba(42,85,128,0.4); }
-
-  /* Kmalu (coming soon) */
-  .quiz-card.soon { opacity: 0.45; pointer-events: none; }
-  .badge-soon { background: rgba(255,255,255,0.06); color: var(--muted); border: 0.5px solid var(--border); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; padding: 3px 9px; border-radius: 100px; margin-bottom: 12px; display: inline-block; }
-
-  /* ── Stats bar ── */
-  .stats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 48px; }
-  .stat { background: var(--card-bg); border: 0.5px solid var(--border); border-radius: 10px; padding: 16px 20px; flex: 1; min-width: 120px; text-align: center; }
-  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 0.02em; color: var(--white); line-height: 1; }
-  .stat-lbl { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
-
-  /* ── Footer ── */
-  .footer { text-align: center; padding: 40px 0 0; border-top: 0.5px solid var(--border); margin-top: 60px; }
-  .footer p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-  .footer strong { color: rgba(255,255,255,0.5); font-weight: 500; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0D1B2A;--navy-mid:#1B3A5C;--red:#C0392B;--amber:#D68910;--green:#1E8449;--white:#FFFFFF;--muted:#8A9BB0;--border:rgba(255,255,255,0.08);--card:rgba(255,255,255,0.04)}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(44,85,128,0.35) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(192,57,43,0.15) 0%,transparent 55%)}
+.wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 20px 80px}
+.hero{padding:64px 0 48px;text-align:center}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,10vw,96px);line-height:0.9;letter-spacing:0.03em;margin-bottom:20px}
+.hero h1 .sub{font-size:0.42em;letter-spacing:0.14em;color:rgba(255,255,255,0.5);display:block;margin:6px 0 3px}
+.hero h1 .red{color:var(--red)}
+.hero-sub{font-size:15px;color:var(--muted);max-width:460px;margin:0 auto;line-height:1.7}
+.login-box{background:var(--card);border:0.5px solid var(--border);border-radius:16px;padding:32px;max-width:480px;margin:40px auto 0}
+.login-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:22px;text-align:center}
+.login-fields{display:flex;flex-direction:column;gap:14px;margin-bottom:20px}
+.field-label{font-size:12px;color:var(--muted);margin-bottom:5px;letter-spacing:0.04em}
+.field-input{width:100%;padding:13px 16px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;transition:border-color 0.15s,background 0.15s}
+.field-input::placeholder{color:rgba(255,255,255,0.25)}
+.field-input:focus{border-color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.09)}
+.login-btn{width:100%;padding:14px;background:var(--red);color:var(--white);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:background 0.15s,transform 0.1s}
+.login-btn:hover{background:#a93226;transform:translateY(-1px)}
+.login-btn:active{transform:scale(0.99)}
+.login-error{font-size:13px;color:#F4A09A;text-align:center;margin-top:10px;display:none}
+.welcome-bar{display:none;background:rgba(30,132,73,0.12);border:0.5px solid rgba(30,132,73,0.3);border-radius:10px;padding:14px 20px;margin:32px 0 0;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.welcome-bar.show{display:flex}
+.welcome-name{font-size:14px;color:#7FE8A8}
+.welcome-name strong{font-weight:600}
+.logout-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);background:none;border:0.5px solid var(--border);border-radius:6px;padding:5px 12px;cursor:pointer;transition:color 0.15s,border-color 0.15s}
+.logout-btn:hover{color:var(--white);border-color:rgba(255,255,255,0.25)}
+.section-header{display:flex;align-items:center;gap:16px;margin:48px 0 24px}
+.section-header-line{flex:1;height:0.5px;background:var(--border)}
+.section-header-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:4px;padding:4px 10px;white-space:nowrap}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px}
+.stat{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:16px 20px;flex:1;min-width:110px;text-align:center}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:0.02em;color:var(--white);line-height:1}
+.stat-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.quiz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.portal-locked{pointer-events:none;filter:blur(3px);opacity:0.25;transition:all 0.4s}
+.portal-locked.unlocked{pointer-events:all;filter:none;opacity:1}
+.lock-msg{text-align:center;font-size:14px;color:var(--muted);margin:0 0 32px;display:block}
+.lock-msg.hide{display:none}
+.quiz-card{display:block;text-decoration:none;background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:24px;transition:background 0.15s,border-color 0.15s,transform 0.1s;cursor:pointer;position:relative;overflow:hidden}
+.quiz-card:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.16);transform:translateY(-2px)}
+.quiz-card:active{transform:scale(0.99)}
+.quiz-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;border-radius:12px 0 0 12px}
+.quiz-card.red::before{background:var(--red)}
+.quiz-card.amber::before{background:var(--amber)}
+.quiz-card.green::before{background:var(--green)}
+.quiz-card.blue::before{background:#2A5580}
+.badge{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;padding:3px 9px;border-radius:100px;margin-bottom:12px}
+.badge-red{background:rgba(192,57,43,0.2);color:#F4A09A;border:0.5px solid rgba(192,57,43,0.3)}
+.badge-amber{background:rgba(214,137,16,0.2);color:#FAC775;border:0.5px solid rgba(214,137,16,0.3)}
+.badge-soon{background:rgba(255,255,255,0.06);color:var(--muted);border:0.5px solid var(--border)}
+.card-type{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.03em;line-height:1;color:var(--white)}
+.card-sub{font-size:0.45em;letter-spacing:0.12em;color:rgba(255,255,255,0.45);display:block;margin-top:3px;font-family:'DM Mono',monospace}
+.card-desc{font-size:13px;color:var(--muted);line-height:1.55;margin:12px 0 18px}
+.card-meta{display:flex;align-items:center;justify-content:space-between}
+.card-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
+.card-arrow{font-size:16px;color:var(--muted);transition:color 0.15s,transform 0.15s}
+.quiz-card:hover .card-arrow{color:var(--white);transform:translateX(4px)}
+.quiz-card.soon{opacity:0.4;pointer-events:none}
+.footer{text-align:center;padding:40px 0 0;border-top:0.5px solid var(--border);margin-top:60px}
+.footer p{font-size:13px;color:var(--muted);line-height:1.6}
+.footer strong{color:rgba(255,255,255,0.5);font-weight:500}
+.admin-link{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;color:rgba(255,255,255,0.12);text-decoration:none;margin-top:12px;display:inline-block;transition:color 0.15s}
+.admin-link:hover{color:var(--muted)}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- Hero -->
   <div class="hero">
     <p class="hero-eyebrow">Prostovoljno gasilsko društvo</p>
-    <h1>
-      PNMP
-      <span class="sub">PRVA IN NUJNA MEDICINSKA POMOČ</span>
-      <span class="red">PORTAL</span>
-    </h1>
-    <p class="hero-sub">Zbirno mesto kvizov in gradiv za usposabljanje ekipe PNMP. Izberi sklop in začni.</p>
+    <h1>PNMP<span class="sub">PRVA IN NUJNA MEDICINSKA POMOČ</span><span class="red">PORTAL</span></h1>
+    <p class="hero-sub">Zbirno mesto kvizov za usposabljanje ekipe PNMP. Pred začetkom se prijavi z imenom in priimkom.</p>
   </div>
 
-  <!-- Stats -->
+  <div class="login-box" id="login-box">
+    <div class="login-title">Prijava tečajnika</div>
+    <div class="login-fields">
+      <div>
+        <div class="field-label">Ime</div>
+        <input class="field-input" type="text" id="inp-ime" placeholder="Janez" autocomplete="given-name">
+      </div>
+      <div>
+        <div class="field-label">Priimek</div>
+        <input class="field-input" type="text" id="inp-priimek" placeholder="Novak" autocomplete="family-name">
+      </div>
+    </div>
+    <button class="login-btn" onclick="prijava()">Začni usposabljanje →</button>
+    <div class="login-error" id="login-error">Prosimo, vnesi ime in priimek.</div>
+  </div>
+
+  <div class="welcome-bar" id="welcome-bar">
+    <span class="welcome-name">Prijavljen: <strong id="welcome-name-txt">—</strong></span>
+    <button class="logout-btn" onclick="odjava()">Odjava</button>
+  </div>
+
+  <div class="section-header" style="margin-top:48px">
+    <div class="section-header-line"></div>
+    <div class="section-header-badge">Pregled</div>
+    <div class="section-header-line"></div>
+  </div>
+
   <div class="stats">
-    <div class="stat">
-      <div class="stat-num">2</div>
-      <div class="stat-lbl">Aktivni kvizi</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">16</div>
-      <div class="stat-lbl">Vprašanj skupaj</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">4</div>
-      <div class="stat-lbl">Tematski sklopi</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">∞</div>
-      <div class="stat-lbl">Ponovitev</div>
-    </div>
+    <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Aktivni kvizi</div></div>
+    <div class="stat"><div class="stat-num">16</div><div class="stat-lbl">Vprašanj skupaj</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-lbl">Tematski sklopi</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-lbl">Ponovitev</div></div>
   </div>
 
-  <!-- Kvizi -->
   <div class="section-header">
     <div class="section-header-line"></div>
     <div class="section-header-badge">Kvizi</div>
     <div class="section-header-line"></div>
   </div>
 
-  <div class="quiz-grid">
+  <span class="lock-msg" id="lock-msg">Prijavi se zgoraj da odpreš kvize.</span>
 
-    <!-- Kviz 1 -->
-    <a class="quiz-card red" href="prometna-nesreca.html">
+  <div class="quiz-grid portal-locked" id="quiz-grid">
+    <a class="quiz-card red" href="#" onclick="odpriKviz(event,'prometna-nesreca.html')">
       <div class="badge badge-red">8 vprašanj</div>
       <div class="card-type">Kviz · Prometna nesreča</div>
       <div class="card-title">PNMP<span class="card-sub">PROMETNA NESREČA</span></div>
       <div class="card-desc">Iznos iz vozila, vrvna tehnika, motorist in imobilizacija stoječega poškodovanca.</div>
-      <div class="card-meta">
-        <span class="card-count">DM Mono · 4 sklopi</span>
-        <span class="card-arrow">→</span>
-      </div>
+      <div class="card-meta"><span class="card-count">4 sklopi</span><span class="card-arrow">→</span></div>
     </a>
-
-    <!-- Kviz 2 -->
-    <a class="quiz-card amber" href="mnozicne-nesrece.html">
+    <a class="quiz-card amber" href="#" onclick="odpriKviz(event,'mnozicne-nesrece.html')">
       <div class="badge badge-amber">8 vprašanj</div>
       <div class="card-type">Kviz · Množične nesreče</div>
       <div class="card-title">MNOŽIČNE<span class="card-sub">NESREČE · VLOGA GASILCEV</span></div>
-      <div class="card-desc">METHANE, triaža SIEVE in SORT, OVO, helikopter NMP in vloga gasilcev ob množičnih nesrečah.</div>
-      <div class="card-meta">
-        <span class="card-count">8 vprašanj · 1 sklop</span>
-        <span class="card-arrow">→</span>
-      </div>
+      <div class="card-desc">METHANE, triaža SIEVE in SORT, OVO, helikopter NMP in vloga gasilcev.</div>
+      <div class="card-meta"><span class="card-count">8 vprašanj</span><span class="card-arrow">→</span></div>
     </a>
-
-    <!-- Kmalu 1 -->
     <div class="quiz-card green soon">
-      <div class="badge-soon">Kmalu</div>
+      <div class="badge badge-soon">Kmalu</div>
       <div class="card-type">Kviz · Hipoglikemija</div>
       <div class="card-title">HIPOGLIKEMIJA<span class="card-sub">SLADKORNA BOLEZEN</span></div>
       <div class="card-desc">Prepoznavanje znakov, merjenje sladkorja, inzulinska črpalka.</div>
-      <div class="card-meta">
-        <span class="card-count">V pripravi</span>
-        <span class="card-arrow">→</span>
-      </div>
+      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
     </div>
-
-    <!-- Kmalu 2 -->
     <div class="quiz-card blue soon">
-      <div class="badge-soon">Kmalu</div>
+      <div class="badge badge-soon">Kmalu</div>
       <div class="card-type">Kviz · Reanimacija</div>
       <div class="card-title">REANIMACIJA<span class="card-sub">TPO · AED</span></div>
       <div class="card-desc">Temeljni postopki oživljanja, uporaba defibrilatorja, veriga preživetja.</div>
-      <div class="card-meta">
-        <span class="card-count">V pripravi</span>
-        <span class="card-arrow">→</span>
-      </div>
+      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
     </div>
-
   </div>
 
-  <!-- Footer -->
   <div class="footer">
     <p><strong>PNMP ekipa</strong> · Prostovoljno gasilsko društvo<br>Gradiva so namenjena izključno internem usposabljanju.</p>
+    <a class="admin-link" href="admin.html">admin</a>
   </div>
 
 </div>
+<script>
+const SK = 'pnmp_user';
+function prijava(){
+  const ime = document.getElementById('inp-ime').value.trim();
+  const priimek = document.getElementById('inp-priimek').value.trim();
+  if(!ime||!priimek){ document.getElementById('login-error').style.display='block'; return; }
+  const user={ime,priimek,polnoIme:ime+' '+priimek};
+  sessionStorage.setItem(SK,JSON.stringify(user));
+  pokaziPortal(user);
+}
+function odjava(){
+  sessionStorage.removeItem(SK);
+  document.getElementById('welcome-bar').classList.remove('show');
+  document.getElementById('login-box').style.display='block';
+  document.getElementById('quiz-grid').classList.remove('unlocked');
+  document.getElementById('quiz-grid').classList.add('portal-locked');
+  document.getElementById('lock-msg').classList.remove('hide');
+}
+function pokaziPortal(user){
+  document.getElementById('login-box').style.display='none';
+  document.getElementById('login-error').style.display='none';
+  document.getElementById('welcome-bar').classList.add('show');
+  document.getElementById('welcome-name-txt').textContent=user.polnoIme;
+  document.getElementById('quiz-grid').classList.remove('portal-locked');
+  document.getElementById('quiz-grid').classList.add('unlocked');
+  document.getElementById('lock-msg').classList.add('hide');
+}
+function odpriKviz(e,url){
+  e.preventDefault();
+  const raw=sessionStorage.getItem(SK);
+  if(!raw)return;
+  sessionStorage.setItem('pnmp_active_user',raw);
+  window.location.href=url;
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  ['inp-ime','inp-priimek'].forEach(id=>{
+    document.getElementById(id).addEventListener('keydown',e=>{ if(e.key==='Enter')prijava(); });
+  });
+  const raw=sessionStorage.getItem(SK);
+  if(raw)pokaziPortal(JSON.parse(raw));
+});
+</script>
 </body>
 </html>
