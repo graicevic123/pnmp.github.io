@@ -3,373 +3,354 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PNMP Admin – Rezultati</title>
+<title>PNMP Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0D1B2A;--navy-mid:#1B3A5C;--red:#C0392B;--amber:#D68910;--green:#1E8449;--white:#FFFFFF;--muted:#8A9BB0;--border:rgba(255,255,255,0.08)}
+:root{--navy:#0D1B2A;--red:#C0392B;--amber:#D68910;--green:#1E8449;--white:#fff;--muted:#8A9BB0;--border:rgba(255,255,255,0.08)}
 body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(44,85,128,0.35) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(192,57,43,0.15) 0%,transparent 55%)}
-.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 24px 80px}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(44,85,128,0.3) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(192,57,43,0.12) 0%,transparent 55%)}
+.page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 24px 80px}
 
-/* PIN */
-.pin-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center}
-.pin-screen h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,7vw,72px);letter-spacing:0.03em;margin-bottom:8px}
-.pin-screen h1 span{color:var(--red)}
-.pin-screen p{font-size:14px;color:var(--muted);margin-bottom:32px}
-.pin-box{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:14px;padding:28px;width:320px}
-.pin-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.pin-input{width:100%;padding:13px 16px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--white);font-family:'DM Mono',monospace;font-size:20px;letter-spacing:0.3em;text-align:center;outline:none;margin-bottom:14px}
-.pin-input:focus{border-color:rgba(255,255,255,0.35)}
-.pin-btn{width:100%;padding:13px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:background 0.15s}
+/* ── PIN ── */
+.pin-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center}
+.pin-wrap h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,7vw,72px);letter-spacing:0.03em;margin-bottom:6px}
+.pin-wrap h1 em{color:var(--red);font-style:normal}
+.pin-wrap p{font-size:14px;color:var(--muted);margin-bottom:28px}
+.pin-box{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:14px;padding:28px;width:300px}
+.pin-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.pin-inp{width:100%;padding:12px 16px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--white);font-family:'DM Mono',monospace;font-size:22px;letter-spacing:0.35em;text-align:center;outline:none;margin-bottom:12px}
+.pin-inp:focus{border-color:rgba(255,255,255,0.35)}
+.pin-btn{width:100%;padding:12px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:background 0.15s}
 .pin-btn:hover{background:#a93226}
-.pin-error{font-size:13px;color:#F4A09A;margin-top:10px;display:none}
+.pin-err{font-size:13px;color:#F4A09A;margin-top:8px;display:none}
 
-/* Admin main */
-.admin-main{display:none}
-.topbar{position:sticky;top:0;z-index:50;background:rgba(13,27,42,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:16px 0;flex-wrap:wrap;gap:12px;border-bottom:0.5px solid var(--border);margin-bottom:32px}
-.topbar h1{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:0.03em}
-.topbar h1 span{color:var(--red)}
-.topbar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.tab-btn{padding:8px 18px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s}
-.tab-btn.active{background:var(--red);border-color:var(--red);color:#fff}
-.tab-btn:hover:not(.active){color:var(--white);border-color:rgba(255,255,255,0.3)}
-.filter-select{padding:8px 14px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;outline:none}
-.filter-select option{background:#1B3A5C}
-.refresh-btn{padding:8px 16px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s}
-.refresh-btn:hover{color:var(--white);border-color:rgba(255,255,255,0.3)}
+/* ── MAIN ── */
+.main{display:none}
 
-/* Stats */
-.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
-.stat{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:10px;padding:16px 20px;flex:1;min-width:120px;text-align:center}
-.stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1}
-.stat-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+/* Sticky header */
+.hdr{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(13,27,42,0.88);border-bottom:0.5px solid var(--border);padding:14px 0;margin-bottom:28px}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.hdr h1{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.03em;line-height:1}
+.hdr h1 em{color:var(--red);font-style:normal}
+.hdr-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+/* Tabs */
+.tab{padding:7px 16px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s}
+.tab.on{background:var(--red);border-color:var(--red);color:#fff}
+.tab:hover:not(.on){color:var(--white);border-color:rgba(255,255,255,0.3)}
+.sel{padding:7px 12px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;outline:none}
+.sel option{background:#1B3A5C}
+.act{padding:7px 14px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s}
+.act:hover{color:var(--white);border-color:rgba(255,255,255,0.3)}
+
+/* Stats – always shown */
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.stat{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:10px;padding:14px 18px;flex:1;min-width:110px;text-align:center;transition:all 0.25s}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;transition:all 0.25s}
+.stat-l{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);margin-top:4px;transition:all 0.25s}
+
+/* Tab panels – KEY: both always rendered, just opacity toggle */
+.panels{position:relative}
+.panel{transition:opacity 0.2s}
+.panel.off{opacity:0;pointer-events:none;position:absolute;top:0;left:0;width:100%}
 
 /* Table */
-.table-wrap{background:rgba(255,255,255,0.03);border:0.5px solid var(--border);border-radius:12px;overflow:hidden}
-.table-header{padding:14px 20px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.table-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted)}
-.loading{text-align:center;padding:48px;font-size:14px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:0.1em}
-.empty{text-align:center;padding:60px 24px;color:var(--muted);font-size:14px}
+.tbl-wrap{background:rgba(255,255,255,0.03);border:0.5px solid var(--border);border-radius:12px;overflow:hidden}
+.tbl-hdr{padding:12px 18px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.tbl-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted)}
+.loading{text-align:center;padding:48px;font-size:13px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:0.1em}
+.empty{text-align:center;padding:60px;color:var(--muted);font-size:14px}
 table{width:100%;border-collapse:collapse}
-th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:12px 16px;text-align:left;border-bottom:0.5px solid var(--border);background:rgba(255,255,255,0.02);white-space:nowrap}
-td{padding:14px 16px;border-bottom:0.5px solid var(--border);font-size:13px;vertical-align:top}
+th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding:10px 16px;text-align:left;border-bottom:0.5px solid var(--border);background:rgba(255,255,255,0.02);white-space:nowrap}
+td{padding:12px 16px;border-bottom:0.5px solid var(--border);font-size:13px;vertical-align:middle}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(255,255,255,0.03)}
-.td-name{font-weight:500;color:var(--white)}
-.td-kviz{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em}
-.td-kviz.prometna{color:#F4A09A}
-.td-kviz.mnozicne{color:#FAC775}
-.td-score{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.02em}
-.td-score.high{color:var(--green)}.td-score.mid{color:var(--amber)}.td-score.low{color:var(--red)}
-.td-time{font-size:12px;color:var(--muted);white-space:nowrap}
-.detail-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;padding:4px 10px;border-radius:5px;background:rgba(255,255,255,0.06);border:0.5px solid var(--border);color:var(--muted);cursor:pointer;transition:all 0.15s;text-transform:uppercase}
-.detail-btn:hover{color:var(--white);border-color:rgba(255,255,255,0.25)}
-.star-display{color:#FAC775;font-size:15px;letter-spacing:2px}
+tr:hover td{background:rgba(255,255,255,0.025)}
+.n{font-weight:500;color:var(--white)}
+.sc{font-family:'Bebas Neue',sans-serif;font-size:20px}
+.sc.hi{color:var(--green)}.sc.md{color:var(--amber)}.sc.lo{color:var(--red)}
+.kv{font-family:'DM Mono',monospace;font-size:11px}
+.kv.p{color:#F4A09A}.kv.m{color:#FAC775}
+.tm{font-size:12px;color:var(--muted);white-space:nowrap}
+.dbtn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;padding:4px 10px;border-radius:5px;background:rgba(255,255,255,0.06);border:0.5px solid var(--border);color:var(--muted);cursor:pointer;transition:all 0.15s;text-transform:uppercase}
+.dbtn:hover{color:var(--white);border-color:rgba(255,255,255,0.3)}
+.stars{color:#FAC775;font-size:14px;letter-spacing:1px}
 
 /* Drawer */
-.drawer{position:fixed;right:0;top:0;height:100%;width:400px;max-width:95vw;background:#0F2035;border-left:0.5px solid var(--border);z-index:100;transform:translateX(100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);overflow-y:auto;padding:28px 24px}
-.drawer.open{transform:translateX(0)}
-.drawer-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px;border-radius:4px;transition:color 0.15s}
-.drawer-close:hover{color:var(--white)}
-.drawer-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.03em;margin-bottom:4px}
-.drawer-meta{font-size:12px;color:var(--muted);margin-bottom:24px}
-.drawer-score{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;margin-bottom:4px}
-.drawer-pct{font-size:13px;color:var(--muted);margin-bottom:28px}
-.drawer-q{margin-bottom:14px;padding:12px 14px;border-radius:8px}
-.drawer-q.ok{background:rgba(30,132,73,0.12);border:0.5px solid rgba(30,132,73,0.25)}
-.drawer-q.nok{background:rgba(192,57,43,0.12);border:0.5px solid rgba(192,57,43,0.25)}
-.drawer-q-text{font-size:13px;font-weight:500;color:var(--white);margin-bottom:6px;line-height:1.4}
-.drawer-q-ans{font-size:12px;line-height:1.5}
-.drawer-q-ans .ok-txt{color:#7FE8A8}
-.drawer-q-ans .nok-txt{color:#F4A09A}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;display:none}
-.overlay.open{display:block}
+.ovl{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;display:none}
+.ovl.on{display:block}
+.drw{position:fixed;right:0;top:0;height:100%;width:400px;max-width:95vw;background:#0D2035;border-left:0.5px solid var(--border);z-index:100;transform:translateX(100%);transition:transform 0.28s cubic-bezier(0.4,0,0.2,1);overflow-y:auto;padding:28px 22px}
+.drw.on{transform:translateX(0)}
+.drw-x{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px;border-radius:4px}
+.drw-x:hover{color:var(--white)}
+.drw-nm{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.03em;margin-bottom:3px}
+.drw-mt{font-size:12px;color:var(--muted);margin-bottom:20px}
+.drw-sc{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;margin-bottom:2px}
+.drw-pct{font-size:13px;color:var(--muted);margin-bottom:24px}
+.drw-q{margin-bottom:12px;padding:11px 13px;border-radius:8px;font-size:13px}
+.drw-q.ok{background:rgba(30,132,73,0.12);border:0.5px solid rgba(30,132,73,0.25)}
+.drw-q.nok{background:rgba(192,57,43,0.12);border:0.5px solid rgba(192,57,43,0.25)}
+.drw-qt{font-weight:500;color:var(--white);margin-bottom:5px;line-height:1.4}
+.drw-qa{font-size:12px;line-height:1.5}
+.ok-t{color:#7FE8A8}.nok-t{color:#F4A09A}
 </style>
 </head>
 <body>
 
-<!-- PIN screen -->
-<div class="pin-screen" id="pin-screen">
-  <h1>PNMP <span>ADMIN</span></h1>
-  <p>Inštruktorska stran – vnesi PIN za dostop</p>
+<!-- PIN -->
+<div class="pin-wrap" id="PIN">
+  <h1>PNMP <em>ADMIN</em></h1>
+  <p>Inštruktorska stran · vnesi PIN za dostop</p>
   <div class="pin-box">
-    <div class="pin-label">PIN koda</div>
-    <input class="pin-input" type="password" id="pin-input" maxlength="6" placeholder="••••">
-    <button class="pin-btn" onclick="checkPin()">Vstopi</button>
-    <div class="pin-error" id="pin-error">Napačen PIN. Poskusi znova.</div>
+    <div class="pin-lbl">PIN koda</div>
+    <input class="pin-inp" type="password" id="pi" maxlength="6" placeholder="••••">
+    <button class="pin-btn" onclick="checkPin()">Vstopi →</button>
+    <div class="pin-err" id="pe">Napačen PIN.</div>
   </div>
 </div>
 
-<!-- Admin main -->
-<div class="admin-main" id="admin-main">
-  <div class="wrap">
+<!-- HEADER (sticky) -->
+<div class="hdr" id="HDR" style="display:none">
+  <div class="hdr-inner">
+    <h1>PNMP <em>ADMIN</em></h1>
+    <div class="hdr-right">
+      <button class="tab on" id="tK" onclick="tab('k')">Kvizi</button>
+      <button class="tab" id="tA" onclick="tab('a')">Ankete</button>
+      <select class="sel" id="fK" onchange="filtriraj()">
+        <option value="">Vsi kvizi</option>
+        <option value="prometna-nesreca">Prometna nesreča</option>
+        <option value="mnozicne-nesrece">Množične nesreče</option>
+      </select>
+      <button class="act" onclick="reload()">↻</button>
+      <button class="act" onclick="location.href='index.html'">← Portal</button>
+    </div>
+  </div>
+</div>
 
-    <div class="topbar">
-      <h1>PNMP <span>ADMIN</span></h1>
-      <div class="topbar-right">
-        <button class="tab-btn active" id="tab-kvizi" onclick="switchTab('kvizi')">Kvizi</button>
-        <button class="tab-btn" id="tab-ankete" onclick="switchTab('ankete')">Ankete</button>
-        <select class="filter-select" id="filter-kviz" onchange="filtriraj()">
-          <option value="vsi">Vsi kvizi</option>
-          <option value="prometna-nesreca">Prometna nesreča</option>
-          <option value="mnozicne-nesrece">Množične nesreče</option>
-        </select>
-        <button class="refresh-btn" onclick="nalozi()">↻ Osveži</button>
-        <button class="refresh-btn" onclick="window.location.href='index.html'">← Portal</button>
-      </div>
+<!-- MAIN -->
+<div class="main" id="MAIN">
+  <div class="page">
+
+    <!-- Stats – always visible -->
+    <div class="stats">
+      <div class="stat"><div class="stat-n" id="sN">—</div><div class="stat-l" id="lN">Skupaj rešitev</div></div>
+      <div class="stat"><div class="stat-n" id="sU">—</div><div class="stat-l" id="lU">Tečajnikov</div></div>
+      <div class="stat"><div class="stat-n" id="sP">—</div><div class="stat-l" id="lP">Povp. rezultat</div></div>
+      <div class="stat"><div class="stat-n" id="sO">—</div><div class="stat-l" id="lO">Odličnih (≥87%)</div></div>
     </div>
 
-    <!-- Stats – vedno vidni -->
-    <div class="stats" id="stats-bar">
-      <div class="stat"><div class="stat-num" id="s-skupaj">—</div><div class="stat-lbl">Skupaj rešitev</div></div>
-      <div class="stat"><div class="stat-num" id="s-unikatni">—</div><div class="stat-lbl">Tečajnikov</div></div>
-      <div class="stat"><div class="stat-num" id="s-povprecje">—</div><div class="stat-lbl">Povp. rezultat</div></div>
-      <div class="stat"><div class="stat-num" id="s-odlicnih">—</div><div class="stat-lbl">Odličnih (≥87%)</div></div>
-    </div>
+    <!-- Tab panels – rendered together, opacity toggle = NO JUMP -->
+    <div class="panels" id="PANELS">
 
-    <!-- Tab content wrapper -->
-    <div style="min-height:500px">
-
-    <!-- Kvizi tab -->
-    <div id="tab-kvizi-content">
-      <div class="table-wrap">
-        <div class="table-header">
-          <span class="table-title">Rezultati tečajnikov</span>
-          <span class="table-title" id="results-count">—</span>
+      <!-- Kvizi -->
+      <div class="panel" id="pK">
+        <div class="tbl-wrap">
+          <div class="tbl-hdr">
+            <span class="tbl-lbl">Rezultati tečajnikov</span>
+            <span class="tbl-lbl" id="cntK">—</span>
+          </div>
+          <div id="tblK"><div class="loading">Nalagam...</div></div>
         </div>
-        <div id="table-container"><div class="loading">Nalagam podatke...</div></div>
       </div>
-    </div>
 
-    <!-- Ankete tab -->
-    <div id="tab-ankete-content" style="display:none">
-      <div class="table-wrap">
-        <div class="table-header">
-          <span class="table-title">Ankete tečajnikov</span>
-          <span class="table-title" id="ankete-count">—</span>
+      <!-- Ankete -->
+      <div class="panel off" id="pA">
+        <div class="tbl-wrap">
+          <div class="tbl-hdr">
+            <span class="tbl-lbl">Ankete tečajnikov</span>
+            <span class="tbl-lbl" id="cntA">—</span>
+          </div>
+          <div id="tblA"><div class="loading">Nalagam...</div></div>
         </div>
-        <div id="ankete-table"><div class="loading">Nalagam ankete...</div></div>
       </div>
+
     </div>
-
-    </div><!-- /tab wrapper -->
-
   </div>
 </div>
 
 <!-- Drawer -->
-<div class="overlay" id="overlay" onclick="zapriDrawer()"></div>
-<div class="drawer" id="drawer">
-  <button class="drawer-close" onclick="zapriDrawer()">✕</button>
-  <div id="drawer-content"></div>
+<div class="ovl" id="OVL" onclick="closeDrawer()"></div>
+<div class="drw" id="DRW">
+  <button class="drw-x" onclick="closeDrawer()">✕</button>
+  <div id="DRW_C"></div>
 </div>
 
 <script>
-firebase.initializeApp({
-  apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",
-  authDomain:"pnmp-kviz.firebaseapp.com",
-  projectId:"pnmp-kviz",
-  storageBucket:"pnmp-kviz.firebasestorage.app",
-  messagingSenderId:"907229581116",
-  appId:"1:907229581116:web:831cad9f6749bfb1015839"
+firebase.initializeApp({apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",authDomain:"pnmp-kviz.firebaseapp.com",projectId:"pnmp-kviz",storageBucket:"pnmp-kviz.firebasestorage.app",messagingSenderId:"907229581116",appId:"1:907229581116:web:831cad9f6749bfb1015839"});
+const db=firebase.firestore();
+
+const PIN='1234';
+let kvizi=[],filtrirani=[],ankete=[],anketeOk=false,curTab='k';
+
+/* PIN */
+function checkPin(){
+  const v=document.getElementById('pi').value;
+  if(v===PIN){
+    document.getElementById('PIN').style.display='none';
+    document.getElementById('HDR').style.display='block';
+    document.getElementById('MAIN').style.display='block';
+    reload();
+  }else{
+    document.getElementById('pe').style.display='block';
+    document.getElementById('pi').value='';
+    document.getElementById('pi').focus();
+  }
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('pi').addEventListener('keydown',e=>{if(e.key==='Enter')checkPin();});
 });
-const db = firebase.firestore();
 
-const ADMIN_PIN = '1234';
-let vsiRezultati = [];
-let filtrirani = [];
-let currentTab = 'kvizi';
-let anketeNalozene = false;
+/* Tabs – opacity toggle, NO layout shift */
+function tab(t){
+  curTab=t;
+  document.getElementById('tK').classList.toggle('on',t==='k');
+  document.getElementById('tA').classList.toggle('on',t==='a');
+  document.getElementById('fK').style.display=t==='k'?'block':'none';
+  document.getElementById('pK').classList.toggle('off',t!=='k');
+  document.getElementById('pA').classList.toggle('off',t!=='a');
 
-/* ── PIN ── */
-function checkPin() {
-  const v = document.getElementById('pin-input').value;
-  if (v === ADMIN_PIN) {
-    document.getElementById('pin-screen').style.display = 'none';
-    document.getElementById('admin-main').style.display = 'block';
-    nalozi();
-  } else {
-    document.getElementById('pin-error').style.display = 'block';
-    document.getElementById('pin-input').value = '';
-    document.getElementById('pin-input').focus();
+  // Panels wrapper height = active panel height
+  const active=document.getElementById(t==='k'?'pK':'pA');
+  document.getElementById('PANELS').style.height=active.scrollHeight+'px';
+
+  if(t==='k') statsKvizi();
+  if(t==='a'){
+    if(!anketeOk) loadAnkete();
+    else statsAnkete();
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('pin-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') checkPin();
-  });
-});
-
-/* ── Tabs ── */
-function switchTab(tab) {
-  currentTab = tab;
-  document.getElementById('tab-kvizi').classList.toggle('active', tab === 'kvizi');
-  document.getElementById('tab-ankete').classList.toggle('active', tab === 'ankete');
-  document.getElementById('filter-kviz').style.display = tab === 'kvizi' ? 'block' : 'none';
-  document.getElementById('tab-kvizi-content').style.display = tab === 'kvizi' ? 'block' : 'none';
-  document.getElementById('tab-ankete-content').style.display = tab === 'ankete' ? 'block' : 'none';
-  if (tab === 'kvizi') {
-    // Ponastavi oznake stats bara za kvize
-    document.getElementById('s-skupaj').nextElementSibling.textContent = 'Skupaj rešitev';
-    document.getElementById('s-unikatni').nextElementSibling.textContent = 'Tečajnikov';
-    document.getElementById('s-povprecje').nextElementSibling.textContent = 'Povp. rezultat';
-    document.getElementById('s-odlicnih').nextElementSibling.textContent = 'Odličnih (≥87%)';
-    posodobiStatistiko();
-  }
-  if (tab === 'ankete' && !anketeNalozene) naloziAnkete();
-}
-
-/* ── Kvizi ── */
-async function nalozi() {
-  document.getElementById('table-container').innerHTML = '<div class="loading">Nalagam podatke...</div>';
-  try {
-    const snap = await db.collection('rezultati').orderBy('cas', 'desc').limit(500).get();
-    vsiRezultati = [];
-    snap.forEach(doc => { const d = doc.data(); d._id = doc.id; vsiRezultati.push(d); });
+/* Reload */
+async function reload(){
+  document.getElementById('tblK').innerHTML='<div class="loading">Nalagam...</div>';
+  try{
+    const s=await db.collection('rezultati').orderBy('cas','desc').limit(500).get();
+    kvizi=[];
+    s.forEach(d=>{const x=d.data();x._id=d.id;kvizi.push(x);});
     filtriraj();
-  } catch(e) {
-    document.getElementById('table-container').innerHTML = '<div class="loading">Napaka pri nalaganju. Preverite pravice Firestore.</div>';
-    console.error(e);
+  }catch(e){
+    document.getElementById('tblK').innerHTML='<div class="loading">Napaka – preverite pravice Firestore.</div>';
   }
 }
 
-function filtriraj() {
-  const f = document.getElementById('filter-kviz').value;
-  filtrirani = f === 'vsi' ? vsiRezultati : vsiRezultati.filter(r => r.kviz === f);
-  posodobiStatistiko();
-  izrisiTabelo();
+/* Filter */
+function filtriraj(){
+  const f=document.getElementById('fK').value;
+  filtrirani=f?kvizi.filter(r=>r.kviz===f):kvizi;
+  statsKvizi();
+  renderKvizi();
 }
 
-function posodobiStatistiko() {
-  const n = filtrirani.length;
-  const unikatni = new Set(filtrirani.map(r => r.polnoIme)).size;
-  const povp = n > 0 ? Math.round(filtrirani.reduce((a, r) => a + (r.procent || 0), 0) / n) : 0;
-  const odlicni = filtrirani.filter(r => (r.procent || 0) >= 87).length;
-  document.getElementById('s-skupaj').textContent = n;
-  document.getElementById('s-unikatni').textContent = unikatni;
-  document.getElementById('s-povprecje').textContent = povp + '%';
-  document.getElementById('s-odlicnih').textContent = odlicni;
-  document.getElementById('results-count').textContent = n + ' zapisov';
+/* Stats – kvizi */
+function statsKvizi(){
+  const n=filtrirani.length;
+  const u=new Set(filtrirani.map(r=>r.polnoIme)).size;
+  const p=n>0?Math.round(filtrirani.reduce((a,r)=>a+(r.procent||0),0)/n):0;
+  const o=filtrirani.filter(r=>(r.procent||0)>=87).length;
+  set('sN',n,'lN','Skupaj rešitev');
+  set('sU',u,'lU','Tečajnikov');
+  set('sP',p+'%','lP','Povp. rezultat');
+  set('sO',o,'lO','Odličnih (≥87%)');
+  document.getElementById('cntK').textContent=n+' zapisov';
 }
 
-function formatCas(ts) {
-  if (!ts || !ts.toDate) return '—';
-  const d = ts.toDate();
-  return d.toLocaleDateString('sl-SI', {day:'2-digit', month:'2-digit', year:'numeric'})
-    + ' ' + d.toLocaleTimeString('sl-SI', {hour:'2-digit', minute:'2-digit'});
+/* Stats – ankete */
+function statsAnkete(){
+  const n=ankete.length;
+  const u=new Set(ankete.map(a=>a.polnoIme)).size;
+  const p=n>0?(ankete.reduce((a,x)=>a+(x.ocena||0),0)/n).toFixed(1)+' ★':0;
+  const o=ankete.filter(a=>a.izboljsaj&&a.izboljsaj!=='—').length;
+  set('sN',n,'lN','Skupaj anket');
+  set('sU',u,'lU','Tečajnikov');
+  set('sP',p,'lP','Povp. ocena');
+  set('sO',o,'lO','S predlogi');
+  document.getElementById('cntA').textContent=n+' odgovorov';
 }
 
-function izrisiTabelo() {
-  if (filtrirani.length === 0) {
-    document.getElementById('table-container').innerHTML = '<div class="empty">Ni rezultatov za prikaz.</div>';
-    return;
-  }
-  let html = '<table><thead><tr><th>Ime in priimek</th><th>Kviz</th><th>Rezultat</th><th>Čas reševanja</th><th>Podrobnosti</th></tr></thead><tbody>';
-  filtrirani.forEach(r => {
-    const pct = r.procent || 0;
-    const cls = pct >= 87 ? 'high' : pct >= 62 ? 'mid' : 'low';
-    const kvizCls = r.kviz === 'prometna-nesreca' ? 'prometna' : 'mnozicne';
-    const kvizLabel = r.kvizNaziv || r.kviz;
-    html += `<tr>
-      <td class="td-name">${r.polnoIme || '—'}</td>
-      <td><span class="td-kviz ${kvizCls}">${kvizLabel}</span></td>
-      <td><span class="td-score ${cls}">${r.tocke || 0}/${r.skupaj || 8}</span> <span style="font-size:12px;color:var(--muted)">${pct}%</span></td>
-      <td class="td-time">${formatCas(r.cas)}</td>
-      <td><button class="detail-btn" onclick="odpriDrawer('${r._id}')">Pregled</button></td>
-    </tr>`;
+function set(nId,nVal,lId,lVal){
+  document.getElementById(nId).textContent=nVal;
+  document.getElementById(lId).textContent=lVal;
+}
+
+/* Format timestamp */
+function fCas(ts){
+  if(!ts||!ts.toDate)return'—';
+  const d=ts.toDate();
+  return d.toLocaleDateString('sl-SI',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('sl-SI',{hour:'2-digit',minute:'2-digit'});
+}
+
+/* Render kvizi */
+function renderKvizi(){
+  const el=document.getElementById('tblK');
+  if(!filtrirani.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
+  let h='<table><thead><tr><th>Ime in priimek</th><th>Kviz</th><th>Rezultat</th><th>Čas</th><th></th></tr></thead><tbody>';
+  filtrirani.forEach(r=>{
+    const pct=r.procent||0,cls=pct>=87?'hi':pct>=62?'md':'lo';
+    const kc=r.kviz==='prometna-nesreca'?'p':'m';
+    h+=`<tr><td class="n">${r.polnoIme||'—'}</td><td><span class="kv ${kc}">${r.kvizNaziv||r.kviz||'—'}</span></td><td><span class="sc ${cls}">${r.tocke||0}/${r.skupaj||8}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td><td class="tm">${fCas(r.cas)}</td><td><button class="dbtn" onclick="openDrawer('${r._id}')">Pregled</button></td></tr>`;
   });
-  html += '</tbody></table>';
-  document.getElementById('table-container').innerHTML = html;
+  h+='</tbody></table>';
+  el.innerHTML=h;
+  syncH();
 }
 
-/* ── Drawer ── */
-function odpriDrawer(id) {
-  const r = vsiRezultati.find(x => x._id === id);
-  if (!r) return;
-  const pct = r.procent || 0;
-  const col = pct >= 87 ? '#1E8449' : pct >= 62 ? '#D68910' : '#C0392B';
-  let html = `<div class="drawer-name">${r.polnoIme || '—'}</div>
-    <div class="drawer-meta">${r.kvizNaziv || r.kviz} · ${formatCas(r.cas)}</div>
-    <div class="drawer-score" style="color:${col}">${r.tocke || 0} / ${r.skupaj || 8}</div>
-    <div class="drawer-pct">${pct} % pravilnih odgovorov</div>`;
-  if (r.odgovori) {
-    Object.keys(r.odgovori).sort((a,b) => parseInt(a.slice(1)) - parseInt(b.slice(1))).forEach(k => {
-      const o = r.odgovori[k];
-      html += `<div class="drawer-q ${o.pravilno ? 'ok' : 'nok'}">
-        <div class="drawer-q-text">${k.replace('v','')}. ${o.vprasanje}</div>
-        <div class="drawer-q-ans">Izbral: <span class="${o.pravilno ? 'ok-txt' : 'nok-txt'}">${o.izbran}</span>${!o.pravilno ? '<br>Pravilno: <span class="ok-txt">' + o.pravilen + '</span>' : ''}</div>
-      </div>`;
-    });
-  } else {
-    html += '<div style="color:var(--muted);font-size:13px;margin-top:16px">Podrobni odgovori niso na voljo za ta zapis.</div>';
+/* Render ankete */
+function renderAnkete(){
+  const el=document.getElementById('tblA');
+  if(!ankete.length){el.innerHTML='<div class="empty">Ni anket za prikaz.</div>';syncH();return;}
+  let h='<table><thead><tr><th>Ime</th><th>Kviz</th><th>Ocena</th><th>Težavnost</th><th>Všeč mi je</th><th>Izboljšave</th><th>Naslednjič</th><th>Čas</th></tr></thead><tbody>';
+  ankete.forEach(a=>{
+    const s='★'.repeat(a.ocena||0)+'☆'.repeat(5-(a.ocena||0));
+    h+=`<tr><td class="n">${a.polnoIme||'—'}</td><td style="font-size:12px;color:var(--muted)">${a.kviz||'—'}</td><td><span class="stars">${s}</span></td><td style="font-size:12px;color:var(--muted)">${a.tezavnost||'—'}</td><td style="font-size:12px;max-width:150px">${a.vsec||'—'}</td><td style="font-size:12px;max-width:150px">${a.izboljsaj||'—'}</td><td style="font-size:12px;max-width:130px">${a.naslednjic||'—'}</td><td class="tm">${fCas(a.cas)}</td></tr>`;
+  });
+  h+='</tbody></table>';
+  el.innerHTML=h;
+  syncH();
+}
+
+/* Sync panels wrapper height */
+function syncH(){
+  const active=document.getElementById(curTab==='k'?'pK':'pA');
+  document.getElementById('PANELS').style.height=active.scrollHeight+'px';
+}
+
+/* Load ankete */
+async function loadAnkete(){
+  document.getElementById('tblA').innerHTML='<div class="loading">Nalagam...</div>';
+  try{
+    const s=await db.collection('ankete').orderBy('cas','desc').limit(200).get();
+    ankete=[];
+    s.forEach(d=>ankete.push(d.data()));
+    anketeOk=true;
+    statsAnkete();
+    renderAnkete();
+  }catch(e){
+    document.getElementById('tblA').innerHTML='<div class="loading">Napaka pri nalaganju anket.</div>';
   }
-  document.getElementById('drawer-content').innerHTML = html;
-  document.getElementById('drawer').classList.add('open');
-  document.getElementById('overlay').classList.add('open');
 }
 
-function zapriDrawer() {
-  document.getElementById('drawer').classList.remove('open');
-  document.getElementById('overlay').classList.remove('open');
-}
-
-/* ── Ankete ── */
-function posodobiStatistikoAnket() {
-  // Poklicano ko ni še naloženih anket - bo posodobljeno po nalaganju
-}
-
-async function naloziAnkete() {
-  anketeNalozene = true;
-  document.getElementById('ankete-table').innerHTML = '<div class="loading">Nalagam ankete...</div>';
-  try {
-    const snap = await db.collection('ankete').orderBy('cas', 'desc').limit(200).get();
-    const ankete = [];
-    snap.forEach(doc => { ankete.push(doc.data()); });
-    document.getElementById('ankete-count').textContent = ankete.length + ' odgovorov';
-
-    // Posodobi stats bar za ankete
-    const n = ankete.length;
-    const povpOcena = n > 0 ? (ankete.reduce((a,x) => a + (x.ocena||0), 0) / n).toFixed(1) : '—';
-    const unikatni = new Set(ankete.map(a => a.polnoIme)).size;
-    const izboljsave = ankete.filter(a => a.izboljsaj && a.izboljsaj !== '—').length;
-    document.getElementById('s-skupaj').textContent = n;
-    document.getElementById('s-unikatni').textContent = unikatni;
-    document.getElementById('s-povprecje').textContent = povpOcena + ' ★';
-    document.getElementById('s-odlicnih').textContent = izboljsave;
-    document.getElementById('s-skupaj').nextElementSibling.textContent = 'Skupaj anket';
-    document.getElementById('s-unikatni').nextElementSibling.textContent = 'Tečajnikov';
-    document.getElementById('s-povprecje').nextElementSibling.textContent = 'Povp. ocena';
-    document.getElementById('s-odlicnih').nextElementSibling.textContent = 'S predlogi';
-
-    if (ankete.length === 0) {
-      document.getElementById('ankete-table').innerHTML = '<div class="empty">Ni anket za prikaz.</div>';
-      return;
-    }
-    let html = '<table><thead><tr><th>Ime</th><th>Kviz</th><th>Ocena</th><th>Težavnost</th><th>Všeč mi je</th><th>Izboljšave</th><th>Naslednjič</th><th>Čas</th></tr></thead><tbody>';
-    ankete.forEach(a => {
-      const stars = '★'.repeat(a.ocena || 0) + '☆'.repeat(5 - (a.ocena || 0));
-      html += `<tr>
-        <td class="td-name">${a.polnoIme || '—'}</td>
-        <td style="font-size:12px;color:var(--muted)">${a.kviz || '—'}</td>
-        <td><span class="star-display">${stars}</span></td>
-        <td style="font-size:12px;color:var(--muted)">${a.tezavnost || '—'}</td>
-        <td style="font-size:12px;max-width:160px;color:rgba(255,255,255,0.7)">${a.vsec || '—'}</td>
-        <td style="font-size:12px;max-width:160px;color:rgba(255,255,255,0.7)">${a.izboljsaj || '—'}</td>
-        <td style="font-size:12px;max-width:140px;color:rgba(255,255,255,0.7)">${a.naslednjic || '—'}</td>
-        <td class="td-time">${formatCas(a.cas)}</td>
-      </tr>`;
+/* Drawer */
+function openDrawer(id){
+  const r=kvizi.find(x=>x._id===id);
+  if(!r)return;
+  const pct=r.procent||0,col=pct>=87?'#1E8449':pct>=62?'#D68910':'#C0392B';
+  let h=`<div class="drw-nm">${r.polnoIme||'—'}</div><div class="drw-mt">${r.kvizNaziv||r.kviz} · ${fCas(r.cas)}</div><div class="drw-sc" style="color:${col}">${r.tocke||0}/${r.skupaj||8}</div><div class="drw-pct">${pct}% pravilnih</div>`;
+  if(r.odgovori){
+    Object.keys(r.odgovori).sort((a,b)=>+a.slice(1)-+b.slice(1)).forEach(k=>{
+      const o=r.odgovori[k];
+      h+=`<div class="drw-q ${o.pravilno?'ok':'nok'}"><div class="drw-qt">${k.replace('v','')}. ${o.vprasanje}</div><div class="drw-qa">Izbral: <span class="${o.pravilno?'ok-t':'nok-t'}">${o.izbran}</span>${!o.pravilno?'<br>Pravilno: <span class="ok-t">'+o.pravilen+'</span>':''}</div></div>`;
     });
-    html += '</tbody></table>';
-    document.getElementById('ankete-table').innerHTML = html;
-  } catch(e) {
-    document.getElementById('ankete-table').innerHTML = '<div class="loading">Napaka pri nalaganju anket.</div>';
-    console.error(e);
   }
+  document.getElementById('DRW_C').innerHTML=h;
+  document.getElementById('DRW').classList.add('on');
+  document.getElementById('OVL').classList.add('on');
+}
+function closeDrawer(){
+  document.getElementById('DRW').classList.remove('on');
+  document.getElementById('OVL').classList.remove('on');
 }
 </script>
 </body>
