@@ -30,7 +30,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 
 /* Admin main */
 .admin-main{display:none}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:28px 0 24px;flex-wrap:wrap;gap:12px;border-bottom:0.5px solid var(--border);margin-bottom:32px}
+.topbar{position:sticky;top:0;z-index:50;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:20px 0;flex-wrap:wrap;gap:12px;border-bottom:0.5px solid var(--border);margin-bottom:32px}
 .topbar h1{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:0.03em}
 .topbar h1 span{color:var(--red)}
 .topbar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -123,6 +123,9 @@ tr:hover td{background:rgba(255,255,255,0.03)}
       </div>
     </div>
 
+    <!-- Tab content wrapper -->
+    <div style="min-height:600px">
+
     <!-- Kvizi tab -->
     <div id="tab-kvizi-content">
       <div class="stats" id="stats-bar">
@@ -150,6 +153,8 @@ tr:hover td{background:rgba(255,255,255,0.03)}
         <div id="ankete-table"><div class="loading">Nalagam ankete...</div></div>
       </div>
     </div>
+
+    </div><!-- /tab wrapper -->
 
   </div>
 </div>
