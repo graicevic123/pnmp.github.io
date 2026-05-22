@@ -39,10 +39,11 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .hdr-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
 /* Tabs */
-.tab{padding:7px 16px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s}
+.tab{width:80px;text-align:center;padding:7px 16px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s}
 .tab.on{background:var(--red);border-color:var(--red);color:#fff}
 .tab:hover:not(.on){color:var(--white);border-color:rgba(255,255,255,0.3)}
-.sel{padding:7px 12px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;outline:none}
+.sel{padding:7px 12px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;outline:none;transition:opacity 0.15s}
+.sel:disabled{opacity:0.3;cursor:default}
 .sel option{background:#1B3A5C}
 .act{padding:7px 14px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s}
 .act:hover{color:var(--white);border-color:rgba(255,255,255,0.3)}
@@ -208,7 +209,8 @@ function tab(t){
   curTab=t;
   document.getElementById('tK').classList.toggle('on',t==='k');
   document.getElementById('tA').classList.toggle('on',t==='a');
-  document.getElementById('fK').style.display=t==='k'?'block':'none';
+  document.getElementById('fK').disabled=t==='a';
+  document.getElementById('fK').style.opacity=t==='a'?'0.3':'1';
   document.getElementById('pK').classList.toggle('off',t!=='k');
   document.getElementById('pA').classList.toggle('off',t!=='a');
 
