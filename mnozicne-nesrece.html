@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PNMP Množične nesreče kviz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0D1B2A; --navy-mid: #1B3A5C; --red: #C0392B;
+    --amber: #D68910; --green: #1E8449; --white: #FFFFFF;
+    --muted: #8A9BB0; --border: rgba(255,255,255,0.08);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(44,85,128,0.35) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(192,57,43,0.15) 0%, transparent 55%);
+  }
+  .wrap { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; padding: 0 20px 80px; }
+
+  .hero { padding: 60px 0 48px; text-align: center; }
+  .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 9vw, 88px); line-height: 0.92; letter-spacing: 0.03em; margin-bottom: 18px; }
+  .hero h1 span { color: var(--red); }
+  .hero-sub { font-size: 15px; color: var(--muted); max-width: 440px; margin: 0 auto 32px; line-height: 1.6; }
+
+  .progress-label { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 6px; }
+  .progress-bar-wrap { background: rgba(255,255,255,0.06); border-radius: 2px; height: 3px; margin-bottom: 40px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--red); border-radius: 2px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
+
+  .q-card { background: rgba(255,255,255,0.04); border: 0.5px solid var(--border); border-radius: 12px; padding: 28px 28px 24px; margin-bottom: 14px; transition: border-color 0.2s; animation: fadeUp 0.35s ease both; }
+  .q-card.answered { border-color: rgba(255,255,255,0.12); }
+  .q-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px; }
+  .q-num { font-family: 'Bebas Neue', sans-serif; font-size: 38px; line-height: 1; color: rgba(255,255,255,0.12); min-width: 42px; flex-shrink: 0; letter-spacing: 0.02em; }
+  .q-text { font-size: 16px; font-weight: 500; line-height: 1.5; color: var(--white); padding-top: 4px; }
+
+  .opts { display: flex; flex-direction: column; gap: 8px; }
+  .opt { display: flex; align-items: flex-start; gap: 14px; padding: 13px 16px; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; cursor: pointer; transition: background 0.12s, border-color 0.12s, transform 0.08s; text-align: left; width: 100%; -webkit-tap-highlight-color: transparent; }
+  .opt:hover:not(.locked) { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.22); transform: translateX(3px); }
+  .opt:active:not(.locked) { transform: translateX(1px) scale(0.995); }
+  .opt.locked { cursor: default; }
+  .opt-lbl { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; width: 24px; height: 24px; border-radius: 5px; background: rgba(255,255,255,0.08); border: 0.5px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; color: var(--muted); transition: background 0.12s, border-color 0.12s, color 0.12s; }
+  .opt-txt { font-size: 14px; line-height: 1.45; color: rgba(255,255,255,0.75); padding-top: 3px; }
+
+  .opt.correct-pick  { background: rgba(30,132,73,0.18); border-color: rgba(30,132,73,0.6); }
+  .opt.correct-pick .opt-lbl { background: var(--green); border-color: var(--green); color: #fff; }
+  .opt.correct-pick .opt-txt { color: #7FE8A8; }
+  .opt.wrong-pick    { background: rgba(192,57,43,0.18); border-color: rgba(192,57,43,0.6); }
+  .opt.wrong-pick .opt-lbl { background: var(--red); border-color: var(--red); color: #fff; }
+  .opt.wrong-pick .opt-txt { color: #F4A09A; }
+  .opt.reveal-correct { background: rgba(30,132,73,0.10); border-color: rgba(30,132,73,0.4); }
+  .opt.reveal-correct .opt-lbl { background: rgba(30,132,73,0.4); border-color: var(--green); color: #7FE8A8; }
+  .opt.reveal-correct .opt-txt { color: rgba(127,232,168,0.8); }
+
+  .feedback { display: none; margin-top: 14px; padding: 12px 16px; border-radius: 8px; font-size: 13px; line-height: 1.55; }
+  .feedback.show { display: block; }
+  .feedback.ok  { background: rgba(30,132,73,0.15); border: 0.5px solid rgba(30,132,73,0.4); color: #7FE8A8; }
+  .feedback.nok { background: rgba(192,57,43,0.15); border: 0.5px solid rgba(192,57,43,0.4); color: #F4A09A; }
+  .feedback strong { font-weight: 600; }
+
+  .result { display: none; text-align: center; padding: 48px 24px 56px; animation: fadeUp 0.5s ease both; }
+  .result.show { display: block; }
+  .result-ring { width: 140px; height: 140px; border-radius: 50%; border: 3px solid var(--red); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 28px; position: relative; }
+  .result-ring::before { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 0.5px solid rgba(192,57,43,0.2); }
+  .result-score { font-family: 'Bebas Neue', sans-serif; font-size: 56px; line-height: 1; letter-spacing: 0.02em; }
+  .result-denom { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--muted); letter-spacing: 0.1em; }
+  .result-title { font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 0.04em; margin-bottom: 10px; }
+  .result-sub { font-size: 15px; color: var(--muted); margin-bottom: 36px; max-width: 360px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+  .result-bar-bg { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; margin: 0 auto 32px; max-width: 320px; }
+  .result-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; cursor: pointer; transition: all 0.15s; text-transform: uppercase; border: none; }
+  .btn-primary { background: var(--red); color: #fff; }
+  .btn-primary:hover { background: #a93226; transform: translateY(-1px); }
+  .btn-ghost { background: transparent; border: 0.5px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.4); color: #fff; transform: translateY(-1px); }
+
+  .review-panel { margin-top: 32px; text-align: left; }
+  .review-list { display: none; margin-top: 16px; }
+  .review-list.open { display: block; }
+  .ri { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 0.5px solid var(--border); }
+  .ri:last-child { border-bottom: none; }
+  .ri-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .ri-dot.ok { background: var(--green); } .ri-dot.nok { background: var(--red); }
+  .ri-content { font-size: 13px; }
+  .ri-q { color: rgba(255,255,255,0.7); margin-bottom: 3px; }
+  .ri-a .ok-txt { color: #7FE8A8; } .ri-a .nok-txt { color: #F4A09A; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 520px) { .q-card { padding: 20px 16px 18px; } .q-num { font-size: 28px; min-width: 32px; } .q-text { font-size: 15px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <p class="hero-eyebrow">Mentorji PNMP GZ Ljubljana</p>
+    <h1>PNMP<br><span style="font-size:0.42em;letter-spacing:0.12em;color:rgba(255,255,255,0.55);display:block;margin:4px 0 2px;">MNOŽIČNE NESREČE · VLOGA GASILCEV</span><span>KVIZ</span></h1>
+    <p class="hero-sub">8 vprašanj iz predbolnišnične ravni in vloge gasilcev ob množičnih nesrečah.</p>
+  </div>
+
+  <div id="quiz-area">
+    <div class="progress-label">
+      <span>NAPREDEK</span>
+      <span id="ptxt">0 / 8</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="pbar" style="width:0%"></div>
+    </div>
+
+    <div class="q-card" id="qc1">
+      <div class="q-header"><div class="q-num">01</div><div class="q-text">Kaj je kratica METHANE?</div></div>
+      <div class="opts">
+        <button class="opt" onclick="ans(1,0)"><span class="opt-lbl">A</span><span class="opt-txt">Vrsta nevarnega plina, ki se sprosti ob kemijski nesreči</span></button>
+        <button class="opt" onclick="ans(1,1)"><span class="opt-lbl">B</span><span class="opt-txt">Standardno poročilo prve ekipe na kraju množične nesreče</span></button>
+        <button class="opt" onclick="ans(1,2)"><span class="opt-lbl">C</span><span class="opt-txt">Triažni algoritem za primarne ponesrečence</span></button>
+        <button class="opt" onclick="ans(1,3)"><span class="opt-lbl">D</span><span class="opt-txt">Kratica za zdravstvene zmogljivosti bolnišnice</span></button>
+      </div>
+      <div class="feedback" id="fb1"></div>
+    </div>
+
+    <div class="q-card" id="qc2">
+      <div class="q-header"><div class="q-num">02</div><div class="q-text">Katero OVO moramo imeti gasilci ob vsaki množični nesreči (ne kemijski)?</div></div>
+      <div class="opts">
+        <button class="opt" onclick="ans(2,0)"><span class="opt-lbl">A</span><span class="opt-txt">Samostojni dihalni aparat (SCBA) in kemijska zaščitna obleka</span></button>
+        <button class="opt" onclick="ans(2,1)"><span class="opt-lbl">B</span><span class="opt-txt">Samo zaščitne rokavice in delovna obleka</span></button>
+        <button class="opt" onclick="ans(2,2)"><span class="opt-lbl">C</span><span class="opt-txt">Zaščitna čelada, zaščitna očala, rokavice in odsevni jopič z oznako funkcije</span></button>
+        <button class="opt" onclick="ans(2,3)"><span class="opt-lbl">D</span><span class="opt-txt">Plinska maska in ognjezaščitna obleka</span></button>
+      </div>
+      <div class="feedback" id="fb2"></div>
+    </div>
+
+    <div class="q-card" id="qc3">
+      <div class="q-header"><div class="q-num">03</div><div class="q-text">Koliko sekund je na voljo za oceno enega pacienta pri primarni triaži SIEVE?</div></div>
+      <div class="opts">
+        <button class="opt" onclick="ans(3,0)"><span class="opt-lbl">A</span><span class="opt-txt">60 sekund – da se opravi temeljit pregled</span></button>
+        <button class="opt" onclick="ans(3,1)"><span class="opt-lbl">B</span><span class="opt-txt">45 sekund</span></button>
+        <button class="opt" onclick="ans(3,2)"><span class="opt-lbl">C</span><span class="opt-txt">10 sekund – samo hiter pogled</span></button>
+        <button class="opt" onclick="ans(3,3)"><span class="opt-lbl">D</span><span class="opt-txt">Največ 30 sekund na pacienta</span></button>
+      </div>
+      <div class="feedback" id="fb3"></div>
+    </div>
+
+    <div class="q-card" id="qc4">
+      <div class="q-header"><div class="q-num">04</div><div class="q-text">Katera dva posega sta dovoljena med izvajanjem primarne triaže SIEVE?</div></div>
+      <div class="opts">
+        <button class="opt" onclick="ans(4,0)"><span class="opt-lbl">A</span><span class="opt-txt">Nastavitev IV kanile in aplikacija kisika</span></button>
+        <button class="opt" onclick="ans(4,1)"><span class="opt-lbl">B</span><span class="opt-txt">Intratrahealna intubacija in meritev krvnega tlaka</span></button>
+        <button class="opt" onclick="ans(4,2)"><span class="opt-lbl">C</span><span class="opt-txt">Zaustavljanje hudih krvavitev in sprostitev dihalne poti</span></button>
+        <button class="opt" onclick="ans(4,3)"><span class="opt-lbl">D</span><span class="opt-txt">Dajanje zdravil in vzpostavitev IO poti</span></button>
+      </div>
+      <div class="feedback" id="fb4"></div>
+    </div>
+
+    <div class="q-card" id="qc5">
+      <div class="q-header"><div class="q-num">05</div><div class="q-text">Kaj pomeni triažna kategorija T1 RDEČA?</div></div>
+      <div class="opts">
+        <button class="opt" onclick="ans(5,0)"><span class="opt-lbl">A</span><span class="opt-txt">Mrtev pacient – ne diha niti po sprostitvi dihalne poti</span></button>
+        <button class="opt" onclick="ans(5,1)"><span class="opt-lbl">B</span><span class="opt-txt">Lahke poškodbe – pacient lahko varno čaka do 4 ure</span></button>
+        <button class="opt" onclick="ans(5,2)"><span class="opt-lbl">C</span><span class="opt-txt">Življenjsko ogrožen, a rešljiv pacient – operacija mora biti v 2 urah</span></button>
+        <button class="opt" onclick="ans(5,3)"><span class="opt-lbl">D</span><span class="opt-txt">Nujna oskrba v 2–4 urah – dihanje zadovoljivo, ni šoka</span></button>
+      </div>
+      <div class="feedback" id="fb5"></div>
+    </div>
+
+    <div class="q-card" id="qc6">
+      <div class="q-header"><div class="q-num">06</div><div class="q-text">Kdaj smemo premakniti truplo s kraja nesreče?</div></div>
+      <div class="opts">
+        <button class="opt" onclick="ans(6,0)"><span class="opt-lbl">A</span><span class="opt-txt">Takoj, ko zdravnik potrdi smrt</span></button>
+        <button class="opt" onclick="ans(6,1)"><span class="opt-lbl">B</span><span class="opt-txt">Ko vodja gasilske intervencije to odredi</span></button>
+        <button class="opt" onclick="ans(6,2)"><span class="opt-lbl">C</span><span class="opt-txt">Ko koordinator prevozov sprosti prevozno sredstvo</span></button>
+        <button class="opt" onclick="ans(6,3)"><span class="opt-lbl">D</span><span class="opt-txt">Šele po soglasju preiskovalnih organov in sodnoizvedencev</span></button>
+      </div>
+      <div class="feedback" id="fb6"></div>
+    </div>
+
+    <div class="q-card" id="qc7">
+      <div class="q-header"><div class="q-num">07</div><div class="q-text">Kateri 3 fiziološki parametri sestavljajo sekundarno triažo SORT?</div></div>
+      <div class="opts">
+        <button class="opt" onclick="ans(7,0)"><span class="opt-lbl">A</span><span class="opt-txt">Telesna temperatura, pulzna oksimetrija in starost pacienta</span></button>
+        <button class="opt" onclick="ans(7,1)"><span class="opt-lbl">B</span><span class="opt-txt">Frekvenca dihanja, sistolični krvni tlak in glasgowska lestvica nezavesti</span></button>
+        <button class="opt" onclick="ans(7,2)"><span class="opt-lbl">C</span><span class="opt-txt">Srčna frekvenca, diastolični krvni tlak in prisotnost krvavitve</span></button>
+        <button class="opt" onclick="ans(7,3)"><span class="opt-lbl">D</span><span class="opt-txt">Barva kože, kapilarna polnitev in frekvenca dihanja</span></button>
+      </div>
+      <div class="feedback" id="fb7"></div>
+    </div>
+
+    <div class="q-card" id="qc8">
+      <div class="q-header"><div class="q-num">08</div><div class="q-text">Kdo in kako aktivira helikopter NMP (HNMP)?</div></div>
+      <div class="opts">
+        <button class="opt" onclick="ans(8,0)"><span class="opt-lbl">A</span><span class="opt-txt">Katerikoli reševalec na terenu – neposredno z radijsko postajo</span></button>
+        <button class="opt" onclick="ans(8,1)"><span class="opt-lbl">B</span><span class="opt-txt">Nadzorni zdravnik bolnišnice – prek telefona</span></button>
+        <button class="opt" onclick="ans(8,2)"><span class="opt-lbl">C</span><span class="opt-txt">Dispečer – brez posebnega dovoljenja vodje</span></button>
+        <button class="opt" onclick="ans(8,3)"><span class="opt-lbl">D</span><span class="opt-txt">Vodja intervencije ali vodja intervencije NMP – prek ReCO</span></button>
+      </div>
+      <div class="feedback" id="fb8"></div>
+    </div>
+
+  </div>
+
+  <div class="result" id="result">
+    <div class="result-ring">
+      <div class="result-score" id="res-score">0</div>
+      <div class="result-denom">/ 8</div>
+    </div>
+    <div class="result-title" id="res-title">—</div>
+    <div class="result-sub" id="res-sub">—</div>
+    <div class="result-bar-bg"><div class="result-bar-fill" id="rbar" style="width:0%"></div></div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="restart()">↺ &nbsp;Ponovi kviz</button>
+      <button class="btn btn-ghost" onclick="toggleReview()">Pregled odgovorov</button>
+    </div>
+    <div class="review-panel">
+      <div class="review-list" id="review-list"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const TOTAL = 8;
+const DATA = {
+  1: { c:1, ok:"METHANE je standardno poročilo: Major incident, Exact location, Type of incident, Hazards, Access, Number of casualties, Emergency services. Pošlje ga prva ekipa takoj po prihodu na kraj nesreče.", nok:"METHANE ni plin niti algoritem – je standardno poročilo prve ekipe. Vsaka črka je obvezna informacija brez katere reševalna veriga ne deluje." },
+  2: { c:2, ok:"Standardna OVO ob vsaki množični nesreči: zaščitna čelada, zaščitna očala, zaščitne rokavice in odsevni jopič z oznako funkcije. Kemijska zaščitna obleka + SCBA sta obvezna SAMO pri kemijski nesreči.", nok:"Ob splošni množični nesreči zadostuje čelada, očala, rokavice in odsevni jopič. SCBA in kemijska obleka sta rezervirana za kemijske nesreče." },
+  3: { c:3, ok:"SIEVE dovoljuje največ 30 sekund na pacienta. Med primarno triažo sta dovoljena samo zaustavljanje hudih krvavitev in sprostitev dihalne poti – nič drugega.", nok:"Pravilen odgovor je največ 30 sekund. 60 sekund je preveč – toliko časa za enega pacienta pri množični nesreči ni na voljo." },
+  4: { c:2, ok:"Med SIEVE sta dovoljena samo: (1) zaustavljanje hudih krvavitev in (2) sprostitev dihalne poti z vstavitvijo orofaringealnega tubusa ali namestitvijo v položaj za nezavestnega. Vse ostalo počakamo na MZO.", nok:"IV kanile, intubacija in zdravila so invazivni postopki, ki se izvajajo šele na mestu zdravstvene oskrbe (MZO) – ne med primarno triažo." },
+  5: { c:2, ok:"T1 RDEČA (IMMEDIATE): pacient je v življenjski nevarnosti zaradi hipoksije ali šoka, a je rešljiv ob ustrezni in pravočasni oskrbi. Operacija mora biti opravljena v 2 urah.", nok:"T1 RDEČA je življenjsko ogrožen, a REŠLJIV pacient. Mrtev pacient je T4 ČRNA. Odložena oskrba je T3 ZELENA. Nujna oskrba v 2–4 urah je T2 RUMENA." },
+  6: { c:3, ok:"Premikanje trupel se začne šele po soglasju preiskovalnih organov in sodnoizvedencev. Zdravnik pred tem potrdi smrt. Osebni predmeti in dokumenti ostanejo pri truplu.", nok:"Samo zdravnikova potrditev ni dovolj. Preiskovalni organi in sodnoizvedenski organ morata dati soglasje za premik. Do takrat truplo ostane na mestu." },
+  7: { c:1, ok:"SORT temelji na: (1) frekvenci dihanja, (2) sistoličnem krvnem tlaku in (3) glasgowski lestvici nezavesti (GCS). Seštevek točk 1–10 = T1, 11 = T2, 12 = T3.", nok:"Pravilni parametri so: frekvenca dihanja, sistolični krvni tlak in GCS (glasgowska lestvica nezavesti). Ne temperatura, ne diastolični tlak, ne barva kože." },
+  8: { c:3, ok:"HNMP aktivira vodja intervencije ali vodja intervencije NMP – prek ReCO (regijskega centra za obveščanje). Aktiviranje mora biti pravočasno. HNMP na Brniku je dosegljiv celo leto v vidnem delu dneva (aktivacijski čas ~10 min).", nok:"Helikopter aktivira vodja intervencije ali vodja NMP – obvezno prek ReCO. Brez tega noben reševalec ne sme samostojno aktivirati HNMP." },
+};
+
+let answered = {}, score = 0, reviewOpen = false;
+
+function ans(qn, chosen) {
+  if (answered[qn] !== undefined) return;
+  answered[qn] = chosen;
+  const d = DATA[qn], correct = d.c, isOk = chosen === correct;
+  if (isOk) score++;
+
+  const card = document.getElementById('qc' + qn);
+  card.classList.add('answered');
+  card.querySelectorAll('.opt').forEach((o, i) => {
+    o.classList.add('locked');
+    if (i === chosen && i === correct)      o.classList.add('correct-pick');
+    else if (i === chosen && i !== correct) o.classList.add('wrong-pick');
+    else if (i === correct)                 o.classList.add('reveal-correct');
+  });
+
+  const fb = document.getElementById('fb' + qn);
+  fb.className = 'feedback show ' + (isOk ? 'ok' : 'nok');
+  fb.innerHTML = (isOk ? '<strong>Pravilno!</strong> ' : '<strong>Napačno.</strong> ') + (isOk ? d.ok : d.nok);
+
+  const n = Object.keys(answered).length;
+  document.getElementById('pbar').style.width = (n / TOTAL * 100) + '%';
+  document.getElementById('ptxt').textContent = n + ' / ' + TOTAL;
+
+  if (n === TOTAL) setTimeout(showResult, 700);
+}
+
+function showResult() {
+  document.getElementById('quiz-area').style.display = 'none';
+  const r = document.getElementById('result');
+  r.classList.add('show');
+  document.getElementById('res-score').textContent = score;
+
+  const pct = Math.round(score / TOTAL * 100);
+  const [title, sub, col] =
+    pct >= 88 ? ['Odlično!',        'Snov odlično obvladaš. Si pripravljen za teren.',       '#1E8449'] :
+    pct >= 62 ? ['Dobro!',          'Večino snovi obvladaš. Ponovi napačne odgovore.',        '#D68910'] :
+                ['Ponovi gradivo.', 'Priporoča se ponoven pregled učnega gradiva.',           '#C0392B'];
+
+  document.getElementById('res-title').textContent = title;
+  document.getElementById('res-sub').textContent = sub;
+  const bar = document.getElementById('rbar');
+  bar.style.background = col;
+  setTimeout(() => { bar.style.width = pct + '%'; }, 50);
+
+  const rl = document.getElementById('review-list');
+  rl.innerHTML = '';
+  for (let q = 1; q <= TOTAL; q++) {
+    const isOk = answered[q] === DATA[q].c;
+    const card = document.getElementById('qc' + q);
+    const qText = card.querySelector('.q-text').textContent.trim();
+    const opts = card.querySelectorAll('.opt-txt');
+    const chosenTxt = opts[answered[q]]?.textContent.trim() || '–';
+    const correctTxt = opts[DATA[q].c]?.textContent.trim() || '–';
+    rl.innerHTML += `<div class="ri"><div class="ri-dot ${isOk?'ok':'nok'}"></div><div class="ri-content"><div class="ri-q">${q}. ${qText}</div><div class="ri-a">Tvoj odgovor: <span class="${isOk?'ok-txt':'nok-txt'}">${chosenTxt}</span>${!isOk?`<br>Pravilno: <span class="ok-txt">${correctTxt}</span>`:''}</div></div></div>`;
+  }
+}
+
+function toggleReview() {
+  reviewOpen = !reviewOpen;
+  document.getElementById('review-list').classList.toggle('open', reviewOpen);
+}
+
+function restart() {
+  answered = {}; score = 0; reviewOpen = false;
+  document.getElementById('quiz-area').style.display = 'block';
+  document.getElementById('result').classList.remove('show');
+  document.getElementById('pbar').style.width = '0%';
+  document.getElementById('ptxt').textContent = '0 / ' + TOTAL;
+  document.getElementById('review-list').classList.remove('open');
+  for (let q = 1; q <= TOTAL; q++) {
+    const card = document.getElementById('qc' + q);
+    card.classList.remove('answered');
+    card.querySelectorAll('.opt').forEach(o => { o.className = 'opt'; });
+    const fb = document.getElementById('fb' + q);
+    fb.className = 'feedback'; fb.innerHTML = '';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
