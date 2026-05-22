@@ -30,7 +30,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 
 /* Admin main */
 .admin-main{display:none}
-.topbar{position:sticky;top:0;z-index:50;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:20px 0;flex-wrap:wrap;gap:12px;border-bottom:0.5px solid var(--border);margin-bottom:32px}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(13,27,42,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:16px 0;flex-wrap:wrap;gap:12px;border-bottom:0.5px solid var(--border);margin-bottom:32px}
 .topbar h1{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:0.03em}
 .topbar h1 span{color:var(--red)}
 .topbar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -123,17 +123,19 @@ tr:hover td{background:rgba(255,255,255,0.03)}
       </div>
     </div>
 
+    <!-- Stats – vedno vidni -->
+    <div class="stats" id="stats-bar">
+      <div class="stat"><div class="stat-num" id="s-skupaj">—</div><div class="stat-lbl">Skupaj rešitev</div></div>
+      <div class="stat"><div class="stat-num" id="s-unikatni">—</div><div class="stat-lbl">Tečajnikov</div></div>
+      <div class="stat"><div class="stat-num" id="s-povprecje">—</div><div class="stat-lbl">Povp. rezultat</div></div>
+      <div class="stat"><div class="stat-num" id="s-odlicnih">—</div><div class="stat-lbl">Odličnih (≥87%)</div></div>
+    </div>
+
     <!-- Tab content wrapper -->
-    <div style="min-height:600px">
+    <div style="min-height:500px">
 
     <!-- Kvizi tab -->
     <div id="tab-kvizi-content">
-      <div class="stats" id="stats-bar">
-        <div class="stat"><div class="stat-num" id="s-skupaj">—</div><div class="stat-lbl">Skupaj rešitev</div></div>
-        <div class="stat"><div class="stat-num" id="s-unikatni">—</div><div class="stat-lbl">Tečajnikov</div></div>
-        <div class="stat"><div class="stat-num" id="s-povprecje">—</div><div class="stat-lbl">Povp. rezultat</div></div>
-        <div class="stat"><div class="stat-num" id="s-odlicnih">—</div><div class="stat-lbl">Odličnih (≥87%)</div></div>
-      </div>
       <div class="table-wrap">
         <div class="table-header">
           <span class="table-title">Rezultati tečajnikov</span>
@@ -211,6 +213,14 @@ function switchTab(tab) {
   document.getElementById('filter-kviz').style.display = tab === 'kvizi' ? 'block' : 'none';
   document.getElementById('tab-kvizi-content').style.display = tab === 'kvizi' ? 'block' : 'none';
   document.getElementById('tab-ankete-content').style.display = tab === 'ankete' ? 'block' : 'none';
+  if (tab === 'kvizi') {
+    // Ponastavi oznake stats bara za kvize
+    document.getElementById('s-skupaj').nextElementSibling.textContent = 'Skupaj rešitev';
+    document.getElementById('s-unikatni').nextElementSibling.textContent = 'Tečajnikov';
+    document.getElementById('s-povprecje').nextElementSibling.textContent = 'Povp. rezultat';
+    document.getElementById('s-odlicnih').nextElementSibling.textContent = 'Odličnih (≥87%)';
+    posodobiStatistiko();
+  }
   if (tab === 'ankete' && !anketeNalozene) naloziAnkete();
 }
 
@@ -309,6 +319,10 @@ function zapriDrawer() {
 }
 
 /* ── Ankete ── */
+function posodobiStatistikoAnket() {
+  // Poklicano ko ni še naloženih anket - bo posodobljeno po nalaganju
+}
+
 async function naloziAnkete() {
   anketeNalozene = true;
   document.getElementById('ankete-table').innerHTML = '<div class="loading">Nalagam ankete...</div>';
@@ -317,6 +331,21 @@ async function naloziAnkete() {
     const ankete = [];
     snap.forEach(doc => { ankete.push(doc.data()); });
     document.getElementById('ankete-count').textContent = ankete.length + ' odgovorov';
+
+    // Posodobi stats bar za ankete
+    const n = ankete.length;
+    const povpOcena = n > 0 ? (ankete.reduce((a,x) => a + (x.ocena||0), 0) / n).toFixed(1) : '—';
+    const unikatni = new Set(ankete.map(a => a.polnoIme)).size;
+    const izboljsave = ankete.filter(a => a.izboljsaj && a.izboljsaj !== '—').length;
+    document.getElementById('s-skupaj').textContent = n;
+    document.getElementById('s-unikatni').textContent = unikatni;
+    document.getElementById('s-povprecje').textContent = povpOcena + ' ★';
+    document.getElementById('s-odlicnih').textContent = izboljsave;
+    document.getElementById('s-skupaj').nextElementSibling.textContent = 'Skupaj anket';
+    document.getElementById('s-unikatni').nextElementSibling.textContent = 'Tečajnikov';
+    document.getElementById('s-povprecje').nextElementSibling.textContent = 'Povp. ocena';
+    document.getElementById('s-odlicnih').nextElementSibling.textContent = 'S predlogi';
+
     if (ankete.length === 0) {
       document.getElementById('ankete-table').innerHTML = '<div class="empty">Ni anket za prikaz.</div>';
       return;
