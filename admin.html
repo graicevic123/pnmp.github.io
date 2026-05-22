@@ -83,6 +83,11 @@ tr:hover td{background:rgba(255,255,255,0.03)}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;display:none}
 .overlay.open{display:block}
 .empty{text-align:center;padding:60px 24px;color:var(--muted);font-size:14px}
+.tab-btn{padding:8px 18px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s}
+.tab-btn.active{background:var(--red);border-color:var(--red);color:#fff}
+.tab-btn:hover:not(.active){color:var(--white);border-color:rgba(255,255,255,0.3)}
+.star-display{color:#FAC775;font-size:15px;letter-spacing:2px}
+#ankete-container{display:none}
 </style>
 </head>
 <body>
@@ -105,6 +110,8 @@ tr:hover td{background:rgba(255,255,255,0.03)}
     <div class="topbar">
       <h1>PNMP <span>ADMIN</span></h1>
       <div class="topbar-right">
+        <button class="tab-btn active" id="tab-kvizi" onclick="switchTab('kvizi')">Kvizi</button>
+        <button class="tab-btn" id="tab-ankete" onclick="switchTab('ankete')">Ankete</button>
         <select class="filter-select" id="filter-kviz" onchange="filtriraj()">
           <option value="vsi">Vsi kvizi</option>
           <option value="prometna-nesreca">Prometna nesreča</option>
@@ -129,6 +136,16 @@ tr:hover td{background:rgba(255,255,255,0.03)}
       </div>
       <div id="table-container"><div class="loading">Nalagam podatke...</div></div>
     </div>
+
+    <div id="ankete-container">
+      <div class="table-wrap" style="margin-top:14px">
+        <div class="table-header">
+          <span class="table-title">Ankete tečajnikov</span>
+          <span class="table-title" id="ankete-count">—</span>
+        </div>
+        <div id="ankete-table"><div class="loading">Nalagam ankete...</div></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -150,9 +167,21 @@ firebase.initializeApp({
 });
 const db=firebase.firestore();
 
-const ADMIN_PIN='4106';
+const ADMIN_PIN='1234';
 let vsiRezultati=[];
 let filtrirani=[];
+let currentTab='kvizi';
+
+function switchTab(tab){
+  currentTab=tab;
+  document.getElementById('tab-kvizi').classList.toggle('active',tab==='kvizi');
+  document.getElementById('tab-ankete').classList.toggle('active',tab==='ankete');
+  document.getElementById('table-container').parentElement.style.display=tab==='kvizi'?'block':'none';
+  document.getElementById('stats-bar').style.display=tab==='kvizi'?'flex':'none';
+  document.getElementById('filter-kviz').style.display=tab==='kvizi'?'block':'none';
+  document.getElementById('ankete-container').style.display=tab==='ankete'?'block':'none';
+  if(tab==='ankete')naloziAnkete();
+}
 
 function checkPin(){
   const v=document.getElementById('pin-input').value;
@@ -266,6 +295,35 @@ function zapriDrawer(){
   document.getElementById('drawer').classList.remove('open');
   document.getElementById('overlay').classList.remove('open');
 }
+
+  document.getElementById('ankete-table').innerHTML='<div class="loading">Nalagam ankete...</div>';
+  try{
+    const snap=await db.collection('ankete').orderBy('cas','desc').limit(200).get();
+    const ankete=[];
+    snap.forEach(doc=>{ankete.push(doc.data());});
+    document.getElementById('ankete-count').textContent=ankete.length+' odgovorov';
+    if(ankete.length===0){document.getElementById('ankete-table').innerHTML='<div class="empty">Ni anket za prikaz.</div>';return;}
+    let html='<table><thead><tr><th>Ime</th><th>Kviz</th><th>Ocena</th><th>Težavnost</th><th>Všeč mi je</th><th>Izboljšave</th><th>Naslednjič</th><th>Čas</th></tr></thead><tbody>';
+    ankete.forEach(a=>{
+      const stars='★'.repeat(a.ocena||0)+'☆'.repeat(5-(a.ocena||0));
+      html+=`<tr>
+        <td class="td-name">${a.polnoIme||'—'}</td>
+        <td style="font-size:12px;color:var(--muted)">${a.kviz||'—'}</td>
+        <td><span class="star-display">${stars}</span></td>
+        <td style="font-size:12px;color:var(--muted)">${a.tezavnost||'—'}</td>
+        <td style="font-size:12px;max-width:160px;color:rgba(255,255,255,0.7)">${a.vsec||'—'}</td>
+        <td style="font-size:12px;max-width:160px;color:rgba(255,255,255,0.7)">${a.izboljsaj||'—'}</td>
+        <td style="font-size:12px;max-width:140px;color:rgba(255,255,255,0.7)">${a.naslednjic||'—'}</td>
+        <td class="td-time">${formatCas(a.cas)}</td>
+      </tr>`;
+    });
+    html+='</tbody></table>';
+    document.getElementById('ankete-table').innerHTML=html;
+  }catch(e){
+    document.getElementById('ankete-table').innerHTML='<div class="loading">Napaka pri nalaganju anket.</div>';
+  }
+}
+
 </script>
 </body>
 </html>
