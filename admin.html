@@ -13,9 +13,9 @@
 :root{--navy:#0D1B2A;--navy-mid:#1B3A5C;--red:#C0392B;--amber:#D68910;--green:#1E8449;--white:#FFFFFF;--muted:#8A9BB0;--border:rgba(255,255,255,0.08)}
 body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(44,85,128,0.35) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(192,57,43,0.15) 0%,transparent 55%)}
-.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 24px 80px}
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 24px 80px}
 
-/* PIN screen */
+/* PIN */
 .pin-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center}
 .pin-screen h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,7vw,72px);letter-spacing:0.03em;margin-bottom:8px}
 .pin-screen h1 span{color:var(--red)}
@@ -28,12 +28,15 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .pin-btn:hover{background:#a93226}
 .pin-error{font-size:13px;color:#F4A09A;margin-top:10px;display:none}
 
-/* Main admin */
+/* Admin main */
 .admin-main{display:none}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:28px 0 24px;flex-wrap:wrap;gap:12px;border-bottom:0.5px solid var(--border);margin-bottom:32px}
 .topbar h1{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:0.03em}
 .topbar h1 span{color:var(--red)}
 .topbar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tab-btn{padding:8px 18px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s}
+.tab-btn.active{background:var(--red);border-color:var(--red);color:#fff}
+.tab-btn:hover:not(.active){color:var(--white);border-color:rgba(255,255,255,0.3)}
 .filter-select{padding:8px 14px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;outline:none}
 .filter-select option{background:#1B3A5C}
 .refresh-btn{padding:8px 16px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s}
@@ -50,6 +53,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .table-header{padding:14px 20px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .table-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted)}
 .loading{text-align:center;padding:48px;font-size:14px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:0.1em}
+.empty{text-align:center;padding:60px 24px;color:var(--muted);font-size:14px}
 table{width:100%;border-collapse:collapse}
 th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:12px 16px;text-align:left;border-bottom:0.5px solid var(--border);background:rgba(255,255,255,0.02);white-space:nowrap}
 td{padding:14px 16px;border-bottom:0.5px solid var(--border);font-size:13px;vertical-align:top}
@@ -64,8 +68,9 @@ tr:hover td{background:rgba(255,255,255,0.03)}
 .td-time{font-size:12px;color:var(--muted);white-space:nowrap}
 .detail-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;padding:4px 10px;border-radius:5px;background:rgba(255,255,255,0.06);border:0.5px solid var(--border);color:var(--muted);cursor:pointer;transition:all 0.15s;text-transform:uppercase}
 .detail-btn:hover{color:var(--white);border-color:rgba(255,255,255,0.25)}
+.star-display{color:#FAC775;font-size:15px;letter-spacing:2px}
 
-/* Detail drawer */
+/* Drawer */
 .drawer{position:fixed;right:0;top:0;height:100%;width:400px;max-width:95vw;background:#0F2035;border-left:0.5px solid var(--border);z-index:100;transform:translateX(100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);overflow-y:auto;padding:28px 24px}
 .drawer.open{transform:translateX(0)}
 .drawer-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px;border-radius:4px;transition:color 0.15s}
@@ -79,15 +84,10 @@ tr:hover td{background:rgba(255,255,255,0.03)}
 .drawer-q.nok{background:rgba(192,57,43,0.12);border:0.5px solid rgba(192,57,43,0.25)}
 .drawer-q-text{font-size:13px;font-weight:500;color:var(--white);margin-bottom:6px;line-height:1.4}
 .drawer-q-ans{font-size:12px;line-height:1.5}
-.drawer-q-ans .ok-txt{color:#7FE8A8}.drawer-q-ans .nok-txt{color:#F4A09A}
+.drawer-q-ans .ok-txt{color:#7FE8A8}
+.drawer-q-ans .nok-txt{color:#F4A09A}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;display:none}
 .overlay.open{display:block}
-.empty{text-align:center;padding:60px 24px;color:var(--muted);font-size:14px}
-.tab-btn{padding:8px 18px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s}
-.tab-btn.active{background:var(--red);border-color:var(--red);color:#fff}
-.tab-btn:hover:not(.active){color:var(--white);border-color:rgba(255,255,255,0.3)}
-.star-display{color:#FAC775;font-size:15px;letter-spacing:2px}
-#ankete-container{display:none}
 </style>
 </head>
 <body>
@@ -107,6 +107,7 @@ tr:hover td{background:rgba(255,255,255,0.03)}
 <!-- Admin main -->
 <div class="admin-main" id="admin-main">
   <div class="wrap">
+
     <div class="topbar">
       <h1>PNMP <span>ADMIN</span></h1>
       <div class="topbar-right">
@@ -122,23 +123,26 @@ tr:hover td{background:rgba(255,255,255,0.03)}
       </div>
     </div>
 
-    <div class="stats" id="stats-bar">
-      <div class="stat"><div class="stat-num" id="s-skupaj">—</div><div class="stat-lbl">Skupaj rešitev</div></div>
-      <div class="stat"><div class="stat-num" id="s-unikatni">—</div><div class="stat-lbl">Tečajnikov</div></div>
-      <div class="stat"><div class="stat-num" id="s-povprecje">—</div><div class="stat-lbl">Povp. rezultat</div></div>
-      <div class="stat"><div class="stat-num" id="s-odlicnih">—</div><div class="stat-lbl">Odličnih (≥87%)</div></div>
-    </div>
-
-    <div class="table-wrap">
-      <div class="table-header">
-        <span class="table-title">Rezultati tečajnikov</span>
-        <span class="table-title" id="results-count">—</span>
+    <!-- Kvizi tab -->
+    <div id="tab-kvizi-content">
+      <div class="stats" id="stats-bar">
+        <div class="stat"><div class="stat-num" id="s-skupaj">—</div><div class="stat-lbl">Skupaj rešitev</div></div>
+        <div class="stat"><div class="stat-num" id="s-unikatni">—</div><div class="stat-lbl">Tečajnikov</div></div>
+        <div class="stat"><div class="stat-num" id="s-povprecje">—</div><div class="stat-lbl">Povp. rezultat</div></div>
+        <div class="stat"><div class="stat-num" id="s-odlicnih">—</div><div class="stat-lbl">Odličnih (≥87%)</div></div>
       </div>
-      <div id="table-container"><div class="loading">Nalagam podatke...</div></div>
+      <div class="table-wrap">
+        <div class="table-header">
+          <span class="table-title">Rezultati tečajnikov</span>
+          <span class="table-title" id="results-count">—</span>
+        </div>
+        <div id="table-container"><div class="loading">Nalagam podatke...</div></div>
+      </div>
     </div>
 
-    <div id="ankete-container">
-      <div class="table-wrap" style="margin-top:14px">
+    <!-- Ankete tab -->
+    <div id="tab-ankete-content" style="display:none">
+      <div class="table-wrap">
         <div class="table-header">
           <span class="table-title">Ankete tečajnikov</span>
           <span class="table-title" id="ankete-count">—</span>
@@ -146,10 +150,11 @@ tr:hover td{background:rgba(255,255,255,0.03)}
         <div id="ankete-table"><div class="loading">Nalagam ankete...</div></div>
       </div>
     </div>
+
   </div>
 </div>
 
-<!-- Detail drawer -->
+<!-- Drawer -->
 <div class="overlay" id="overlay" onclick="zapriDrawer()"></div>
 <div class="drawer" id="drawer">
   <button class="drawer-close" onclick="zapriDrawer()">✕</button>
@@ -165,165 +170,173 @@ firebase.initializeApp({
   messagingSenderId:"907229581116",
   appId:"1:907229581116:web:831cad9f6749bfb1015839"
 });
-const db=firebase.firestore();
+const db = firebase.firestore();
 
-const ADMIN_PIN='4106';
-let vsiRezultati=[];
-let filtrirani=[];
-let currentTab='kvizi';
+const ADMIN_PIN = '1234';
+let vsiRezultati = [];
+let filtrirani = [];
+let currentTab = 'kvizi';
+let anketeNalozene = false;
 
-function switchTab(tab){
-  currentTab=tab;
-  document.getElementById('tab-kvizi').classList.toggle('active',tab==='kvizi');
-  document.getElementById('tab-ankete').classList.toggle('active',tab==='ankete');
-  document.getElementById('table-container').parentElement.style.display=tab==='kvizi'?'block':'none';
-  document.getElementById('stats-bar').style.display=tab==='kvizi'?'flex':'none';
-  document.getElementById('filter-kviz').style.display=tab==='kvizi'?'block':'none';
-  document.getElementById('ankete-container').style.display=tab==='ankete'?'block':'none';
-  if(tab==='ankete')naloziAnkete();
-}
-
-function checkPin(){
-  const v=document.getElementById('pin-input').value;
-  if(v===ADMIN_PIN){
-    document.getElementById('pin-screen').style.display='none';
-    document.getElementById('admin-main').style.display='block';
+/* ── PIN ── */
+function checkPin() {
+  const v = document.getElementById('pin-input').value;
+  if (v === ADMIN_PIN) {
+    document.getElementById('pin-screen').style.display = 'none';
+    document.getElementById('admin-main').style.display = 'block';
     nalozi();
-  }else{
-    document.getElementById('pin-error').style.display='block';
-    document.getElementById('pin-input').value='';
+  } else {
+    document.getElementById('pin-error').style.display = 'block';
+    document.getElementById('pin-input').value = '';
     document.getElementById('pin-input').focus();
   }
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('pin-input').addEventListener('keydown',e=>{if(e.key==='Enter')checkPin();});
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('pin-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkPin();
+  });
 });
 
-async function nalozi(){
-  document.getElementById('table-container').innerHTML='<div class="loading">Nalagam podatke...</div>';
-  try{
-    const snap=await db.collection('rezultati').orderBy('cas','desc').limit(500).get();
-    vsiRezultati=[];
-    snap.forEach(doc=>{const d=doc.data();d._id=doc.id;vsiRezultati.push(d);});
+/* ── Tabs ── */
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('tab-kvizi').classList.toggle('active', tab === 'kvizi');
+  document.getElementById('tab-ankete').classList.toggle('active', tab === 'ankete');
+  document.getElementById('filter-kviz').style.display = tab === 'kvizi' ? 'block' : 'none';
+  document.getElementById('tab-kvizi-content').style.display = tab === 'kvizi' ? 'block' : 'none';
+  document.getElementById('tab-ankete-content').style.display = tab === 'ankete' ? 'block' : 'none';
+  if (tab === 'ankete' && !anketeNalozene) naloziAnkete();
+}
+
+/* ── Kvizi ── */
+async function nalozi() {
+  document.getElementById('table-container').innerHTML = '<div class="loading">Nalagam podatke...</div>';
+  try {
+    const snap = await db.collection('rezultati').orderBy('cas', 'desc').limit(500).get();
+    vsiRezultati = [];
+    snap.forEach(doc => { const d = doc.data(); d._id = doc.id; vsiRezultati.push(d); });
     filtriraj();
-  }catch(e){
-    document.getElementById('table-container').innerHTML='<div class="loading">Napaka pri nalaganju. Preverite pravice Firestore.</div>';
+  } catch(e) {
+    document.getElementById('table-container').innerHTML = '<div class="loading">Napaka pri nalaganju. Preverite pravice Firestore.</div>';
+    console.error(e);
   }
 }
 
-function filtriraj(){
-  const f=document.getElementById('filter-kviz').value;
-  filtrirani=f==='vsi'?vsiRezultati:vsiRezultati.filter(r=>r.kviz===f);
+function filtriraj() {
+  const f = document.getElementById('filter-kviz').value;
+  filtrirani = f === 'vsi' ? vsiRezultati : vsiRezultati.filter(r => r.kviz === f);
   posodobiStatistiko();
   izrisiTabelo();
 }
 
-function posodobiStatistiko(){
-  const n=filtrirani.length;
-  const unikatni=new Set(filtrirani.map(r=>r.polnoIme)).size;
-  const povp=n>0?Math.round(filtrirani.reduce((a,r)=>a+(r.procent||0),0)/n):0;
-  const odlicni=filtrirani.filter(r=>(r.procent||0)>=87).length;
-  document.getElementById('s-skupaj').textContent=n;
-  document.getElementById('s-unikatni').textContent=unikatni;
-  document.getElementById('s-povprecje').textContent=povp+'%';
-  document.getElementById('s-odlicnih').textContent=odlicni;
-  document.getElementById('results-count').textContent=n+' zapisov';
+function posodobiStatistiko() {
+  const n = filtrirani.length;
+  const unikatni = new Set(filtrirani.map(r => r.polnoIme)).size;
+  const povp = n > 0 ? Math.round(filtrirani.reduce((a, r) => a + (r.procent || 0), 0) / n) : 0;
+  const odlicni = filtrirani.filter(r => (r.procent || 0) >= 87).length;
+  document.getElementById('s-skupaj').textContent = n;
+  document.getElementById('s-unikatni').textContent = unikatni;
+  document.getElementById('s-povprecje').textContent = povp + '%';
+  document.getElementById('s-odlicnih').textContent = odlicni;
+  document.getElementById('results-count').textContent = n + ' zapisov';
 }
 
-function formatCas(ts){
-  if(!ts||!ts.toDate)return '—';
-  const d=ts.toDate();
-  return d.toLocaleDateString('sl-SI',{day:'2-digit',month:'2-digit',year:'numeric'})
-    +' '+d.toLocaleTimeString('sl-SI',{hour:'2-digit',minute:'2-digit'});
+function formatCas(ts) {
+  if (!ts || !ts.toDate) return '—';
+  const d = ts.toDate();
+  return d.toLocaleDateString('sl-SI', {day:'2-digit', month:'2-digit', year:'numeric'})
+    + ' ' + d.toLocaleTimeString('sl-SI', {hour:'2-digit', minute:'2-digit'});
 }
 
-function izrisiTabelo(){
-  if(filtrirani.length===0){
-    document.getElementById('table-container').innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';
+function izrisiTabelo() {
+  if (filtrirani.length === 0) {
+    document.getElementById('table-container').innerHTML = '<div class="empty">Ni rezultatov za prikaz.</div>';
     return;
   }
-  let html='<table><thead><tr><th>Ime in priimek</th><th>Kviz</th><th>Rezultat</th><th>Čas reševanja</th><th>Podrobnosti</th></tr></thead><tbody>';
-  filtrirani.forEach(r=>{
-    const pct=r.procent||0;
-    const cls=pct>=87?'high':pct>=62?'mid':'low';
-    const kvizCls=r.kviz==='prometna-nesreca'?'prometna':'mnozicne';
-    const kvizLabel=r.kvizNaziv||r.kviz;
-    html+=`<tr>
-      <td class="td-name">${r.polnoIme||'—'}</td>
+  let html = '<table><thead><tr><th>Ime in priimek</th><th>Kviz</th><th>Rezultat</th><th>Čas reševanja</th><th>Podrobnosti</th></tr></thead><tbody>';
+  filtrirani.forEach(r => {
+    const pct = r.procent || 0;
+    const cls = pct >= 87 ? 'high' : pct >= 62 ? 'mid' : 'low';
+    const kvizCls = r.kviz === 'prometna-nesreca' ? 'prometna' : 'mnozicne';
+    const kvizLabel = r.kvizNaziv || r.kviz;
+    html += `<tr>
+      <td class="td-name">${r.polnoIme || '—'}</td>
       <td><span class="td-kviz ${kvizCls}">${kvizLabel}</span></td>
-      <td><span class="td-score ${cls}">${r.tocke||0}/${r.skupaj||8}</span> <span style="font-size:12px;color:var(--muted)">${pct}%</span></td>
+      <td><span class="td-score ${cls}">${r.tocke || 0}/${r.skupaj || 8}</span> <span style="font-size:12px;color:var(--muted)">${pct}%</span></td>
       <td class="td-time">${formatCas(r.cas)}</td>
       <td><button class="detail-btn" onclick="odpriDrawer('${r._id}')">Pregled</button></td>
     </tr>`;
   });
-  html+='</tbody></table>';
-  document.getElementById('table-container').innerHTML=html;
+  html += '</tbody></table>';
+  document.getElementById('table-container').innerHTML = html;
 }
 
-function odpriDrawer(id){
-  const r=vsiRezultati.find(x=>x._id===id);
-  if(!r)return;
-  const pct=r.procent||0;
-  const cls=pct>=87?'high':pct>=62?'mid':'low';
-  const colorMap={high:getComputedStyle(document.documentElement).getPropertyValue('--green').trim()||'#1E8449',mid:'#D68910',low:'#C0392B'};
-  let html=`<div class="drawer-name">${r.polnoIme||'—'}</div>
-    <div class="drawer-meta">${r.kvizNaziv||r.kviz} · ${formatCas(r.cas)}</div>
-    <div class="drawer-score" style="color:${colorMap[cls]}">${r.tocke||0} / ${r.skupaj||8}</div>
+/* ── Drawer ── */
+function odpriDrawer(id) {
+  const r = vsiRezultati.find(x => x._id === id);
+  if (!r) return;
+  const pct = r.procent || 0;
+  const col = pct >= 87 ? '#1E8449' : pct >= 62 ? '#D68910' : '#C0392B';
+  let html = `<div class="drawer-name">${r.polnoIme || '—'}</div>
+    <div class="drawer-meta">${r.kvizNaziv || r.kviz} · ${formatCas(r.cas)}</div>
+    <div class="drawer-score" style="color:${col}">${r.tocke || 0} / ${r.skupaj || 8}</div>
     <div class="drawer-pct">${pct} % pravilnih odgovorov</div>`;
-
-  if(r.odgovori){
-    const keys=Object.keys(r.odgovori).sort((a,b)=>parseInt(a.slice(1))-parseInt(b.slice(1)));
-    keys.forEach(k=>{
-      const o=r.odgovori[k];
-      const ok=o.pravilno;
-      html+=`<div class="drawer-q ${ok?'ok':'nok'}">
+  if (r.odgovori) {
+    Object.keys(r.odgovori).sort((a,b) => parseInt(a.slice(1)) - parseInt(b.slice(1))).forEach(k => {
+      const o = r.odgovori[k];
+      html += `<div class="drawer-q ${o.pravilno ? 'ok' : 'nok'}">
         <div class="drawer-q-text">${k.replace('v','')}. ${o.vprasanje}</div>
-        <div class="drawer-q-ans">Izbral: <span class="${ok?'ok-txt':'nok-txt'}">${o.izbran}</span>${!ok?'<br>Pravilno: <span class="ok-txt">'+o.pravilen+'</span>':''}</div>
+        <div class="drawer-q-ans">Izbral: <span class="${o.pravilno ? 'ok-txt' : 'nok-txt'}">${o.izbran}</span>${!o.pravilno ? '<br>Pravilno: <span class="ok-txt">' + o.pravilen + '</span>' : ''}</div>
       </div>`;
     });
-  }else{
-    html+='<div style="color:var(--muted);font-size:13px;margin-top:16px">Podrobni odgovori niso na voljo za ta zapis.</div>';
+  } else {
+    html += '<div style="color:var(--muted);font-size:13px;margin-top:16px">Podrobni odgovori niso na voljo za ta zapis.</div>';
   }
-
-  document.getElementById('drawer-content').innerHTML=html;
+  document.getElementById('drawer-content').innerHTML = html;
   document.getElementById('drawer').classList.add('open');
   document.getElementById('overlay').classList.add('open');
 }
 
-function zapriDrawer(){
+function zapriDrawer() {
   document.getElementById('drawer').classList.remove('open');
   document.getElementById('overlay').classList.remove('open');
 }
 
-  document.getElementById('ankete-table').innerHTML='<div class="loading">Nalagam ankete...</div>';
-  try{
-    const snap=await db.collection('ankete').orderBy('cas','desc').limit(200).get();
-    const ankete=[];
-    snap.forEach(doc=>{ankete.push(doc.data());});
-    document.getElementById('ankete-count').textContent=ankete.length+' odgovorov';
-    if(ankete.length===0){document.getElementById('ankete-table').innerHTML='<div class="empty">Ni anket za prikaz.</div>';return;}
-    let html='<table><thead><tr><th>Ime</th><th>Kviz</th><th>Ocena</th><th>Težavnost</th><th>Všeč mi je</th><th>Izboljšave</th><th>Naslednjič</th><th>Čas</th></tr></thead><tbody>';
-    ankete.forEach(a=>{
-      const stars='★'.repeat(a.ocena||0)+'☆'.repeat(5-(a.ocena||0));
-      html+=`<tr>
-        <td class="td-name">${a.polnoIme||'—'}</td>
-        <td style="font-size:12px;color:var(--muted)">${a.kviz||'—'}</td>
+/* ── Ankete ── */
+async function naloziAnkete() {
+  anketeNalozene = true;
+  document.getElementById('ankete-table').innerHTML = '<div class="loading">Nalagam ankete...</div>';
+  try {
+    const snap = await db.collection('ankete').orderBy('cas', 'desc').limit(200).get();
+    const ankete = [];
+    snap.forEach(doc => { ankete.push(doc.data()); });
+    document.getElementById('ankete-count').textContent = ankete.length + ' odgovorov';
+    if (ankete.length === 0) {
+      document.getElementById('ankete-table').innerHTML = '<div class="empty">Ni anket za prikaz.</div>';
+      return;
+    }
+    let html = '<table><thead><tr><th>Ime</th><th>Kviz</th><th>Ocena</th><th>Težavnost</th><th>Všeč mi je</th><th>Izboljšave</th><th>Naslednjič</th><th>Čas</th></tr></thead><tbody>';
+    ankete.forEach(a => {
+      const stars = '★'.repeat(a.ocena || 0) + '☆'.repeat(5 - (a.ocena || 0));
+      html += `<tr>
+        <td class="td-name">${a.polnoIme || '—'}</td>
+        <td style="font-size:12px;color:var(--muted)">${a.kviz || '—'}</td>
         <td><span class="star-display">${stars}</span></td>
-        <td style="font-size:12px;color:var(--muted)">${a.tezavnost||'—'}</td>
-        <td style="font-size:12px;max-width:160px;color:rgba(255,255,255,0.7)">${a.vsec||'—'}</td>
-        <td style="font-size:12px;max-width:160px;color:rgba(255,255,255,0.7)">${a.izboljsaj||'—'}</td>
-        <td style="font-size:12px;max-width:140px;color:rgba(255,255,255,0.7)">${a.naslednjic||'—'}</td>
+        <td style="font-size:12px;color:var(--muted)">${a.tezavnost || '—'}</td>
+        <td style="font-size:12px;max-width:160px;color:rgba(255,255,255,0.7)">${a.vsec || '—'}</td>
+        <td style="font-size:12px;max-width:160px;color:rgba(255,255,255,0.7)">${a.izboljsaj || '—'}</td>
+        <td style="font-size:12px;max-width:140px;color:rgba(255,255,255,0.7)">${a.naslednjic || '—'}</td>
         <td class="td-time">${formatCas(a.cas)}</td>
       </tr>`;
     });
-    html+='</tbody></table>';
-    document.getElementById('ankete-table').innerHTML=html;
-  }catch(e){
-    document.getElementById('ankete-table').innerHTML='<div class="loading">Napaka pri nalaganju anket.</div>';
+    html += '</tbody></table>';
+    document.getElementById('ankete-table').innerHTML = html;
+  } catch(e) {
+    document.getElementById('ankete-table').innerHTML = '<div class="loading">Napaka pri nalaganju anket.</div>';
+    console.error(e);
   }
 }
-
 </script>
 </body>
 </html>
