@@ -74,9 +74,12 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .footer strong{color:rgba(255,255,255,0.5);font-weight:500}
 .admin-link{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;color:rgba(255,255,255,0.12);text-decoration:none;margin-top:12px;display:inline-block;transition:color 0.15s}
 .admin-link:hover{color:var(--muted)}
+.admin-corner{position:fixed;top:16px;right:20px;z-index:99;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 14px;text-decoration:none;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);transition:all 0.15s}
+.admin-corner:hover{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.22);color:var(--white)}
 </style>
 </head>
 <body>
+<a class="admin-corner" href="admin.html">⚙ Admin</a>
 <div class="wrap">
 
   <div class="hero">
@@ -162,6 +165,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
     <p><strong>PNMP ekipa</strong> · Prostovoljno gasilsko društvo<br>Gradiva so namenjena izključno internem usposabljanju.</p>
     <a class="admin-link" href="admin.html">admin</a>
   </div>
+
 
 </div>
 <script>
