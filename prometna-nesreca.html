@@ -88,9 +88,42 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .ri-a .ok-txt{color:#7FE8A8}.ri-a .nok-txt{color:#F4A09A}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:520px){.q-card{padding:20px 16px 18px}.q-num{font-size:28px;min-width:32px}.q-text{font-size:15px}}
+
+/* Login gate */
+.login-gate{position:fixed;inset:0;background:var(--navy);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-gate::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(44,85,128,0.35) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(192,57,43,0.15) 0%,transparent 55%);pointer-events:none}
+.login-gate-box{position:relative;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:16px;padding:36px 32px;width:100%;max-width:400px;text-align:center;animation:fadeUp 0.4s ease both}
+.login-gate-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.login-gate h2{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:0.03em;margin-bottom:6px}
+.login-gate h2 span{color:var(--red)}
+.login-gate-sub{font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.6}
+.login-gate-fields{display:flex;flex-direction:column;gap:12px;margin-bottom:16px;text-align:left}
+.lg-label{font-size:12px;color:var(--muted);margin-bottom:4px;letter-spacing:0.04em}
+.lg-input{width:100%;padding:13px 16px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;transition:border-color 0.15s}
+.lg-input::placeholder{color:rgba(255,255,255,0.25)}
+.lg-input:focus{border-color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.08)}
+.lg-btn{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:background 0.15s,transform 0.1s;margin-top:4px}
+.lg-btn:hover{background:#a93226;transform:translateY(-1px)}
+.lg-err{font-size:13px;color:#F4A09A;margin-top:8px;display:none}
 </style>
 </head>
 <body>
+
+<!-- Login gate – prikazano če ni prijave (QR dostop) -->
+<div class="login-gate" id="login-gate">
+  <div class="login-gate-box">
+    <div class="login-gate-eyebrow">PNMP · Prometna nesreča</div>
+    <h2>VADBE<br><span>KVIZ</span></h2>
+    <p class="login-gate-sub">Pred začetkom kviza vpiši svoje ime in priimek. Rezultati bodo shranjeni za mentorja.</p>
+    <div class="login-gate-fields">
+      <div><div class="lg-label">Ime</div><input class="lg-input" type="text" id="lg-ime" placeholder="Janez" autocomplete="given-name"></div>
+      <div><div class="lg-label">Priimek</div><input class="lg-input" type="text" id="lg-priimek" placeholder="Novak" autocomplete="family-name"></div>
+    </div>
+    <button class="lg-btn" onclick="lgPrijava()">Začni kviz →</button>
+    <div class="lg-err" id="lg-err">Prosimo, vpiši ime in priimek.</div>
+  </div>
+</div>
+
 <div class="wrap">
   <div class="hero">
     <p class="hero-eyebrow">Mentorji PNMP GZ Ljubljana</p>
@@ -162,17 +195,27 @@ const SECTIONS=[{label:'Iznos iz vozila',qs:[1,2]},{label:'Hipoglikemija in poš
 let answered={},score=0,reviewOpen=false;
 let activeUser=null;
 
-function getUser(){
-  const raw=sessionStorage.getItem('pnmp_active_user');
-  if(raw) return JSON.parse(raw);
-  return null;
+// Login gate
+function lgPrijava(){
+  const ime=document.getElementById('lg-ime').value.trim();
+  const priimek=document.getElementById('lg-priimek').value.trim();
+  if(!ime||!priimek){document.getElementById('lg-err').style.display='block';return;}
+  const user={ime,priimek,polnoIme:ime+' '+priimek};
+  sessionStorage.setItem('pnmp_active_user',JSON.stringify(user));
+  activeUser=user;
+  document.getElementById('login-gate').style.display='none';
+  document.getElementById('user-chip-wrap').innerHTML='<div class="user-chip">Prijavljen: <strong>'+user.polnoIme+'</strong></div>';
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-  activeUser=getUser();
-  if(activeUser){
-    document.getElementById('user-chip-wrap').innerHTML=
-      '<div class="user-chip">Prijavljeni: <strong>'+activeUser.polnoIme+'</strong></div>';
+  ['lg-ime','lg-priimek'].forEach(id=>{
+    document.getElementById(id)?.addEventListener('keydown',e=>{if(e.key==='Enter')lgPrijava();});
+  });
+  const raw=sessionStorage.getItem('pnmp_active_user');
+  if(raw){
+    activeUser=JSON.parse(raw);
+    document.getElementById('login-gate').style.display='none';
+    document.getElementById('user-chip-wrap').innerHTML='<div class="user-chip">Prijavljen: <strong>'+activeUser.polnoIme+'</strong></div>';
   }
 });
 
