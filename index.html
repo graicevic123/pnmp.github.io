@@ -190,7 +190,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
     <a class="card-link red" href="#" onclick="odpriStran(event,'prometna-nesreca.html')">
       <div class="badge badge-red">8 vprašanj</div>
       <div class="card-type">Kviz · Prometna nesreča</div>
-      <div class="card-title">PNMP<span class="card-sub">PROMETNA NESREČA</span></div>
+      <div class="card-title">PROMETNA NESREČA<span class="card-sub">IZNOS · MOTORIST · IMOBILIZACIJA</span></div>
       <div class="card-desc">Iznos iz vozila, vrvna tehnika, motorist in imobilizacija stoječega poškodovanca.</div>
       <div class="card-meta"><span class="card-count">4 sklopi</span><span class="card-arrow">→</span></div>
     </a>
@@ -224,42 +224,58 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
   <!-- ── GRADIVA ── -->
   <div class="section-header">
     <div class="section-header-line"></div>
-    <div class="section-header-badge">Gradiva in predstavitve</div>
+    <div class="section-header-badge">Gradiva in predavanja</div>
     <div class="section-header-line"></div>
   </div>
 
   <div class="materials-grid portal-locked" id="materials-content">
 
-    <a class="card-link teal" href="Gasilci_Mnozicne_Nesrece_Predbolnisnicna_Raven.pptx" download>
-      <div class="badge badge-teal">PowerPoint</div>
+    <a class="card-link teal" href="#" onclick="odpriStran(event,'gradivo-mnozicne-nesrece.html')">
+      <div class="badge badge-teal">2 predavanji</div>
       <div class="card-type">Gradivo · Množične nesreče</div>
-      <div class="card-title">MNOŽIČNE<span class="card-sub">NESREČE · PREDBOLNIŠNIČNA RAVEN</span></div>
-      <div class="card-desc">25 diapozitivov. METHANE, triaža, OVO, vodenje intervencije, prevozi, HNMP.</div>
-      <div class="card-meta"><span class="card-count">25 diapozitivov · .pptx</span><span class="card-arrow">↓</span></div>
+      <div class="card-title">MNOŽIČNE NESREČE<span class="card-sub">PREDBOLNIŠNIČNA IN BOLNIŠNIČNA RAVEN</span></div>
+      <div class="card-desc">Predbolnišnična raven, vloga gasilcev, bolnišnična raven – METHANE, SIEVE, SORT, HNMP.</div>
+      <div class="card-meta"><span class="card-count">PPT · PDF</span><span class="card-arrow">→</span></div>
     </a>
 
-    <a class="card-link teal" href="Gasilci_Mnozicne_Nesrece_Bolnisnicna_Raven.pptx" download>
-      <div class="badge badge-teal">PowerPoint</div>
-      <div class="card-type">Gradivo · Množične nesreče</div>
-      <div class="card-title">MNOŽIČNE<span class="card-sub">NESREČE · BOLNIŠNIČNA RAVEN</span></div>
-      <div class="card-desc">14 diapozitivov. BPS, alarmni sistem, triaža v bolnišnici, sektorji, prevozi.</div>
-      <div class="card-meta"><span class="card-count">14 diapozitivov · .pptx</span><span class="card-arrow">↓</span></div>
-    </a>
-
-    <div class="card-link purple soon">
-      <div class="badge badge-soon">Kmalu</div>
+    <a class="card-link red" href="#" onclick="odpriStran(event,'gradivo-prometna-nesreca.html')">
+      <div class="badge badge-red">Kmalu</div>
       <div class="card-type">Gradivo · Prometna nesreča</div>
-      <div class="card-title">PROMETNA<span class="card-sub">NESREČA · PREZENTACIJA</span></div>
-      <div class="card-desc">Iznos iz vozila, imobilizacija, vrvna tehnika.</div>
-      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">↓</span></div>
+      <div class="card-title">PROMETNA NESREČA<span class="card-sub">IZNOS · MOTORIST · IMOBILIZACIJA</span></div>
+      <div class="card-desc">Iznos iz vozila z zajemalnimi nosili, imobilizacija stoječega, snemanje čelade motorista.</div>
+      <div class="card-meta"><span class="card-count">PPT · PDF</span><span class="card-arrow">→</span></div>
+    </a>
+
+    <div class="card-link green soon">
+      <div class="badge badge-soon">Kmalu</div>
+      <div class="card-type">Gradivo · Reanimacija</div>
+      <div class="card-title">REANIMACIJA<span class="card-sub">TPO · AED · VERIGA PREŽIVETJA</span></div>
+      <div class="card-desc">Temeljni postopki oživljanja odraslih in otrok, uporaba AED, smernice ERC.</div>
+      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
     </div>
 
     <div class="card-link blue soon">
       <div class="badge badge-soon">Kmalu</div>
-      <div class="card-type">Gradivo · Reanimacija</div>
-      <div class="card-title">REANIMACIJA<span class="card-sub">TPO · AED · PROTOKOLI</span></div>
-      <div class="card-desc">Smernice ERC za TPO in uporabo AED.</div>
-      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">↓</span></div>
+      <div class="card-type">Gradivo · Hipoglikemija</div>
+      <div class="card-title">HIPOGLIKEMIJA<span class="card-sub">SLADKORNA BOLEZEN · INZULINSKA ČRPALKA</span></div>
+      <div class="card-desc">Prepoznavanje znakov, merjenje krvnega sladkorja, upravljanje z inzulinsko črpalko na terenu.</div>
+      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
+    </div>
+
+    <div class="card-link purple soon">
+      <div class="badge badge-soon">Kmalu</div>
+      <div class="card-type">Gradivo · Poškodbe</div>
+      <div class="card-title">POŠKODBE<span class="card-sub">OPEKLINE · ZLOMI · KRVAVITVE</span></div>
+      <div class="card-desc">Obvladovanje hudih krvavitev, oskrba opeklin, imobilizacija zlomov po protokolu ITLS.</div>
+      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
+    </div>
+
+    <div class="card-link blue soon">
+      <div class="badge badge-soon">Kmalu</div>
+      <div class="card-type">Gradivo · Posebni primeri</div>
+      <div class="card-title">POSEBNI PRIMERI<span class="card-sub">POROD · ZASTRUPITEV · UTOPITEV</span></div>
+      <div class="card-desc">Nujna stanja na terenu: porod, zastrupitev, utopitev, električna poškodba.</div>
+      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
     </div>
 
   </div>

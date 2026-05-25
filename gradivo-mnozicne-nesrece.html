@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PNMP – Množične nesreče · Gradiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0D1B2A;--navy-mid:#1B3A5C;--navy-light:#2A5580;--red:#C0392B;--amber:#D68910;--green:#1E8449;--teal:#148F77;--white:#FFFFFF;--muted:#8A9BB0;--border:rgba(255,255,255,0.08);--card:rgba(255,255,255,0.04)}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(44,85,128,0.35) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(20,143,119,0.12) 0%,transparent 55%)}
+.wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 20px 80px}
+
+/* Back button */
+.back-btn{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:10px 0;transition:color 0.15s;margin-top:28px}
+.back-btn:hover{color:var(--white)}
+
+/* Hero */
+.hero{padding:32px 0 40px}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,7vw,72px);line-height:0.9;letter-spacing:0.03em;margin-bottom:14px}
+.hero h1 span{color:var(--teal);font-size:0.42em;letter-spacing:0.14em;color:rgba(255,255,255,0.5);display:block;margin:5px 0 3px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px;line-height:1.7}
+
+/* Section header */
+.section-header{display:flex;align-items:center;gap:16px;margin:40px 0 20px}
+.section-header-line{flex:1;height:0.5px;background:var(--border)}
+.section-header-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:4px;padding:4px 10px;white-space:nowrap}
+
+/* Document cards */
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.doc-card{background:var(--card);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color 0.15s,transform 0.1s}
+.doc-card:hover{border-color:rgba(255,255,255,0.16);transform:translateY(-2px)}
+.doc-card-top{padding:20px 20px 16px;position:relative}
+.doc-card-top::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
+.doc-card.teal .doc-card-top::before{background:var(--teal)}
+.doc-card.amber .doc-card-top::before{background:var(--amber)}
+.doc-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:3px 9px;border-radius:100px;margin-bottom:12px;display:inline-block}
+.doc-badge.teal{background:rgba(20,143,119,0.2);color:#56D9B8;border:0.5px solid rgba(20,143,119,0.3)}
+.doc-badge.amber{background:rgba(214,137,16,0.2);color:#FAC775;border:0.5px solid rgba(214,137,16,0.3)}
+.doc-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:0.03em;line-height:1.1;margin-bottom:6px}
+.doc-sub{font-size:12px;letter-spacing:0.1em;color:rgba(255,255,255,0.4);text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:10px}
+.doc-desc{font-size:13px;color:var(--muted);line-height:1.55}
+.doc-meta{display:flex;align-items:center;gap:10px;padding:14px 20px;border-top:0.5px solid var(--border);flex-wrap:wrap}
+.doc-stat{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.doc-actions{display:flex;gap:8px;margin-left:auto}
+.btn-view{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--teal);color:#fff;border:none;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background 0.15s}
+.btn-view:hover{background:#0e7a65}
+.btn-view.amber{background:var(--amber)}
+.btn-view.amber:hover{background:#b8770e}
+.btn-dl{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:transparent;border:0.5px solid rgba(255,255,255,0.2);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;color:rgba(255,255,255,0.6);text-decoration:none;transition:all 0.15s}
+.btn-dl:hover{border-color:rgba(255,255,255,0.4);color:#fff}
+
+/* Viewer modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:#0A1520;border:0.5px solid var(--border);border-radius:14px;width:100%;max-width:1000px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:0.5px solid var(--border)}
+.modal-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)}
+.modal-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px;border-radius:4px;transition:color 0.15s;line-height:1}
+.modal-close:hover{color:var(--white)}
+.modal-body{flex:1;overflow:hidden;position:relative;min-height:500px}
+.modal-body iframe{width:100%;height:100%;border:none;position:absolute;inset:0}
+.modal-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+
+/* Info cards */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:0}
+.info-card{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:16px}
+.info-card-icon{font-size:22px;margin-bottom:8px}
+.info-card-title{font-size:13px;font-weight:600;color:var(--white);margin-bottom:4px}
+.info-card-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* Footer */
+.footer{text-align:center;padding:40px 0 0;border-top:0.5px solid var(--border);margin-top:60px}
+.footer p{font-size:13px;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back-btn" href="index.html">← Nazaj na portal</a>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Gradiva in predavanja</p>
+    <h1>MNOŽIČNE NESREČE<span>PREDBOLNIŠNIČNA IN BOLNIŠNIČNA RAVEN</span></h1>
+    <p class="hero-sub">Strokovna gradiva za usposabljanje ekipe PNMP. Vsebino si lahko ogledaš v brskalniku ali preneseš za ogled v PowerPointu.</p>
+  </div>
+
+  <!-- Gradiva -->
+  <div class="section-header">
+    <div class="section-header-line"></div>
+    <div class="section-header-badge">Predavanja</div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="doc-grid">
+
+    <!-- PPT 1 – Predbolnišnična raven -->
+    <div class="doc-card teal">
+      <div class="doc-card-top">
+        <div class="doc-badge teal">PowerPoint · 23 diapozitivov</div>
+        <div class="doc-title">Predbolnišnična raven</div>
+        <div class="doc-sub">Množične nesreče · Vloga gasilcev</div>
+        <div class="doc-desc">METHANE, triaža SIEVE in SORT, OVO, organizacija MZO, vodenje intervencije, prevozi in HNMP. Vključuje kviz z 8 vprašanji.</div>
+      </div>
+      <div class="doc-meta">
+        <span class="doc-stat">23 diapozitivov</span>
+        <span class="doc-stat">·</span>
+        <span class="doc-stat">.pptx</span>
+        <div class="doc-actions">
+          <button class="btn-view" onclick="odpriViewer('Gasilci_Mnozicne_Nesrece_Predbolnisnicna_Raven.pptx','Predbolnišnična raven')">▶ Ogled</button>
+          <a class="btn-dl" href="Gasilci_Mnozicne_Nesrece_Predbolnisnicna_Raven.pptx" download>↓ Prenesi</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PPT 2 – Bolnišnična raven -->
+    <div class="doc-card amber">
+      <div class="doc-card-top">
+        <div class="doc-badge amber">PowerPoint · 14 diapozitivov</div>
+        <div class="doc-title">Bolnišnična raven</div>
+        <div class="doc-sub">Množične nesreče · BPS in alarmni sistem</div>
+        <div class="doc-desc">Bolnišnični pripravljenostni sistem (BPS), alarmni sistem bolnišnice, triaža v bolnišnici, sektorji, prevozi in umrli.</div>
+      </div>
+      <div class="doc-meta">
+        <span class="doc-stat">14 diapozitivov</span>
+        <span class="doc-stat">·</span>
+        <span class="doc-stat">.pptx</span>
+        <div class="doc-actions">
+          <button class="btn-view amber" onclick="odpriViewer('Gasilci_Mnozicne_Nesrece_Bolnisnicna_Raven.pptx','Bolnišnična raven')">▶ Ogled</button>
+          <a class="btn-dl" href="Gasilci_Mnozicne_Nesrece_Bolnisnicna_Raven.pptx" download>↓ Prenesi</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Vsebina predavanj -->
+  <div class="section-header">
+    <div class="section-header-line"></div>
+    <div class="section-header-badge">Kaj boš spoznal</div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-icon">📡</div>
+      <div class="info-card-title">METHANE</div>
+      <div class="info-card-desc">Standardno poročilo prve ekipe. Vsaka črka je obvezna informacija za aktiviranje reševalne verige.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🔴</div>
+      <div class="info-card-title">Triaža SIEVE in SORT</div>
+      <div class="info-card-desc">Primarna triaža (max 30 sek/pacient) in sekundarna triaža s 3 fiziološkimi parametri.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🦺</div>
+      <div class="info-card-title">OVO in varnost</div>
+      <div class="info-card-desc">Standardna in kemijska OVO, pravila varnega pristopa, cona dostopa za gasilce.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🚁</div>
+      <div class="info-card-title">HNMP in prevozi</div>
+      <div class="info-card-desc">Aktiviranje helikopterja, organizacija prevozov, sekundarni prevozi med bolnišnicami.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">👥</div>
+      <div class="info-card-title">Vodenje intervencije</div>
+      <div class="info-card-desc">6 ključnih funkcij: vodja intervencije NMP, vodja triaže, koordinator prevozov, vodja oskrbe, logistika, prometnik.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🏥</div>
+      <div class="info-card-title">Bolnišnična raven</div>
+      <div class="info-card-desc">BPS, alarmni sistem zeleni/rumeni/rdeči, triaža ob prihodu v bolnišnico, sektorji.</div>
+    </div>
+  </div>
+
+  <!-- Kviz -->
+  <div class="section-header">
+    <div class="section-header-line"></div>
+    <div class="section-header-badge">Preveri znanje</div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div style="background:rgba(192,57,43,0.1);border:0.5px solid rgba(192,57,43,0.3);border-radius:12px;padding:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+    <div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Kviz · 8 vprašanj</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.03em;margin-bottom:4px">Množične nesreče – vloga gasilcev</div>
+      <div style="font-size:13px;color:var(--muted)">Preveri znanje po ogledu predavanja. METHANE, SIEVE, SORT, triažne kategorije, HNMP.</div>
+    </div>
+    <a href="mnozicne-nesrece.html" style="display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;transition:background 0.15s;white-space:nowrap">Začni kviz →</a>
+  </div>
+
+  <div class="footer">
+    <p><strong>PNMP ekipa</strong> · Namenjeno prostovoljnim gasilskim društvom v GZL<br>Gradiva so namenjena izključno internem usposabljanju.</p>
+  </div>
+
+</div>
+
+<!-- Viewer modal -->
+<div class="modal-overlay" id="modal" onclick="zapriViewer(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hdr">
+      <span class="modal-title" id="modal-title">—</span>
+      <button class="modal-close" onclick="zapriViewer()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-loading" id="modal-loading">Nalagam predavanje...</div>
+      <iframe id="modal-iframe" onload="document.getElementById('modal-loading').style.display='none'"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+const BASE_URL = window.location.href.replace(/[^/]*$/, '');
+
+function odpriViewer(filename, title) {
+  const fileUrl = BASE_URL + filename;
+  const viewerUrl = 'https://docs.google.com/viewer?url=' + encodeURIComponent(fileUrl) + '&embedded=true';
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-loading').style.display = 'flex';
+  document.getElementById('modal-iframe').src = viewerUrl;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function zapriViewer(e) {
+  if (e && e.target !== document.getElementById('modal')) return;
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('modal-iframe').src = '';
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.getElementById('modal').classList.remove('open');
+    document.getElementById('modal-iframe').src = '';
+    document.body.style.overflow = '';
+  }
+});
+</script>
+</body>
+</html>
