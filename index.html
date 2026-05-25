@@ -170,56 +170,13 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
     <div class="section-header-line"></div>
   </div>
   <div class="stats">
-    <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Aktivni kvizi</div></div>
-    <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Gradiva</div></div>
-    <div class="stat"><div class="stat-num">16</div><div class="stat-lbl">Vprašanj skupaj</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-lbl">Tematskih sklopov</div></div>
+    <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Aktivna gradiva</div></div>
+    <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Aktivna kviza</div></div>
     <div class="stat"><div class="stat-num">∞</div><div class="stat-lbl">Ponovitev</div></div>
   </div>
 
-  <!-- ── KVIZI ── -->
-  <div class="section-header">
-    <div class="section-header-line"></div>
-    <div class="section-header-badge">Kvizi</div>
-    <div class="section-header-line"></div>
-  </div>
-
   <span class="lock-msg" id="lock-msg">Prijavi se zgoraj da odpreš vsebine.</span>
-
-  <div class="quiz-grid portal-locked" id="portal-content">
-
-    <a class="card-link red" href="#" onclick="odpriStran(event,'prometna-nesreca.html')">
-      <div class="badge badge-red">8 vprašanj</div>
-      <div class="card-type">Kviz · Prometna nesreča</div>
-      <div class="card-title">PROMETNA NESREČA<span class="card-sub">IZNOS · MOTORIST · IMOBILIZACIJA</span></div>
-      <div class="card-desc">Iznos iz vozila, vrvna tehnika, motorist in imobilizacija stoječega poškodovanca.</div>
-      <div class="card-meta"><span class="card-count">4 sklopi</span><span class="card-arrow">→</span></div>
-    </a>
-
-    <a class="card-link amber" href="#" onclick="odpriStran(event,'mnozicne-nesrece.html')">
-      <div class="badge badge-amber">8 vprašanj</div>
-      <div class="card-type">Kviz · Množične nesreče</div>
-      <div class="card-title">MNOŽIČNE<span class="card-sub">NESREČE · VLOGA GASILCEV</span></div>
-      <div class="card-desc">METHANE, triaža SIEVE in SORT, OVO, helikopter NMP in vloga gasilcev.</div>
-      <div class="card-meta"><span class="card-count">8 vprašanj</span><span class="card-arrow">→</span></div>
-    </a>
-
-    <div class="card-link green soon">
-      <div class="badge badge-soon">Kmalu</div>
-      <div class="card-type">Kviz · Hipoglikemija</div>
-      <div class="card-title">HIPOGLIKEMIJA<span class="card-sub">SLADKORNA BOLEZEN</span></div>
-      <div class="card-desc">Prepoznavanje znakov, merjenje sladkorja, inzulinska črpalka.</div>
-      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
-    </div>
-
-    <div class="card-link blue soon">
-      <div class="badge badge-soon">Kmalu</div>
-      <div class="card-type">Kviz · Reanimacija</div>
-      <div class="card-title">REANIMACIJA<span class="card-sub">TPO · AED</span></div>
-      <div class="card-desc">Temeljni postopki oživljanja, uporaba defibrilatorja, veriga preživetja.</div>
-      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
-    </div>
-
-  </div>
 
   <!-- ── GRADIVA ── -->
   <div class="section-header">
@@ -239,11 +196,11 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
     </a>
 
     <a class="card-link red" href="#" onclick="odpriStran(event,'gradivo-prometna-nesreca.html')">
-      <div class="badge badge-red">Kmalu</div>
+      <div class="badge badge-red">Aktivno</div>
       <div class="card-type">Gradivo · Prometna nesreča</div>
       <div class="card-title">PROMETNA NESREČA<span class="card-sub">IZNOS · MOTORIST · IMOBILIZACIJA</span></div>
       <div class="card-desc">Iznos iz vozila z zajemalnimi nosili, imobilizacija stoječega, snemanje čelade motorista.</div>
-      <div class="card-meta"><span class="card-count">PPT · PDF</span><span class="card-arrow">→</span></div>
+      <div class="card-meta"><span class="card-count">Kviz + vadbeni scenariji</span><span class="card-arrow">→</span></div>
     </a>
 
     <div class="card-link green soon">
@@ -401,7 +358,7 @@ function odjava(){
   sessionStorage.removeItem(SK);
   document.getElementById('welcome-bar').classList.remove('show');
   document.getElementById('login-box').style.display='block';
-  ['portal-content','materials-content','survey-content'].forEach(id=>{
+  ['materials-content','survey-content'].forEach(id=>{
     document.getElementById(id).classList.remove('unlocked');
     document.getElementById(id).classList.add('portal-locked');
   });
@@ -413,7 +370,7 @@ function pokaziPortal(user){
   document.getElementById('login-error').style.display='none';
   document.getElementById('welcome-bar').classList.add('show');
   document.getElementById('welcome-name-txt').textContent=user.polnoIme;
-  ['portal-content','materials-content','survey-content'].forEach(id=>{
+  ['materials-content','survey-content'].forEach(id=>{
     document.getElementById(id).classList.remove('portal-locked');
     document.getElementById(id).classList.add('unlocked');
   });

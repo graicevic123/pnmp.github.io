@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PNMP – Prometna nesreča · Gradiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0D1B2A;--navy-mid:#1B3A5C;--navy-light:#2A5580;--red:#C0392B;--amber:#D68910;--green:#1E8449;--teal:#148F77;--white:#FFFFFF;--muted:#8A9BB0;--border:rgba(255,255,255,0.08);--card:rgba(255,255,255,0.04)}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(44,85,128,0.35) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(192,57,43,0.12) 0%,transparent 55%)}
+.wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 20px 80px}
+.back-btn{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:10px 0;transition:color 0.15s;margin-top:28px}
+.back-btn:hover{color:var(--white)}
+.hero{padding:32px 0 40px}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,7vw,72px);line-height:0.9;letter-spacing:0.03em;margin-bottom:14px}
+.hero h1 .sub{font-size:0.42em;letter-spacing:0.14em;color:rgba(255,255,255,0.5);display:block;margin:5px 0 3px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px;line-height:1.7}
+.section-header{display:flex;align-items:center;gap:16px;margin:40px 0 20px}
+.section-header-line{flex:1;height:0.5px;background:var(--border)}
+.section-header-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:4px;padding:4px 10px;white-space:nowrap}
+
+/* Coming soon banner */
+.coming-soon{background:rgba(214,137,16,0.08);border:0.5px solid rgba(214,137,16,0.25);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:16px;margin-bottom:0}
+.cs-icon{font-size:28px;flex-shrink:0}
+.cs-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:3px}
+.cs-desc{font-size:13px;color:var(--muted)}
+
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.info-card{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:16px}
+.info-card-icon{font-size:22px;margin-bottom:8px}
+.info-card-title{font-size:13px;font-weight:600;color:var(--white);margin-bottom:4px}
+.info-card-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* Vadbe */
+.vadbe-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.vadba-card{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:18px;position:relative;overflow:hidden}
+.vadba-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
+.vadba-card.red::before{background:var(--red)}
+.vadba-card.amber::before{background:var(--amber)}
+.vadba-card.blue::before{background:var(--navy-light)}
+.vadba-card.green::before{background:var(--green)}
+.vadba-num{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.vadba-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:4px}
+.vadba-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* QR + kviz */
+.kviz-section{background:rgba(192,57,43,0.08);border:0.5px solid rgba(192,57,43,0.25);border-radius:14px;padding:28px;display:flex;align-items:flex-start;gap:28px;flex-wrap:wrap}
+.kviz-text{flex:1;min-width:200px}
+.kviz-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.kviz-title{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:0.03em;margin-bottom:6px}
+.kviz-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:18px}
+.btn-kviz{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;transition:background 0.15s;cursor:pointer}
+.btn-kviz:hover{background:#a93226}
+.qr-wrap{background:rgba(255,255,255,0.06);border:0.5px solid var(--border);border-radius:10px;padding:16px;text-align:center;flex-shrink:0}
+.qr-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+.footer{text-align:center;padding:40px 0 0;border-top:0.5px solid var(--border);margin-top:60px}
+.footer p{font-size:13px;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-btn" href="index.html">← Nazaj na portal</a>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Gradiva in predavanja</p>
+    <h1>PROMETNA NESREČA<span class="sub">IZNOS · MOTORIST · IMOBILIZACIJA</span></h1>
+    <p class="hero-sub">Gradiva za usposabljanje iz vadb prometnih nesreč. Vadbe pokrivajo iznos iz vozila, motorista, vrvno tehniko in imobilizacijo stoječega poškodovanca.</p>
+  </div>
+
+  <!-- PREDAVANJA -->
+  <div class="section-header">
+    <div class="section-header-line"></div>
+    <div class="section-header-badge">Predavanja</div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="coming-soon">
+    <div class="cs-icon">🛠</div>
+    <div>
+      <div class="cs-title">Predavanja v pripravi</div>
+      <div class="cs-desc">PowerPoint prezentacije za prometne nesreče so v pripravi. Gradivo bo dostopno kmalu – medtem si oglej vadbe spodaj in reši kviz.</div>
+    </div>
+  </div>
+
+  <!-- KAJ BOŠ SPOZNAL -->
+  <div class="section-header">
+    <div class="section-header-line"></div>
+    <div class="section-header-badge">Kaj boš spoznal</div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card"><div class="info-card-icon">🚗</div><div class="info-card-title">Iznos iz vozila</div><div class="info-card-desc">Razlika med urgentnim iznosom (Rautkov prijem) in hitrim iznosom z zajemalnimi nosili. Varovanje vratne hrbtenice med zamenjavo oseb.</div></div>
+    <div class="info-card"><div class="info-card-icon">🏍</div><div class="info-card-title">Motorist in čelada</div><div class="info-card-desc">Trije tipi čelad (odprta, modularna, integralna) in postopek snemanja. Edina izjema: tujek, zaboden skozi čelado.</div></div>
+    <div class="info-card"><div class="info-card-icon">🩺</div><div class="info-card-title">ITLS protokol</div><div class="info-card-desc">ABC, AVPU, SAMPLE – zaporedje pregleda poškodovanca po prometni nesreči.</div></div>
+    <div class="info-card"><div class="info-card-icon">🩸</div><div class="info-card-title">Hipoglikemija na terenu</div><div class="info-card-desc">Vrednosti krvnega sladkorja, upravljanje z inzulinsko črpalko na terenu, prepoznava simptomov.</div></div>
+    <div class="info-card"><div class="info-card-icon">🦴</div><div class="info-card-title">Imobilizacija stoječega</div><div class="info-card-desc">Indikacije za stoječo imobilizacijo, postopek z zajemalnimi nosili iz stoječega položaja.</div></div>
+    <div class="info-card"><div class="info-card-icon">🩹</div><div class="info-card-title">Imobilizacija poškodbe</div><div class="info-card-desc">Namestitev opornice – vedno imobilizirati sklepa NAD in POD mestom poškodbe.</div></div>
+  </div>
+
+  <!-- VADBE -->
+  <div class="section-header">
+    <div class="section-header-line"></div>
+    <div class="section-header-badge">Vadbeni scenariji</div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="vadbe-grid">
+    <div class="vadba-card red">
+      <div class="vadba-num">Vadba 1</div>
+      <div class="vadba-title">Iznos iz vozila z zajemalnimi nosili</div>
+      <div class="vadba-desc">7 gasilcev · 35 min · Pristop k poškodovancu po trku, nameščanje vratne opornice, iznos z zajemalnimi nosili.</div>
+    </div>
+    <div class="vadba-card amber">
+      <div class="vadba-num">Vadba 2</div>
+      <div class="vadba-title">Hipoglikemija + manjša poškodba</div>
+      <div class="vadba-desc">6 gasilcev · 35 min · Merjenje krvnega sladkorja, upravljanje inzulinske črpalke, imobilizacija uda.</div>
+    </div>
+    <div class="vadba-card blue">
+      <div class="vadba-num">Vadba 3</div>
+      <div class="vadba-title">Motorist – snemanje čelade</div>
+      <div class="vadba-desc">6 gasilcev · 35 min · Dva scenarija: sum poškodbe hrbtenjače in poškodovanec v jarku.</div>
+    </div>
+    <div class="vadba-card green">
+      <div class="vadba-num">Vadba 4</div>
+      <div class="vadba-title">Imobilizacija stoječega poškodovanca</div>
+      <div class="vadba-desc">6–7 gasilcev · 35 min · Motorist, ki vstane po padcu, z mravljinčenjem in bolečino v vratu.</div>
+    </div>
+  </div>
+
+  <!-- KVIZ + QR -->
+  <div class="section-header">
+    <div class="section-header-line"></div>
+    <div class="section-header-badge">Preveri znanje</div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="kviz-section">
+    <div class="kviz-text">
+      <div class="kviz-eyebrow">Kviz · 8 vprašanj</div>
+      <div class="kviz-title">Prometna nesreča</div>
+      <div class="kviz-desc">Preveri znanje iz vseh štirih vadb. Vprašanja pokrivajo iznos iz vozila, nameščanje vratne opornice, hipoglikemijo, snemanje čelade in imobilizacijo stoječega.</div>
+      <a class="btn-kviz" href="prometna-nesreca.html">Začni kviz →</a>
+    </div>
+    <div class="qr-wrap">
+      <div id="qr-canvas"></div>
+      <div class="qr-label">Skeniraj za kviz</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><strong>PNMP ekipa</strong> · Namenjeno prostovoljnim gasilskim društvom v GZL<br>Gradiva so namenjena izključno internem usposabljanju.</p>
+  </div>
+</div>
+
+<script>
+const KVIZ_URL = 'https://graicevic123.github.io/pnmp.github.io/prometna-nesreca.html';
+new QRCode(document.getElementById('qr-canvas'), {
+  text: KVIZ_URL,
+  width: 128,
+  height: 128,
+  colorDark: '#FFFFFF',
+  colorLight: '#0D1B2A',
+  correctLevel: QRCode.CorrectLevel.M
+});
+</script>
+</body>
+</html>
