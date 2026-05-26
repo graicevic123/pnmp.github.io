@@ -25,12 +25,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .section-header-line{flex:1;height:0.5px;background:var(--border)}
 .section-header-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:4px;padding:4px 10px;white-space:nowrap}
 
-/* Coming soon banner */
-.coming-soon{background:rgba(214,137,16,0.08);border:0.5px solid rgba(214,137,16,0.25);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:16px;margin-bottom:0}
-.cs-icon{font-size:28px;flex-shrink:0}
-.cs-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:3px}
-.cs-desc{font-size:13px;color:var(--muted)}
-
 /* Doc cards */
 .doc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
 .doc-card{background:var(--card);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color 0.15s,transform 0.1s}
@@ -47,11 +41,12 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .doc-meta{display:flex;align-items:center;gap:10px;padding:14px 20px;border-top:0.5px solid var(--border);flex-wrap:wrap}
 .doc-stat{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
 .doc-actions{display:flex;gap:8px;margin-left:auto}
-.btn-view{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--teal);color:#fff;border:none;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background 0.15s}
+.btn-view{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--teal);color:#fff;border:none;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:opacity 0.15s}
 .btn-view:hover{opacity:0.85}
 .btn-dl{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:transparent;border:0.5px solid rgba(255,255,255,0.2);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;color:rgba(255,255,255,0.6);text-decoration:none;transition:all 0.15s}
 .btn-dl:hover{border-color:rgba(255,255,255,0.4);color:#fff}
 
+/* Info cards */
 .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
 .info-card{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:16px}
 .info-card-icon{font-size:22px;margin-bottom:8px}
@@ -70,7 +65,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .vadba-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:4px}
 .vadba-desc{font-size:12px;color:var(--muted);line-height:1.5}
 
-/* QR + kviz */
+/* Kviz + QR */
 .kviz-section{background:rgba(192,57,43,0.08);border:0.5px solid rgba(192,57,43,0.25);border-radius:14px;padding:28px;display:flex;align-items:flex-start;gap:28px;flex-wrap:wrap}
 .kviz-text{flex:1;min-width:200px}
 .kviz-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
@@ -80,19 +75,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .btn-kviz:hover{background:#a93226}
 .qr-wrap{background:rgba(255,255,255,0.06);border:0.5px solid var(--border);border-radius:10px;padding:16px;text-align:center;flex-shrink:0}
 .qr-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:8px}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
-.modal-overlay.open{display:flex}
-.modal{background:#0A1520;border:0.5px solid var(--border);border-radius:14px;width:100%;max-width:1000px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden}
-.modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:0.5px solid var(--border)}
-.modal-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)}
-.modal-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px;transition:color 0.15s;line-height:1}
-.modal-close:hover{color:var(--white)}
-.modal-body{flex:1;overflow:hidden;position:relative;min-height:520px}
-.modal-body iframe{width:100%;height:100%;border:none;position:absolute;inset:0}
-.modal-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
 
-.footer{text-align:center;padding:40px 0 0;border-top:0.5px solid var(--border);margin-top:60px}
-.footer p{font-size:13px;color:var(--muted);line-height:1.6}
 /* Survey */
 .survey-wrap{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap}
 .survey-left{flex:1;min-width:280px;background:rgba(192,57,43,0.06);border:0.5px solid rgba(192,57,43,0.2);border-radius:14px;padding:28px}
@@ -110,6 +93,21 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .star{font-size:26px;cursor:pointer;opacity:0.25;transition:opacity 0.12s,transform 0.1s;user-select:none}
 .star.active{opacity:1}
 .star:hover{transform:scale(1.15)}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:#0A1520;border:0.5px solid var(--border);border-radius:14px;width:100%;max-width:1000px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:0.5px solid var(--border)}
+.modal-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)}
+.modal-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px;transition:color 0.15s;line-height:1}
+.modal-close:hover{color:var(--white)}
+.modal-body{flex:1;overflow:hidden;position:relative;min-height:520px}
+.modal-body iframe{width:100%;height:100%;border:none;position:absolute;inset:0}
+.modal-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+
+.footer{text-align:center;padding:40px 0 0;border-top:0.5px solid var(--border);margin-top:60px}
+.footer p{font-size:13px;color:var(--muted);line-height:1.6}
 </style>
 </head>
 <body>
@@ -173,26 +171,10 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
   </div>
 
   <div class="vadbe-grid">
-    <div class="vadba-card red">
-      <div class="vadba-num">Vadba 1</div>
-      <div class="vadba-title">Iznos iz vozila z zajemalnimi nosili</div>
-      <div class="vadba-desc">7 gasilcev · 35 min · Pristop k poškodovancu po trku, nameščanje vratne opornice, iznos z zajemalnimi nosili.</div>
-    </div>
-    <div class="vadba-card amber">
-      <div class="vadba-num">Vadba 2</div>
-      <div class="vadba-title">Hipoglikemija + manjša poškodba</div>
-      <div class="vadba-desc">6 gasilcev · 35 min · Merjenje krvnega sladkorja, upravljanje inzulinske črpalke, imobilizacija uda.</div>
-    </div>
-    <div class="vadba-card blue">
-      <div class="vadba-num">Vadba 3</div>
-      <div class="vadba-title">Motorist – snemanje čelade</div>
-      <div class="vadba-desc">6 gasilcev · 35 min · Dva scenarija: sum poškodbe hrbtenjače in poškodovanec v jarku.</div>
-    </div>
-    <div class="vadba-card green">
-      <div class="vadba-num">Vadba 4</div>
-      <div class="vadba-title">Imobilizacija stoječega poškodovanca</div>
-      <div class="vadba-desc">6–7 gasilcev · 35 min · Motorist, ki vstane po padcu, z mravljinčenjem in bolečino v vratu.</div>
-    </div>
+    <div class="vadba-card red"><div class="vadba-num">Vadba 1</div><div class="vadba-title">Iznos iz vozila z zajemalnimi nosili</div><div class="vadba-desc">7 gasilcev · 35 min · Pristop k poškodovancu po trku, nameščanje vratne opornice, iznos z zajemalnimi nosili.</div></div>
+    <div class="vadba-card amber"><div class="vadba-num">Vadba 2</div><div class="vadba-title">Hipoglikemija + manjša poškodba</div><div class="vadba-desc">6 gasilcev · 35 min · Merjenje krvnega sladkorja, upravljanje inzulinske črpalke, imobilizacija uda.</div></div>
+    <div class="vadba-card blue"><div class="vadba-num">Vadba 3</div><div class="vadba-title">Motorist – snemanje čelade</div><div class="vadba-desc">6 gasilcev · 35 min · Dva scenarija: sum poškodbe hrbtenjače in poškodovanec v jarku.</div></div>
+    <div class="vadba-card green"><div class="vadba-num">Vadba 4</div><div class="vadba-title">Imobilizacija stoječega poškodovanca</div><div class="vadba-desc">6–7 gasilcev · 35 min · Motorist, ki vstane po padcu, z mravljinčenjem in bolečino v vratu.</div></div>
   </div>
 
   <!-- KVIZ + QR -->
@@ -215,6 +197,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
     </div>
   </div>
 
+  <!-- ANKETA -->
   <div class="section-header" id="anketa">
     <div class="section-header-line"></div>
     <div class="section-header-badge">Anketa o usposabljanju</div>
@@ -304,22 +287,26 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 firebase.initializeApp({apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",authDomain:"pnmp-kviz.firebaseapp.com",projectId:"pnmp-kviz",storageBucket:"pnmp-kviz.firebasestorage.app",messagingSenderId:"907229581116",appId:"1:907229581116:web:831cad9f6749bfb1015839"});
 const db = firebase.firestore();
 
-// QR koda za kviz
-const KVIZ_URL = 'https://graicevic123.github.io/pnmp.github.io/prometna-nesreca.html';
-new QRCode(document.getElementById('qr-canvas'), {text:KVIZ_URL,width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M});
+// QR – kviz
+new QRCode(document.getElementById('qr-canvas'), {
+  text:'https://graicevic123.github.io/pnmp.github.io/prometna-nesreca.html',
+  width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M
+});
 
-// QR koda za anketo
-const ANKETA_URL = 'https://graicevic123.github.io/pnmp.github.io/gradivo-prometna-nesreca.html#anketa';
-new QRCode(document.getElementById('qr-anketa'), {text:ANKETA_URL,width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M});
+// QR – anketa
+new QRCode(document.getElementById('qr-anketa'), {
+  text:'https://graicevic123.github.io/pnmp.github.io/gradivo-prometna-nesreca.html#anketa',
+  width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M
+});
 
-// Survey stars
+// Stars
 let activeStars = 0;
 function setStars(n){
   activeStars = n;
   document.querySelectorAll('.star').forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= n));
 }
 
-// Submit survey
+// Survey submit
 async function posljiAnketo(){
   if(!activeStars){ document.getElementById('survey-error').style.display='inline'; return; }
   document.getElementById('survey-error').style.display='none';
@@ -340,13 +327,16 @@ async function posljiAnketo(){
     document.getElementById('survey-form').style.display = 'none';
     document.getElementById('survey-success').style.display = 'block';
   } catch(e) {
-    document.getElementById('survey-error').textContent = 'Napaka pri pošiljanju. Preveri internetno povezavo.';
+    document.getElementById('survey-error').textContent = 'Napaka pri pošiljanju.';
     document.getElementById('survey-error').style.display = 'inline';
   }
+}
+
 // Viewer
-const BASE_URL = window.location.href.replace(/[^/]*$/, '');
+const GITHUB_BASE = 'https://graicevic123.github.io/pnmp.github.io/';
 function odpriViewer(filename, title){
-  const viewerUrl = 'https://docs.google.com/viewer?url=' + encodeURIComponent(BASE_URL + filename) + '&embedded=true';
+  const fileUrl = GITHUB_BASE + filename;
+  const viewerUrl = 'https://docs.google.com/viewer?url=' + encodeURIComponent(fileUrl) + '&embedded=true';
   document.getElementById('modal-title').textContent = title;
   document.getElementById('modal-loading').style.display = 'flex';
   document.getElementById('modal-iframe').src = viewerUrl;
@@ -360,7 +350,7 @@ function zapriViewer(e){
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', e => {
-  if(e.key === 'Escape'){ document.getElementById('modal').classList.remove('open'); document.getElementById('modal-iframe').src=''; document.body.style.overflow=''; }
+  if(e.key==='Escape'){ document.getElementById('modal').classList.remove('open'); document.getElementById('modal-iframe').src=''; document.body.style.overflow=''; }
 });
 </script>
 </body>

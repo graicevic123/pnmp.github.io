@@ -131,24 +131,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
         </div>
       </div>
     </div>
-
-    <div class="doc-card amber">
-      <div class="doc-card-top">
-        <div class="doc-badge amber">PowerPoint · 14 diapozitivov</div>
-        <div class="doc-title">Bolnišnična raven</div>
-        <div class="doc-sub">Množične nesreče · BPS in alarmni sistem</div>
-        <div class="doc-desc">Bolnišnični pripravljenostni sistem (BPS), alarmni sistem bolnišnice, triaža v bolnišnici, sektorji, prevozi in umrli.</div>
-      </div>
-      <div class="doc-meta">
-        <span class="doc-stat">14 diapozitivov</span>
-        <span class="doc-stat">·</span>
-        <span class="doc-stat">.pptx</span>
-        <div class="doc-actions">
-          <button class="btn-view amber" onclick="odpriViewer('Gasilci_Mnozicne_Nesrece_Bolnisnicna_Raven.pptx','Bolnišnična raven')">▶ Ogled</button>
-          <a class="btn-dl" href="Gasilci_Mnozicne_Nesrece_Bolnisnicna_Raven.pptx" download>↓ Prenesi</a>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- KAJ BOŠ SPOZNAL -->
@@ -318,9 +300,9 @@ async function posljiAnketo(){
 }
 
 // Viewer
-const BASE_URL = window.location.href.replace(/[^/]*$/, '');
+const GITHUB_BASE = 'https://graicevic123.github.io/pnmp.github.io/';
 function odpriViewer(filename, title){
-  const viewerUrl = 'https://docs.google.com/viewer?url=' + encodeURIComponent(BASE_URL + filename) + '&embedded=true';
+  const viewerUrl = 'https://docs.google.com/viewer?url=' + encodeURIComponent(GITHUB_BASE + filename) + '&embedded=true';
   document.getElementById('modal-title').textContent = title;
   document.getElementById('modal-loading').style.display = 'flex';
   document.getElementById('modal-iframe').src = viewerUrl;
