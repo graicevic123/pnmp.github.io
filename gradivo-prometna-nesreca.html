@@ -6,20 +6,6 @@
 <title>PNMP – Prometna nesreča · Gradiva</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<!-- Viewer modal -->
-<div class="modal-overlay" id="modal" onclick="zapriViewer(event)">
-  <div class="modal" onclick="event.stopPropagation()">
-    <div class="modal-hdr">
-      <span class="modal-title" id="modal-title">—</span>
-      <button class="modal-close" onclick="zapriViewer()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="modal-loading" id="modal-loading">Nalagam predavanje...</div>
-      <iframe id="modal-iframe" onload="document.getElementById('modal-loading').style.display='none'"></iframe>
-    </div>
-  </div>
-</div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -44,6 +30,27 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .cs-icon{font-size:28px;flex-shrink:0}
 .cs-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:3px}
 .cs-desc{font-size:13px;color:var(--muted)}
+
+/* Doc cards */
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.doc-card{background:var(--card);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color 0.15s,transform 0.1s}
+.doc-card:hover{border-color:rgba(255,255,255,0.16);transform:translateY(-2px)}
+.doc-card-top{padding:20px 20px 16px;position:relative}
+.doc-card-top::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
+.doc-card.red .doc-card-top::before{background:var(--red)}
+.doc-card.teal .doc-card-top::before{background:var(--teal)}
+.doc-card.amber .doc-card-top::before{background:var(--amber)}
+.doc-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:3px 9px;border-radius:100px;margin-bottom:12px;display:inline-block}
+.doc-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:0.03em;line-height:1.1;margin-bottom:6px}
+.doc-sub{font-size:12px;letter-spacing:0.1em;color:rgba(255,255,255,0.4);text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:10px}
+.doc-desc{font-size:13px;color:var(--muted);line-height:1.55}
+.doc-meta{display:flex;align-items:center;gap:10px;padding:14px 20px;border-top:0.5px solid var(--border);flex-wrap:wrap}
+.doc-stat{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.doc-actions{display:flex;gap:8px;margin-left:auto}
+.btn-view{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--teal);color:#fff;border:none;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background 0.15s}
+.btn-view:hover{opacity:0.85}
+.btn-dl{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:transparent;border:0.5px solid rgba(255,255,255,0.2);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;color:rgba(255,255,255,0.6);text-decoration:none;transition:all 0.15s}
+.btn-dl:hover{border-color:rgba(255,255,255,0.4);color:#fff}
 
 .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
 .info-card{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:16px}
@@ -277,7 +284,20 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
   </div>
 </div>
 
-<script>
+<!-- Viewer modal -->
+<div class="modal-overlay" id="modal" onclick="zapriViewer(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hdr">
+      <span class="modal-title" id="modal-title">—</span>
+      <button class="modal-close" onclick="zapriViewer()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-loading" id="modal-loading">Nalagam predavanje...</div>
+      <iframe id="modal-iframe" onload="document.getElementById('modal-loading').style.display='none'"></iframe>
+    </div>
+  </div>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
