@@ -237,84 +237,20 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 
   </div>
 
-  <!-- ── ANKETA ── -->
+  <!-- ── ANKETA INFO ── -->
   <div class="section-header">
     <div class="section-header-line"></div>
-    <div class="section-header-badge">Anketa o usposabljanju</div>
+    <div class="section-header-badge">Povratne informacije</div>
     <div class="section-header-line"></div>
   </div>
 
-  <div class="survey-box portal-locked" id="survey-content">
-
-    <!-- Form -->
-    <div id="survey-form">
-      <div class="survey-title">Povratne informacije</div>
-      <div class="survey-sub">Tvoje mnenje nam pomaga izboljšati usposabljanje. Anketa je anonimna in traja manj kot 2 minuti.</div>
-
-      <div class="survey-fields">
-
-        <div class="survey-row">
-          <div class="field-group">
-            <div class="field-label">Kateri kviz si reševal?</div>
-            <select class="select-input" id="ankt-kviz">
-              <option value="">Izberi kviz ...</option>
-              <option value="Prometna nesreča">Prometna nesreča</option>
-              <option value="Množične nesreče">Množične nesreče</option>
-              <option value="Oba kviza">Oba kviza</option>
-            </select>
-          </div>
-          <div class="field-group">
-            <div class="field-label">Kako ocenjuješ težavnost?</div>
-            <select class="select-input" id="ankt-tezavnost">
-              <option value="">Izberi ...</option>
-              <option value="Prelahko">Prelahko</option>
-              <option value="Ravno prav">Ravno prav</option>
-              <option value="Pretežko">Pretežko</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <div class="field-label">Ocena vadbe (1–5 zvezdic)</div>
-          <div class="stars-wrap" id="stars-wrap">
-            <span class="star" data-v="1" onclick="setStars(1)">★</span>
-            <span class="star" data-v="2" onclick="setStars(2)">★</span>
-            <span class="star" data-v="3" onclick="setStars(3)">★</span>
-            <span class="star" data-v="4" onclick="setStars(4)">★</span>
-            <span class="star" data-v="5" onclick="setStars(5)">★</span>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <div class="field-label">Kaj ti je bilo všeč?</div>
-          <textarea class="textarea-input" id="ankt-vsec" placeholder="Npr. jasna razlaga, praktični primeri ..."></textarea>
-        </div>
-
-        <div class="field-group">
-          <div class="field-label">Kaj bi izboljšal?</div>
-          <textarea class="textarea-input" id="ankt-izboljsaj" placeholder="Npr. več slik, dodatne vaje ..."></textarea>
-        </div>
-
-        <div class="field-group">
-          <div class="field-label">Katera tema te zanima za naslednjič?</div>
-          <textarea class="textarea-input" id="ankt-naslednjic" placeholder="Npr. reanimacija, opekline, porod ..." style="min-height:70px"></textarea>
-        </div>
-
-      </div>
-
-      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px">
-        <button class="survey-btn" onclick="posljiAnketo()">Pošlji anketo →</button>
-        <span class="survey-error" id="survey-error">Prosimo, izberi kviz in oceni z zvezdicami.</span>
-      </div>
+  <div style="background:rgba(20,143,119,0.08);border:0.5px solid rgba(20,143,119,0.25);border-radius:14px;padding:24px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+    <div style="font-size:28px;flex-shrink:0">📋</div>
+    <div style="flex:1;min-width:200px">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Anketa o usposabljanju</div>
+      <div style="font-size:15px;font-weight:600;color:var(--white);margin-bottom:4px">Anketa je del vsakega gradiva</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6">Povratne informacije oddaš direktno na strani posameznega predavanja ali kviza – takoj po ogledu ali reševanju. Poišči anketo na dnu vsake gradivne strani.</div>
     </div>
-
-    <!-- Success -->
-    <div class="survey-success" id="survey-success">
-      <div class="survey-success-icon">✅</div>
-      <h3>Hvala za povratno informacijo!</h3>
-      <p>Tvoje mnenje smo zabeležili. Pomagalo nam bo izboljšati prihodnja usposabljanja.</p>
-    </div>
-
   </div>
 
   <!-- Footer -->

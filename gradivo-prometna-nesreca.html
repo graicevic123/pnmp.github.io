@@ -6,6 +6,20 @@
 <title>PNMP – Prometna nesreča · Gradiva</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Viewer modal -->
+<div class="modal-overlay" id="modal" onclick="zapriViewer(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hdr">
+      <span class="modal-title" id="modal-title">—</span>
+      <button class="modal-close" onclick="zapriViewer()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-loading" id="modal-loading">Nalagam predavanje...</div>
+      <iframe id="modal-iframe" onload="document.getElementById('modal-loading').style.display='none'"></iframe>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -59,9 +73,36 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .btn-kviz:hover{background:#a93226}
 .qr-wrap{background:rgba(255,255,255,0.06);border:0.5px solid var(--border);border-radius:10px;padding:16px;text-align:center;flex-shrink:0}
 .qr-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:#0A1520;border:0.5px solid var(--border);border-radius:14px;width:100%;max-width:1000px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:0.5px solid var(--border)}
+.modal-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)}
+.modal-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px;transition:color 0.15s;line-height:1}
+.modal-close:hover{color:var(--white)}
+.modal-body{flex:1;overflow:hidden;position:relative;min-height:520px}
+.modal-body iframe{width:100%;height:100%;border:none;position:absolute;inset:0}
+.modal-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
 
 .footer{text-align:center;padding:40px 0 0;border-top:0.5px solid var(--border);margin-top:60px}
 .footer p{font-size:13px;color:var(--muted);line-height:1.6}
+/* Survey */
+.survey-wrap{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap}
+.survey-left{flex:1;min-width:280px;background:rgba(192,57,43,0.06);border:0.5px solid rgba(192,57,43,0.2);border-radius:14px;padding:28px}
+.survey-right{flex-shrink:0;display:flex;flex-direction:column;align-items:center}
+.survey-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.03em;margin-bottom:6px}
+.survey-sub{font-size:13px;color:var(--muted);margin-bottom:22px;line-height:1.6}
+.survey-fields{display:flex;flex-direction:column;gap:14px}
+.field-label{font-size:12px;color:var(--muted);margin-bottom:5px;letter-spacing:0.04em}
+.select-input{width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;cursor:pointer}
+.select-input option{background:#1B3A5C}
+.textarea-input{width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;resize:vertical;min-height:80px}
+.textarea-input::placeholder{color:rgba(255,255,255,0.25)}
+.textarea-input:focus,.select-input:focus{border-color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.09)}
+.stars-wrap{display:flex;gap:8px;margin-top:6px}
+.star{font-size:26px;cursor:pointer;opacity:0.25;transition:opacity 0.12s,transform 0.1s;user-select:none}
+.star.active{opacity:1}
+.star:hover{transform:scale(1.15)}
 </style>
 </head>
 <body>
@@ -81,11 +122,23 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
     <div class="section-header-line"></div>
   </div>
 
-  <div class="coming-soon">
-    <div class="cs-icon">🛠</div>
-    <div>
-      <div class="cs-title">Predavanja v pripravi</div>
-      <div class="cs-desc">PowerPoint prezentacije za prometne nesreče so v pripravi. Gradivo bo dostopno kmalu – medtem si oglej vadbe spodaj in reši kviz.</div>
+  <div class="doc-grid">
+    <div class="doc-card red">
+      <div class="doc-card-top">
+        <div class="doc-badge" style="background:rgba(192,57,43,0.2);color:#F4A09A;border:0.5px solid rgba(192,57,43,0.3)">PowerPoint · 16 diapozitivov</div>
+        <div class="doc-title">Obnovitvena delavnica</div>
+        <div class="doc-sub">Prometna nesreča · 12. 5. 2025</div>
+        <div class="doc-desc">Časovnica delavnice, razporeditev skupin, poudarki za nadaljnje delo (čelada, medenični pas, iznos iz vozila, ITLS, imobilizacija, hipoglikemija), scenarij presenečenja in opisi poškodovancev.</div>
+      </div>
+      <div class="doc-meta">
+        <span class="doc-stat">16 diapozitivov</span>
+        <span class="doc-stat">·</span>
+        <span class="doc-stat">.pptx</span>
+        <div class="doc-actions">
+          <button class="btn-view" style="background:var(--red)" onclick="odpriViewer('OBN_DEL_PN_PREDSTAVITEV_dark.pptx','Obnovitvena delavnica – Prometna nesreča')">▶ Ogled</button>
+          <a class="btn-dl" href="OBN_DEL_PN_PREDSTAVITEV_dark.pptx" download>↓ Prenesi</a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -155,20 +208,139 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
     </div>
   </div>
 
+  <div class="section-header" id="anketa">
+    <div class="section-header-line"></div>
+    <div class="section-header-badge">Anketa o usposabljanju</div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="survey-wrap">
+    <div class="survey-left">
+      <div id="survey-form">
+        <div class="survey-title">Povratne informacije</div>
+        <div class="survey-sub">Tvoje mnenje nam pomaga izboljšati usposabljanje. Traja manj kot 2 minuti.</div>
+        <div class="survey-fields">
+          <div>
+            <div class="field-label">Kako ocenjuješ težavnost kviza?</div>
+            <select class="select-input" id="ankt-tezavnost">
+              <option value="">Izberi ...</option>
+              <option value="Prelahko">Prelahko</option>
+              <option value="Ravno prav">Ravno prav</option>
+              <option value="Pretežko">Pretežko</option>
+            </select>
+          </div>
+          <div>
+            <div class="field-label">Ocena vadbe in kviza (1–5 zvezdic)</div>
+            <div class="stars-wrap">
+              <span class="star" data-v="1" onclick="setStars(1)">★</span>
+              <span class="star" data-v="2" onclick="setStars(2)">★</span>
+              <span class="star" data-v="3" onclick="setStars(3)">★</span>
+              <span class="star" data-v="4" onclick="setStars(4)">★</span>
+              <span class="star" data-v="5" onclick="setStars(5)">★</span>
+            </div>
+          </div>
+          <div>
+            <div class="field-label">Kaj ti je bilo všeč?</div>
+            <textarea class="textarea-input" id="ankt-vsec" placeholder="Npr. jasna razlaga, praktični primeri ..."></textarea>
+          </div>
+          <div>
+            <div class="field-label">Kaj bi izboljšal?</div>
+            <textarea class="textarea-input" id="ankt-izboljsaj" placeholder="Npr. več slik, krajša vprašanja ..."></textarea>
+          </div>
+          <div>
+            <div class="field-label">Katera tema te zanima za naslednjič?</div>
+            <textarea class="textarea-input" id="ankt-naslednjic" placeholder="Npr. reanimacija, opekline ..." style="min-height:70px"></textarea>
+          </div>
+        </div>
+        <div style="margin-top:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <button class="btn-kviz" onclick="posljiAnketo()">Pošlji anketo →</button>
+          <span id="survey-error" style="font-size:13px;color:#F4A09A;display:none">Prosimo, oceni z zvezdicami.</span>
+        </div>
+      </div>
+      <div id="survey-success" style="display:none;padding:24px 0;text-align:center">
+        <div style="font-size:36px;margin-bottom:12px">✅</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:6px">Hvala!</div>
+        <div style="font-size:13px;color:var(--muted)">Tvoje mnenje smo zabeležili. Pomagalo nam bo izboljšati prihodnja usposabljanja.</div>
+      </div>
+    </div>
+    <div class="survey-right">
+      <div class="qr-wrap">
+        <div id="qr-anketa"></div>
+        <div class="qr-label">Skeniraj za anketo</div>
+      </div>
+      <div style="margin-top:10px;font-size:12px;color:var(--muted);text-align:center;line-height:1.5">Anketo lahko<br>izpolniš tudi<br>s telefonom</div>
+    </div>
+  </div>
+
   <div class="footer">
     <p><strong>PNMP ekipa</strong> · Namenjeno prostovoljnim gasilskim društvom v GZL<br>Gradiva so namenjena izključno internem usposabljanju.</p>
   </div>
 </div>
 
 <script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+firebase.initializeApp({apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",authDomain:"pnmp-kviz.firebaseapp.com",projectId:"pnmp-kviz",storageBucket:"pnmp-kviz.firebasestorage.app",messagingSenderId:"907229581116",appId:"1:907229581116:web:831cad9f6749bfb1015839"});
+const db = firebase.firestore();
+
+// QR koda za kviz
 const KVIZ_URL = 'https://graicevic123.github.io/pnmp.github.io/prometna-nesreca.html';
-new QRCode(document.getElementById('qr-canvas'), {
-  text: KVIZ_URL,
-  width: 128,
-  height: 128,
-  colorDark: '#FFFFFF',
-  colorLight: '#0D1B2A',
-  correctLevel: QRCode.CorrectLevel.M
+new QRCode(document.getElementById('qr-canvas'), {text:KVIZ_URL,width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M});
+
+// QR koda za anketo
+const ANKETA_URL = 'https://graicevic123.github.io/pnmp.github.io/gradivo-prometna-nesreca.html#anketa';
+new QRCode(document.getElementById('qr-anketa'), {text:ANKETA_URL,width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M});
+
+// Survey stars
+let activeStars = 0;
+function setStars(n){
+  activeStars = n;
+  document.querySelectorAll('.star').forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= n));
+}
+
+// Submit survey
+async function posljiAnketo(){
+  if(!activeStars){ document.getElementById('survey-error').style.display='inline'; return; }
+  document.getElementById('survey-error').style.display='none';
+  const raw = sessionStorage.getItem('pnmp_active_user');
+  const user = raw ? JSON.parse(raw) : {polnoIme:'Anonimno'};
+  try{
+    await db.collection('ankete').add({
+      polnoIme: user.polnoIme || 'Anonimno',
+      kviz: 'Prometna nesreča',
+      tema: 'Iznos iz vozila, motorist, imobilizacija',
+      tezavnost: document.getElementById('ankt-tezavnost').value || '—',
+      ocena: activeStars,
+      vsec: document.getElementById('ankt-vsec').value.trim() || '—',
+      izboljsaj: document.getElementById('ankt-izboljsaj').value.trim() || '—',
+      naslednjic: document.getElementById('ankt-naslednjic').value.trim() || '—',
+      cas: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    document.getElementById('survey-form').style.display = 'none';
+    document.getElementById('survey-success').style.display = 'block';
+  } catch(e) {
+    document.getElementById('survey-error').textContent = 'Napaka pri pošiljanju. Preveri internetno povezavo.';
+    document.getElementById('survey-error').style.display = 'inline';
+  }
+// Viewer
+const BASE_URL = window.location.href.replace(/[^/]*$/, '');
+function odpriViewer(filename, title){
+  const viewerUrl = 'https://docs.google.com/viewer?url=' + encodeURIComponent(BASE_URL + filename) + '&embedded=true';
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-loading').style.display = 'flex';
+  document.getElementById('modal-iframe').src = viewerUrl;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function zapriViewer(e){
+  if(e && e.target !== document.getElementById('modal')) return;
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('modal-iframe').src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){ document.getElementById('modal').classList.remove('open'); document.getElementById('modal-iframe').src=''; document.body.style.overflow=''; }
 });
 </script>
 </body>
