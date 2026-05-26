@@ -74,6 +74,24 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .modal-body{flex:1;overflow:hidden;position:relative;min-height:520px}
 .modal-body iframe{width:100%;height:100%;border:none;position:absolute;inset:0}
 .modal-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+
+/* Flip kartice */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.flip-card{height:200px;cursor:pointer;perspective:1000px;-webkit-tap-highlight-color:transparent}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform 0.55s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;border-radius:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
+.flip-front{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-top:3px solid var(--accent,var(--teal))}
+.flip-back{background:rgba(255,255,255,0.06);border:0.5px solid var(--border);border-top:3px solid var(--accent,var(--teal));transform:rotateY(180deg);align-items:flex-start;text-align:left;justify-content:flex-start;overflow:hidden}
+.flip-front:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.16)}
+.flip-icon{font-size:36px;margin-bottom:12px;line-height:1}
+.flip-title{font-size:14px;font-weight:600;color:var(--white);line-height:1.3}
+.flip-hint{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.2);position:absolute;bottom:12px}
+.flip-back-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.03em;color:var(--accent,var(--teal));margin-bottom:10px;width:100%}
+.flip-list{list-style:none;width:100%;padding:0}
+.flip-list li{font-size:11px;color:var(--muted);line-height:1.4;padding:3px 0;border-bottom:0.5px solid var(--border);display:flex;gap:6px;align-items:flex-start}
+.flip-list li:last-child{border-bottom:none}
+.flip-list li::before{content:'→';color:var(--accent,var(--teal));flex-shrink:0;font-size:10px;margin-top:1px}
 .footer{text-align:center;padding:40px 0 0;border-top:0.5px solid var(--border);margin-top:60px}
 .footer p{font-size:13px;color:var(--muted);line-height:1.6}
 
@@ -94,6 +112,9 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .star{font-size:26px;cursor:pointer;opacity:0.25;transition:opacity 0.12s,transform 0.1s;user-select:none}
 .star.active{opacity:1}
 .star:hover{transform:scale(1.15)}
+.lg-input{width:100%;padding:11px 14px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;transition:border-color 0.15s}
+.lg-input::placeholder{color:rgba(255,255,255,0.25)}
+.lg-input:focus{border-color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.09)}
 </style>
 </head>
 <body>
@@ -133,20 +154,137 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
     </div>
   </div>
 
-  <!-- KAJ BOŠ SPOZNAL -->
+  <!-- KAJ BOŠ SPOZNAL – flip kartice -->
   <div class="section-header">
     <div class="section-header-line"></div>
     <div class="section-header-badge">Kaj boš spoznal</div>
     <div class="section-header-line"></div>
   </div>
 
-  <div class="info-grid">
-    <div class="info-card"><div class="info-card-icon">📡</div><div class="info-card-title">METHANE</div><div class="info-card-desc">Standardno poročilo prve ekipe. Vsaka črka je obvezna informacija za aktiviranje reševalne verige.</div></div>
-    <div class="info-card"><div class="info-card-icon">🔴</div><div class="info-card-title">Triaža SIEVE in SORT</div><div class="info-card-desc">Primarna triaža (max 30 sek/pacient) in sekundarna triaža s 3 fiziološkimi parametri.</div></div>
-    <div class="info-card"><div class="info-card-icon">🦺</div><div class="info-card-title">OVO in varnost</div><div class="info-card-desc">Standardna in kemijska OVO, pravila varnega pristopa, cona dostopa za gasilce.</div></div>
-    <div class="info-card"><div class="info-card-icon">🚁</div><div class="info-card-title">HNMP in prevozi</div><div class="info-card-desc">Aktiviranje helikopterja, organizacija prevozov, sekundarni prevozi med bolnišnicami.</div></div>
-    <div class="info-card"><div class="info-card-icon">👥</div><div class="info-card-title">Vodenje intervencije</div><div class="info-card-desc">6 ključnih funkcij: vodja NMP, vodja triaže, koordinator prevozov, vodja oskrbe, logistika, prometnik.</div></div>
-    <div class="info-card"><div class="info-card-icon">🏥</div><div class="info-card-title">Bolnišnična raven</div><div class="info-card-desc">BPS, alarmni sistem zeleni/rumeni/rdeči, triaža ob prihodu v bolnišnico, sektorji.</div></div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:20px">Prevrni kartico za podrobnosti →</p>
+
+  <div class="flip-grid">
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front" style="--accent:var(--teal)">
+          <div class="flip-icon">📡</div>
+          <div class="flip-title">METHANE</div>
+          <div class="flip-hint">pritisni za več</div>
+        </div>
+        <div class="flip-back" style="--accent:var(--teal)">
+          <div class="flip-back-title">METHANE</div>
+          <ul class="flip-list">
+            <li><b>M</b>ajor incident – potrditev množične nesreče</li>
+            <li><b>E</b>xact location – natančen kraj, GPS</li>
+            <li><b>T</b>ype – vrsta nesreče</li>
+            <li><b>H</b>azards – nevarnosti na kraju</li>
+            <li><b>A</b>ccess – varna pot pristopa</li>
+            <li><b>N</b>umber – ocena števila žrtev</li>
+            <li><b>E</b>mergency services – prisotne in potrebne službe</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front" style="--accent:var(--red)">
+          <div class="flip-icon">🔴</div>
+          <div class="flip-title">Triaža SIEVE in SORT</div>
+          <div class="flip-hint">pritisni za več</div>
+        </div>
+        <div class="flip-back" style="--accent:var(--red)">
+          <div class="flip-back-title">Triaža SIEVE in SORT</div>
+          <ul class="flip-list">
+            <li>SIEVE = primarna triaža, max 30 sek/pacient</li>
+            <li>Dovoljeno samo: zaustavljanje krvavitev + sprostitev dihalne poti</li>
+            <li>SORT = sekundarna triaža na MZO</li>
+            <li>SORT parametri: frekvenca dihanja, sistolični TK, GCS</li>
+            <li>Seštevek 1–10=T1, 11=T2, 12=T3</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front" style="--accent:#C17D0A">
+          <div class="flip-icon">🦺</div>
+          <div class="flip-title">OVO in varnost</div>
+          <div class="flip-hint">pritisni za več</div>
+        </div>
+        <div class="flip-back" style="--accent:#C17D0A">
+          <div class="flip-back-title">OVO in varnost</div>
+          <ul class="flip-list">
+            <li>Standardna OVO: čelada, očala, rokavice, odsevni jopič</li>
+            <li>Jopič mora imeti OZNAKO FUNKCIJE</li>
+            <li>Kemijska nesreča: zaščitna obleka + SCBA</li>
+            <li>NE vstopati na kontaminirano območje brez ustrezne OVO</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front" style="--accent:var(--navy-light)">
+          <div class="flip-icon">🚁</div>
+          <div class="flip-title">HNMP in prevozi</div>
+          <div class="flip-hint">pritisni za več</div>
+        </div>
+        <div class="flip-back" style="--accent:var(--navy-light)">
+          <div class="flip-back-title">HNMP in prevozi</div>
+          <ul class="flip-list">
+            <li>Aktivira: vodja intervencije ali vodja NMP prek ReCO</li>
+            <li>HNMP Brnik: celo leto, vidni del dneva, ~10 min</li>
+            <li>1 nujno RV = 2 težji + 2 lažji pacienti</li>
+            <li>Krožni prometni sistem RV na kraju</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front" style="--accent:var(--green)">
+          <div class="flip-icon">👥</div>
+          <div class="flip-title">Vodenje intervencije</div>
+          <div class="flip-hint">pritisni za več</div>
+        </div>
+        <div class="flip-back" style="--accent:var(--green)">
+          <div class="flip-back-title">Vodenje intervencije</div>
+          <ul class="flip-list">
+            <li>Vodja intervencije NMP (zdravnik, 1. ekipa)</li>
+            <li>Vodja primarne triaže (reševalec, 1. ekipa)</li>
+            <li>Koordinator prevozov (voznik, 1. ekipa)</li>
+            <li>Vodja zdravstvene oskrbe (zdravnik, 2. ekipa)</li>
+            <li>Vodja logistike + prometnik</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front" style="--accent:#5A3A8A">
+          <div class="flip-icon">📋</div>
+          <div class="flip-title">Triažne kategorije</div>
+          <div class="flip-hint">pritisni za več</div>
+        </div>
+        <div class="flip-back" style="--accent:#5A3A8A">
+          <div class="flip-back-title">Triažne kategorije</div>
+          <ul class="flip-list">
+            <li>🔴 T1 Rdeča – operacija v 2 urah</li>
+            <li>🟡 T2 Rumena – oskrba v 2–4 urah</li>
+            <li>🟢 T3 Zelena – varno do 4 ure</li>
+            <li>⚫ T4 Črna – mrtev / umirajoč</li>
+            <li>🔵 T4* Modra – razglasi IZKLJUČNO vodja NMP</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- KVIZ + QR -->
@@ -175,62 +313,71 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
     <div class="section-header-line"></div>
   </div>
 
-  <div class="survey-wrap">
-    <div class="survey-left">
-      <div id="survey-form">
-        <div class="survey-title">Povratne informacije</div>
-        <div class="survey-sub">Tvoje mnenje nam pomaga izboljšati usposabljanje. Traja manj kot 2 minuti.</div>
-        <div class="survey-fields">
-          <div>
-            <div class="field-label">Kako ocenjuješ težavnost kviza?</div>
-            <select class="select-input" id="ankt-tezavnost">
-              <option value="">Izberi ...</option>
-              <option value="Prelahko">Prelahko</option>
-              <option value="Ravno prav">Ravno prav</option>
-              <option value="Pretežko">Pretežko</option>
-            </select>
-          </div>
-          <div>
-            <div class="field-label">Ocena predavanja in kviza (1–5 zvezdic)</div>
-            <div class="stars-wrap">
-              <span class="star" data-v="1" onclick="setStars(1)">★</span>
-              <span class="star" data-v="2" onclick="setStars(2)">★</span>
-              <span class="star" data-v="3" onclick="setStars(3)">★</span>
-              <span class="star" data-v="4" onclick="setStars(4)">★</span>
-              <span class="star" data-v="5" onclick="setStars(5)">★</span>
+  <div class="kviz-section" style="background:rgba(20,143,119,0.08);border-color:rgba(20,143,119,0.25);flex-direction:column;gap:0">
+
+    <!-- Login gate za anketo -->
+    <div id="anketa-login" style="width:100%">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Anketa · Množične nesreče</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;margin-bottom:6px">Povratne informacije</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6">Tvoje mnenje nam pomaga izboljšati usposabljanje. Vpiši ime in priimek, nato izpolni anketo.</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+        <div style="flex:1;min-width:140px"><div class="field-label">Ime</div><input class="lg-input" type="text" id="ank-ime" placeholder="Janez" autocomplete="given-name"></div>
+        <div style="flex:1;min-width:140px"><div class="field-label">Priimek</div><input class="lg-input" type="text" id="ank-priimek" placeholder="Novak" autocomplete="family-name"></div>
+      </div>
+      <button class="btn-kviz" style="background:var(--teal)" onclick="odklenjiAnketo()">Naprej →</button>
+      <div id="anketa-login-err" style="font-size:13px;color:#F4A09A;margin-top:8px;display:none">Prosimo, vpiši ime in priimek.</div>
+    </div>
+
+    <!-- Anketa forma -->
+    <div id="anketa-wrap" style="display:none;width:100%">
+      <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start">
+        <div style="flex:1;min-width:260px">
+          <div id="survey-form">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:6px">Prijavljen: <span id="ank-user-label" style="color:var(--white)"></span></div>
+            <div class="survey-fields" style="margin-top:12px">
+              <div>
+                <div class="field-label">Kako ocenjuješ težavnost kviza?</div>
+                <select class="select-input" id="ankt-tezavnost">
+                  <option value="">Izberi ...</option>
+                  <option value="Prelahko">Prelahko</option>
+                  <option value="Ravno prav">Ravno prav</option>
+                  <option value="Pretežko">Pretežko</option>
+                </select>
+              </div>
+              <div>
+                <div class="field-label">Ocena predavanja in kviza (1–5 zvezdic)</div>
+                <div class="stars-wrap">
+                  <span class="star" data-v="1" onclick="setStars(1)">★</span>
+                  <span class="star" data-v="2" onclick="setStars(2)">★</span>
+                  <span class="star" data-v="3" onclick="setStars(3)">★</span>
+                  <span class="star" data-v="4" onclick="setStars(4)">★</span>
+                  <span class="star" data-v="5" onclick="setStars(5)">★</span>
+                </div>
+              </div>
+              <div><div class="field-label">Kaj ti je bilo všeč?</div><textarea class="textarea-input" id="ankt-vsec" placeholder="Npr. jasna razlaga, praktični primeri ..."></textarea></div>
+              <div><div class="field-label">Kaj bi izboljšal?</div><textarea class="textarea-input" id="ankt-izboljsaj" placeholder="Npr. več slik, krajša vprašanja ..."></textarea></div>
+              <div><div class="field-label">Katera tema te zanima za naslednjič?</div><textarea class="textarea-input" id="ankt-naslednjic" placeholder="Npr. reanimacija, opekline ..." style="min-height:70px"></textarea></div>
+            </div>
+            <div style="margin-top:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+              <button class="btn-kviz" style="background:var(--teal)" onclick="posljiAnketo()">Pošlji anketo →</button>
+              <span id="survey-error" style="font-size:13px;color:#F4A09A;display:none">Prosimo, oceni z zvezdicami.</span>
             </div>
           </div>
-          <div>
-            <div class="field-label">Kaj ti je bilo všeč?</div>
-            <textarea class="textarea-input" id="ankt-vsec" placeholder="Npr. jasna razlaga, praktični primeri ..."></textarea>
-          </div>
-          <div>
-            <div class="field-label">Kaj bi izboljšal?</div>
-            <textarea class="textarea-input" id="ankt-izboljsaj" placeholder="Npr. več slik, krajša vprašanja ..."></textarea>
-          </div>
-          <div>
-            <div class="field-label">Katera tema te zanima za naslednjič?</div>
-            <textarea class="textarea-input" id="ankt-naslednjic" placeholder="Npr. reanimacija, opekline ..." style="min-height:70px"></textarea>
+          <div id="survey-success" style="display:none;padding:24px 0;text-align:center">
+            <div style="font-size:36px;margin-bottom:12px">✅</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:6px">Hvala!</div>
+            <div style="font-size:13px;color:var(--muted)">Tvoje mnenje smo zabeležili.</div>
           </div>
         </div>
-        <div style="margin-top:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-          <button class="btn-view" style="padding:12px 24px;font-size:14px" onclick="posljiAnketo()">Pošlji anketo →</button>
-          <span id="survey-error" style="font-size:13px;color:#F4A09A;display:none">Prosimo, oceni z zvezdicami.</span>
+        <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center">
+          <div class="qr-wrap">
+            <div id="qr-anketa"></div>
+            <div class="qr-label">Skeniraj za anketo</div>
+          </div>
         </div>
       </div>
-      <div id="survey-success" style="display:none;padding:24px 0;text-align:center">
-        <div style="font-size:36px;margin-bottom:12px">✅</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:6px">Hvala!</div>
-        <div style="font-size:13px;color:var(--muted)">Tvoje mnenje smo zabeležili. Pomagalo nam bo izboljšati prihodnja usposabljanja.</div>
-      </div>
     </div>
-    <div class="survey-right">
-      <div class="qr-wrap">
-        <div id="qr-anketa"></div>
-        <div class="qr-label">Skeniraj za anketo</div>
-      </div>
-      <div style="margin-top:10px;font-size:12px;color:var(--muted);text-align:center;line-height:1.5">Anketo lahko<br>izpolniš tudi<br>s telefonom</div>
-    </div>
+
   </div>
 
   <div class="footer">
@@ -272,6 +419,32 @@ function setStars(n){
   activeStars = n;
   document.querySelectorAll('.star').forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= n));
 }
+
+// Odkleni anketo – zahteva ime/priimek
+function odklenjiAnketo(){
+  const ime = document.getElementById('ank-ime').value.trim();
+  const priimek = document.getElementById('ank-priimek').value.trim();
+  if(!ime || !priimek){ document.getElementById('anketa-login-err').style.display='block'; return; }
+  const user = {ime, priimek, polnoIme: ime + ' ' + priimek};
+  sessionStorage.setItem('pnmp_active_user', JSON.stringify(user));
+  document.getElementById('anketa-login').style.display = 'none';
+  document.getElementById('anketa-wrap').style.display = 'block';
+  document.getElementById('ank-user-label').textContent = user.polnoIme;
+}
+
+// Preveri ali je že prijavljen
+document.addEventListener('DOMContentLoaded', () => {
+  const raw = sessionStorage.getItem('pnmp_active_user');
+  if(raw){
+    const u = JSON.parse(raw);
+    document.getElementById('anketa-login').style.display = 'none';
+    document.getElementById('anketa-wrap').style.display = 'block';
+    document.getElementById('ank-user-label').textContent = u.polnoIme;
+  }
+  ['ank-ime','ank-priimek'].forEach(id => {
+    document.getElementById(id)?.addEventListener('keydown', e => { if(e.key==='Enter') odklenjiAnketo(); });
+  });
+});
 
 // Submit survey
 async function posljiAnketo(){
