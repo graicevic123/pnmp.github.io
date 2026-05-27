@@ -123,6 +123,7 @@ tr:hover td{background:rgba(255,255,255,0.025)}
     <div class="hdr-right">
       <button class="tab on" id="tK" onclick="tab('k')">Kvizi</button>
       <button class="tab" id="tA" onclick="tab('a')">Ankete</button>
+      <button class="tab" id="tS" onclick="tab('s')">Simulator</button>
       <select class="sel" id="fK" onchange="filtriraj()">
         <option value="">Vsi kvizi</option>
         <option value="prometna-nesreca">Prometna nesreča</option>
@@ -171,6 +172,17 @@ tr:hover td{background:rgba(255,255,255,0.025)}
         </div>
       </div>
 
+      <!-- Simulator -->
+      <div class="panel off" id="pS">
+        <div class="tbl-wrap">
+          <div class="tbl-hdr">
+            <span class="tbl-lbl">Triažni laboratorij – rezultati</span>
+            <span class="tbl-lbl" id="cntS">—</span>
+          </div>
+          <div id="tblS"><div class="loading">Nalagam...</div></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -187,7 +199,7 @@ firebase.initializeApp({apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",authDom
 const db=firebase.firestore();
 
 const PIN='1234';
-let kvizi=[],filtrirani=[],ankete=[],anketeOk=false,curTab='k';
+let kvizi=[],filtrirani=[],ankete=[],simulatorji=[],anketeOk=false,simulatorOk=false,curTab='k';
 
 /* PIN */
 function checkPin(){
@@ -212,19 +224,24 @@ function tab(t){
   curTab=t;
   document.getElementById('tK').classList.toggle('on',t==='k');
   document.getElementById('tA').classList.toggle('on',t==='a');
-  document.getElementById('fK').disabled=t==='a';
-  document.getElementById('fK').style.opacity=t==='a'?'0.3':'1';
+  document.getElementById('tS').classList.toggle('on',t==='s');
+  document.getElementById('fK').disabled=t!=='k';
+  document.getElementById('fK').style.opacity=t!=='k'?'0.3':'1';
   document.getElementById('pK').classList.toggle('off',t!=='k');
   document.getElementById('pA').classList.toggle('off',t!=='a');
+  document.getElementById('pS').classList.toggle('off',t!=='s');
 
-  // Panels wrapper height = active panel height
-  const active=document.getElementById(t==='k'?'pK':'pA');
+  const active=document.getElementById(t==='k'?'pK':t==='a'?'pA':'pS');
   document.getElementById('PANELS').style.height=active.scrollHeight+'px';
 
   if(t==='k') statsKvizi();
   if(t==='a'){
     if(!anketeOk) loadAnkete();
     else statsAnkete();
+  }
+  if(t==='s'){
+    if(!simulatorOk) loadSimulator();
+    else statsSimulator();
   }
 }
 
@@ -318,7 +335,7 @@ function renderAnkete(){
 
 /* Sync panels wrapper height */
 function syncH(){
-  const active=document.getElementById(curTab==='k'?'pK':'pA');
+  const active=document.getElementById(curTab==='k'?'pK':curTab==='a'?'pA':'pS');
   document.getElementById('PANELS').style.height=active.scrollHeight+'px';
 }
 
@@ -334,6 +351,54 @@ async function loadAnkete(){
     renderAnkete();
   }catch(e){
     document.getElementById('tblA').innerHTML='<div class="loading">Napaka pri nalaganju anket.</div>';
+  }
+}
+
+/* Stats – simulator */
+function statsSimulator(){
+  const n=simulatorji.length;
+  const u=new Set(simulatorji.map(r=>r.polnoIme)).size;
+  const p=n>0?Math.round(simulatorji.reduce((a,r)=>a+(r.procent||0),0)/n):0;
+  const o=simulatorji.filter(r=>(r.procent||0)>=90).length;
+  set('sN',n,'lN','Skupaj rešitev');
+  set('sU',u,'lU','Tečajnikov');
+  set('sP',p+'%','lP','Povp. uspešnost');
+  set('sO',o,'lO','Odličnih (≥90%)');
+  document.getElementById('cntS').textContent=n+' zapisov';
+}
+
+/* Render simulator */
+function renderSimulator(){
+  const el=document.getElementById('tblS');
+  if(!simulatorji.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
+  let h='<table><thead><tr><th>Ime in priimek</th><th>Rezultat</th><th>Pravilno</th><th>Napačno</th><th>Čas</th></tr></thead><tbody>';
+  simulatorji.forEach(r=>{
+    const pct=r.procent||0,cls=pct>=90?'hi':pct>=60?'md':'lo';
+    h+=`<tr>
+      <td class="n">${r.polnoIme||'—'}</td>
+      <td><span class="sc ${cls}">${r.pravilno||0}/${r.skupaj||10}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td>
+      <td style="color:#7FE8A8;font-weight:600">${r.pravilno||0}</td>
+      <td style="color:#F4A09A;font-weight:600">${r.napacno||0}</td>
+      <td class="tm">${fCas(r.cas)}</td>
+    </tr>`;
+  });
+  h+='</tbody></table>';
+  el.innerHTML=h;
+  syncH();
+}
+
+/* Load simulator */
+async function loadSimulator(){
+  document.getElementById('tblS').innerHTML='<div class="loading">Nalagam...</div>';
+  try{
+    const s=await db.collection('simulator').orderBy('cas','desc').limit(300).get();
+    simulatorji=[];
+    s.forEach(d=>{const x=d.data();x._id=d.id;simulatorji.push(x);});
+    simulatorOk=true;
+    statsSimulator();
+    renderSimulator();
+  }catch(e){
+    document.getElementById('tblS').innerHTML='<div class="loading">Napaka pri nalaganju rezultatov simulatorja.</div>';
   }
 }
 

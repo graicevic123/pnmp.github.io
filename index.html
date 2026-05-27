@@ -174,12 +174,12 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
   </div>
   <div class="stats">
     <div class="stat"><div class="stat-num">6</div><div class="stat-lbl">Tematskih sklopov</div></div>
-    <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Aktivna gradiva</div></div>
+    <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Aktivni gradivi</div></div>
     <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Aktivna kviza</div></div>
     <div class="stat"><div class="stat-num">1</div><div class="stat-lbl">Simulator</div></div>
   </div>
 
-  <span class="lock-msg" id="lock-msg">Prijavi se zgoraj da odpreš vsebine.</span>
+  <span class="lock-msg" id="lock-msg">Prijavi se zgoraj, da odpreš vsebine.</span>
 
   <!-- ── GRADIVA ── -->
   <div class="section-header">
@@ -191,27 +191,19 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
   <div class="materials-grid portal-locked" id="materials-content">
 
     <a class="card-link teal" href="#" onclick="odpriStran(event,'gradivo-mnozicne-nesrece.html')">
-      <div class="badge badge-teal">2 predavanji</div>
+      <div class="badge badge-teal">Predavanje + simulator</div>
       <div class="card-type">Gradivo · Množične nesreče</div>
-      <div class="card-title">MNOŽIČNE NESREČE<span class="card-sub">PREDBOLNIŠNIČNA IN BOLNIŠNIČNA RAVEN</span></div>
-      <div class="card-desc">Predbolnišnična raven, vloga gasilcev, bolnišnična raven – METHANE, SIEVE, SORT, HNMP.</div>
-      <div class="card-meta"><span class="card-count">PPT · PDF</span><span class="card-arrow">→</span></div>
+      <div class="card-title">MNOŽIČNE NESREČE<span class="card-sub">PREDBOLNIŠNIČNA RAVEN · SIEVE · SORT</span></div>
+      <div class="card-desc">Predbolnišnična raven, vloga gasilcev – METHANE, SIEVE, SORT, HNMP. Vključuje triažni simulator.</div>
+      <div class="card-meta"><span class="card-count">PPT · Kviz · Simulator</span><span class="card-arrow">→</span></div>
     </a>
 
     <a class="card-link red" href="#" onclick="odpriStran(event,'gradivo-prometna-nesreca.html')">
       <div class="badge badge-red">Aktivno</div>
       <div class="card-type">Gradivo · Prometna nesreča</div>
       <div class="card-title">PROMETNA NESREČA<span class="card-sub">IZNOS · MOTORIST · IMOBILIZACIJA</span></div>
-      <div class="card-desc">Iznos iz vozila z zajemalnimi nosili, imobilizacija stoječega, snemanje čelade motorista.</div>
-      <div class="card-meta"><span class="card-count">Kviz + vadbeni scenariji</span><span class="card-arrow">→</span></div>
-    </a>
-
-    <a class="card-link amber" href="#" onclick="odpriStran(event,'triazni-simulator.html')">
-      <div class="badge badge-amber">🎮 Igrica</div>
-      <div class="card-type">Simulator · Triaža</div>
-      <div class="card-title">TRIAŽNI SIMULATOR<span class="card-sub">SIEVE · 10 PACIENTOV</span></div>
-      <div class="card-desc">Razvrsti 10 pacientov v pravilno triažno kategorijo. Takojšnja povratna info + SIEVE razlaga za vsak primer.</div>
-      <div class="card-meta"><span class="card-count">10 scenarijev</span><span class="card-arrow">→</span></div>
+      <div class="card-desc">Iznos iz vozila z zajemalnimi nosili, imobilizacija stoječega poškodovanca, snemanje čelade motorista.</div>
+      <div class="card-meta"><span class="card-count">PPT · Kviz · Delavnice</span><span class="card-arrow">→</span></div>
     </a>
 
     <div class="card-link green soon">
