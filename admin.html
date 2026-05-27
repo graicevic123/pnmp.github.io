@@ -42,7 +42,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .hdr-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
 /* Tabs */
-.tab{width:80px;text-align:center;padding:7px 16px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s}
+.tab{min-width:80px;text-align:center;padding:7px 14px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s;white-space:nowrap}
 .tab.on{background:var(--red);border-color:var(--red);color:#fff}
 .tab:hover:not(.on){color:var(--white);border-color:rgba(255,255,255,0.3)}
 .sel{padding:7px 12px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;outline:none;transition:opacity 0.15s}
