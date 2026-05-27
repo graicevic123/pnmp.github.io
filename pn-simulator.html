@@ -149,7 +149,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
       <div class="code">URGENTNI IZNOS</div>
     </div>
     <div class="card-demo" style="background:#7A4E00;border:2px solid #C17D0A;color:#fff;--rot:2deg">
-      <div class="icon">🛌</div>
+      <div class="icon">🛏️</div>
       <div class="code">HITRI IZNOS</div>
     </div>
     <div class="card-demo" style="background:#0D4D27;border:2px solid #1A7A40;color:#fff;--rot:-2deg">
@@ -157,7 +157,13 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
       <div class="code">IMOBILI&shy;ZACIJA</div>
     </div>
     <div class="card-demo" style="background:#0D3A5C;border:2px solid #1A5A8A;color:#fff;--rot:3deg">
-      <div class="icon">🏍</div>
+      <div class="icon" style="display:flex;justify-content:center;color:#fff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28">
+  <ellipse cx="32" cy="30" rx="24" ry="26" fill="currentColor" opacity="0.9"/>
+  <path d="M14 42 Q20 58 32 58 Q44 58 50 42 Q44 50 32 50 Q20 50 14 42Z" fill="currentColor" opacity="0.85"/>
+  <path d="M17 28 Q18 18 32 16 Q46 18 47 28 Q46 36 32 36 Q18 36 17 28Z" fill="rgba(0,0,0,0.7)"/>
+  <path d="M19 22 Q26 18 38 20" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <rect x="26" y="7" width="12" height="4" rx="2" fill="rgba(0,0,0,0.4)"/>
+</svg></div>
       <div class="code">SNEMANJE ČELADE</div>
     </div>
   </div>
@@ -207,7 +213,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
       <div class="ac-hint">Rautkov prijem<br>takoj!</div>
     </div>
     <div class="action-card c2" id="cardHI" onclick="selectCard('HI')">
-      <div class="ac-icon">🛌</div>
+      <div class="ac-icon">🛏️</div>
       <div class="ac-code">Hitri iznos</div>
       <div class="ac-hint">Zajemalna nosila<br>kontrolirano</div>
     </div>
@@ -217,7 +223,13 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
       <div class="ac-hint">Stoječi<br>poškodovanec</div>
     </div>
     <div class="action-card c4" id="cardSC" onclick="selectCard('SC')">
-      <div class="ac-icon">🏍</div>
+      <div class="ac-icon" style="display:flex;align-items:center;justify-content:center;color:#fff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28">
+  <ellipse cx="32" cy="30" rx="24" ry="26" fill="currentColor" opacity="0.9"/>
+  <path d="M14 42 Q20 58 32 58 Q44 58 50 42 Q44 50 32 50 Q20 50 14 42Z" fill="currentColor" opacity="0.85"/>
+  <path d="M17 28 Q18 18 32 16 Q46 18 47 28 Q46 36 32 36 Q18 36 17 28Z" fill="rgba(0,0,0,0.7)"/>
+  <path d="M19 22 Q26 18 38 20" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <rect x="26" y="7" width="12" height="4" rx="2" fill="rgba(0,0,0,0.4)"/>
+</svg></div>
       <div class="ac-code">Snemanje čelade</div>
       <div class="ac-hint">Motorist<br>najprej čelada</div>
     </div>
@@ -251,9 +263,15 @@ const db = firebase.firestore();
 // UI=Urgentni iznos, HI=Hitri iznos, IM=Imobilizacija stoječega, SC=Snemanje čelade
 const ACTIONS = {
   UI:{icon:'🚨',label:'Urgentni iznos',color:'#7A1A0E',border:'#C0392B'},
-  HI:{icon:'🛌',label:'Hitri iznos',color:'#7A4E00',border:'#C17D0A'},
+  HI:{icon:'🛏️',label:'Hitri iznos',color:'#7A4E00',border:'#C17D0A'},
   IM:{icon:'🦺',label:'Imobilizacija',color:'#0D4D27',border:'#1A7A40'},
-  SC:{icon:'🏍',label:'Snemanje čelade',color:'#0D3A5C',border:'#1A5A8A'}
+  SC:{icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28">
+  <ellipse cx="32" cy="30" rx="24" ry="26" fill="currentColor" opacity="0.9"/>
+  <path d="M14 42 Q20 58 32 58 Q44 58 50 42 Q44 50 32 50 Q20 50 14 42Z" fill="currentColor" opacity="0.85"/>
+  <path d="M17 28 Q18 18 32 16 Q46 18 47 28 Q46 36 32 36 Q18 36 17 28Z" fill="rgba(0,0,0,0.7)"/>
+  <path d="M19 22 Q26 18 38 20" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <rect x="26" y="7" width="12" height="4" rx="2" fill="rgba(0,0,0,0.4)"/>
+</svg>',label:'Snemanje čelade',color:'#0D3A5C',border:'#1A5A8A'}
 };
 
 const PATIENTS = [
