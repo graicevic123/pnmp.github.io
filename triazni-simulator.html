@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PNMP – Triažni simulator</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B2A;--mid:#1B3A5C;--light:#2A5580;
+  --red:#C0392B;--amber:#C17D0A;--green:#1A7A40;--black:#2C3E50;
+  --white:#fff;--text:#C8D8E8;--muted:#7A9AB5;--border:rgba(255,255,255,0.08);
+  --t1:#C0392B;--t2:#B8940A;--t3:#1A7A40;--t4:#2C3E50;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(44,85,128,0.3) 0%,transparent 60%),
+             radial-gradient(ellipse 60% 50% at 80% 80%,rgba(192,57,43,0.12) 0%,transparent 55%)}
+.wrap{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:0 20px 60px}
+
+/* Header */
+.game-header{padding:36px 0 28px;text-align:center}
+.eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.game-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,76px);line-height:0.92;letter-spacing:0.03em;margin-bottom:14px}
+.game-title span{color:var(--red)}
+.game-sub{font-size:14px;color:var(--muted);max-width:420px;margin:0 auto;line-height:1.6}
+
+/* Progress */
+.prog-bar-wrap{background:rgba(255,255,255,0.06);border-radius:2px;height:3px;margin:24px 0 6px;overflow:hidden}
+.prog-bar-fill{height:100%;background:var(--red);border-radius:2px;transition:width 0.5s cubic-bezier(0.4,0,0.2,1)}
+.prog-label{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.1em;margin-bottom:28px}
+
+/* Score bar */
+.score-bar{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.score-pill{flex:1;min-width:80px;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:8px;padding:10px;text-align:center}
+.score-num{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1}
+.score-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+
+/* Patient card */
+.patient-card{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:14px;padding:28px;margin-bottom:20px;animation:fadeUp 0.35s ease both}
+.patient-num{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.patient-scenario{font-size:16px;font-weight:500;color:var(--white);line-height:1.55;margin-bottom:20px}
+
+/* Vitals */
+.vitals{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:22px}
+.vital{background:rgba(255,255,255,0.05);border:0.5px solid var(--border);border-radius:8px;padding:10px 12px}
+.vital-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.vital-val{font-size:14px;font-weight:600;color:var(--white)}
+.vital-val.warn{color:#FAC775}
+.vital-val.crit{color:#F4A09A}
+.vital-val.ok{color:#7FE8A8}
+
+/* Triage buttons */
+.triage-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.triage-btns{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:500px){.triage-btns{grid-template-columns:repeat(4,1fr)}}
+.t-btn{padding:14px 8px;border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;background:rgba(255,255,255,0.04);cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif;-webkit-tap-highlight-color:transparent}
+.t-btn:hover:not(.locked){transform:translateY(-2px);border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.08)}
+.t-btn:active:not(.locked){transform:scale(0.98)}
+.t-btn.locked{cursor:default}
+.t-code{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.03em;line-height:1;margin-bottom:4px}
+.t-name{font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;opacity:0.8}
+.t-btn.t1{border-color:rgba(192,57,43,0.4)} .t-btn.t1 .t-code{color:var(--t1)}
+.t-btn.t2{border-color:rgba(184,148,10,0.4)} .t-btn.t2 .t-code{color:var(--t2)}
+.t-btn.t3{border-color:rgba(26,122,64,0.4)} .t-btn.t3 .t-code{color:var(--t3)}
+.t-btn.t4{border-color:rgba(44,62,80,0.5)} .t-btn.t4 .t-code{color:#8A9BB0}
+.t-btn.correct-pick{background:rgba(26,122,64,0.2)!important;border-color:var(--t3)!important}
+.t-btn.correct-pick .t-code,.t-btn.correct-pick .t-name{color:#7FE8A8!important}
+.t-btn.wrong-pick{background:rgba(192,57,43,0.2)!important;border-color:var(--t1)!important}
+.t-btn.wrong-pick .t-code,.t-btn.wrong-pick .t-name{color:#F4A09A!important}
+.t-btn.reveal{background:rgba(26,122,64,0.1)!important;border-color:rgba(26,122,64,0.5)!important}
+.t-btn.reveal .t-code,.t-btn.reveal .t-name{color:rgba(127,232,168,0.7)!important}
+
+/* Feedback */
+.feedback{margin-top:18px;padding:14px 18px;border-radius:10px;font-size:13px;line-height:1.6;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:rgba(26,122,64,0.15);border:0.5px solid rgba(26,122,64,0.4);color:#7FE8A8}
+.feedback.nok{background:rgba(192,57,43,0.15);border:0.5px solid rgba(192,57,43,0.4);color:#F4A09A}
+.feedback strong{font-weight:600}
+.feedback .alg{margin-top:8px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;opacity:0.7}
+
+/* Result */
+.result{display:none;text-align:center;padding:48px 24px 56px;animation:fadeUp 0.5s ease both}
+.result.show{display:block}
+.result-ring{width:148px;height:148px;border-radius:50%;border:3px solid var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 28px;position:relative}
+.result-ring::before{content:'';position:absolute;inset:-10px;border-radius:50%;border:0.5px solid rgba(192,57,43,0.2)}
+.result-score{font-family:'Bebas Neue',sans-serif;font-size:58px;line-height:1;letter-spacing:0.02em}
+.result-denom{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);letter-spacing:0.1em}
+.result-title{font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:0.04em;margin-bottom:10px}
+.result-sub{font-size:14px;color:var(--muted);margin-bottom:32px;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.6}
+.result-breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;max-width:520px;margin:0 auto 32px}
+.rb-card{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:10px;padding:14px}
+.rb-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rb-val{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:0.02em}
+.rb-val.full{color:var(--green)}.rb-val.partial{color:var(--amber)}.rb-val.bad{color:var(--red)}
+.btn-restart{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;transition:all 0.15s}
+.btn-restart:hover{background:#a93226;transform:translateY(-1px)}
+
+/* Reference box */
+.ref-box{background:rgba(255,255,255,0.03);border:0.5px solid var(--border);border-radius:12px;padding:18px 20px;margin-top:32px}
+.ref-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.ref-item{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text)}
+.ref-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:480px){.patient-scenario{font-size:15px}.t-code{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="game-header">
+    <p class="eyebrow">PNMP · GZL</p>
+    <h1 class="game-title">TRIAŽNI<br><span>SIMULATOR</span></h1>
+    <p class="game-sub">Razvrsti vsakega pacienta v pravilno triažno kategorijo po algoritmu SIEVE.</p>
+  </div>
+
+  <div id="game-area">
+    <div class="prog-label">
+      <span>NAPREDEK</span>
+      <span id="prog-txt">0 / 10</span>
+    </div>
+    <div class="prog-bar-wrap">
+      <div class="prog-bar-fill" id="prog-bar" style="width:0%"></div>
+    </div>
+
+    <div class="score-bar">
+      <div class="score-pill"><div class="score-num" id="sc-correct" style="color:#7FE8A8">0</div><div class="score-lbl">Pravilno</div></div>
+      <div class="score-pill"><div class="score-num" id="sc-wrong" style="color:#F4A09A">0</div><div class="score-lbl">Napačno</div></div>
+      <div class="score-pill"><div class="score-num" id="sc-pct" style="color:var(--muted)">—</div><div class="score-lbl">Uspešnost</div></div>
+    </div>
+
+    <div class="patient-card" id="p-card">
+      <div class="patient-num" id="p-num">Pacient 1 / 10</div>
+      <div class="patient-scenario" id="p-scenario"></div>
+      <div class="vitals" id="p-vitals"></div>
+      <div class="triage-label">Izberi triažno kategorijo:</div>
+      <div class="triage-btns" id="p-btns">
+        <button class="t-btn t1" onclick="choose('T1')">
+          <div class="t-code">T1</div><div class="t-name">Rdeča</div>
+        </button>
+        <button class="t-btn t2" onclick="choose('T2')">
+          <div class="t-code">T2</div><div class="t-name">Rumena</div>
+        </button>
+        <button class="t-btn t3" onclick="choose('T3')">
+          <div class="t-code">T3</div><div class="t-name">Zelena</div>
+        </button>
+        <button class="t-btn t4" onclick="choose('T4')">
+          <div class="t-code">T4</div><div class="t-name">Črna</div>
+        </button>
+      </div>
+      <div class="feedback" id="p-fb"></div>
+    </div>
+
+    <div class="ref-box">
+      <div class="ref-title">Hitri pregled – SIEVE kategorije</div>
+      <div class="ref-grid">
+        <div class="ref-item"><div class="ref-dot" style="background:#C0392B"></div>T1 Rdeča – ogroža življenje, rešljiv</div>
+        <div class="ref-item"><div class="ref-dot" style="background:#B8940A"></div>T2 Rumena – nujen, brez šoka</div>
+        <div class="ref-item"><div class="ref-dot" style="background:#1A7A40"></div>T3 Zelena – hodi, počaka</div>
+        <div class="ref-item"><div class="ref-dot" style="background:#4A5568"></div>T4 Črna – ne diha / umirajoč</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="result" id="result">
+    <div class="result-ring">
+      <div class="result-score" id="r-score">0</div>
+      <div class="result-denom">/ 10</div>
+    </div>
+    <div class="result-title" id="r-title">—</div>
+    <div class="result-sub" id="r-sub">—</div>
+    <div class="result-breakdown" id="r-breakdown"></div>
+    <button class="btn-restart" onclick="restart()">↺ &nbsp;Ponovi igro</button>
+  </div>
+
+</div>
+
+<script>
+const PATIENTS = [
+  {
+    num:1,
+    scenario:'Ženska, ~45 let, vstane z zemlje in počasi hodi proti reševalcem. Pritožuje se nad bolečino v kolku.',
+    vitals:[{l:'Hoja',v:'DA',s:'ok'},{l:'Zavest',v:'Jasna',s:'ok'},{l:'Poškodbe',v:'Bolečina v kolku',s:'warn'}],
+    correct:'T3',
+    why:'Pacientka HODI → takoj T3 ZELENA. Pokretni gredo sami v zeleni sektor, jih ne nosimo!',
+    alg:'SIEVE: hodi? DA → T3 ZELENA'
+  },
+  {
+    num:2,
+    scenario:'Moški, ~60 let, leži na tleh, ne reagira. Po sprostitvi dihalne poti (repozicija glave) ne začne dihati.',
+    vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Dihanje',v:'Odsotno',s:'crit'},{l:'Po sprostitvi DP',v:'Še vedno ne diha',s:'crit'}],
+    correct:'T4',
+    why:'Ne hodi, ne diha niti po sprostitvi dihalne poti → T4 ČRNA. Gremo naprej k naslednjemu pacientu.',
+    alg:'SIEVE: hodi? NE → diha? NE → sprosti DP → še vedno NE → T4 ČRNA'
+  },
+  {
+    num:3,
+    scenario:'Fant, ~20 let, leži in hlapi. Potem ko sprostu dihalno pot, začne dihati s frekvenco 36/min. Pulz je šibak, kapilarna polnitev 4 sekunde.',
+    vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Dihanje po DP',v:'36 / min',s:'crit'},{l:'Kapilarna polnitev',v:'4 sek',s:'crit'}],
+    correct:'T1',
+    why:'Ne hodi, po sprostitvi DP diha – ampak frekvenca 36/min je nad 29 → T1 RDEČA. Prav tako kapilarna polnitev >2 sek bi dala T1.',
+    alg:'SIEVE: hodi? NE → diha? DA (po DP) → fr. 36/min > 29 → T1 RDEČA'
+  },
+  {
+    num:4,
+    scenario:'Ženska, ~35 let, sedí ob vozilu, zmešana. Diha s frekvenco 22/min. Kapilarna polnitev je 1,5 sekunde.',
+    vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Frekvenca dihanja',v:'22 / min',s:'ok'},{l:'Kapilarna polnitev',v:'1,5 sek',s:'ok'}],
+    correct:'T2',
+    why:'Ne hodi, diha 22/min (v redu 11–29), kapilarna polnitev 1,5 sek (< 2 sek) → T2 RUMENA. Ni šoka, dihanje zadovoljivo.',
+    alg:'SIEVE: hodi? NE → fr. 22/min ✓ → kap. pol. 1,5 sek < 2 sek ✓ → T2 RUMENA'
+  },
+  {
+    num:5,
+    scenario:'Otrok, ~8 let, joka in kliče mamo. Ko ga vprašamo, vstane in se zapleta pri hoji.',
+    vitals:[{l:'Hoja',v:'DA (otežena)',s:'warn'},{l:'Zavest',v:'Jasna, joka',s:'ok'},{l:'Vidne poškodbe',v:'Odrgnine',s:'ok'}],
+    correct:'T3',
+    why:'Otrok HODI, čeprav oteži. SIEVE: hodi? → DA → T3 ZELENA. Usmerimo ga v zeleni sektor.',
+    alg:'SIEVE: hodi? DA → T3 ZELENA'
+  },
+  {
+    num:6,
+    scenario:'Moški, ~50 let, leži, pri zavesti a zmeden. Diha s frekvenco 8/min – počasno in plitvo. Pulz tipen, kapilarna polnitev 1,8 sek.',
+    vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Frekvenca dihanja',v:'8 / min',s:'crit'},{l:'Kapilarna polnitev',v:'1,8 sek',s:'ok'}],
+    correct:'T1',
+    why:'Ne hodi, diha ampak frekvenca 8/min je POD 10 → izven normalnega pasu 11–29 → T1 RDEČA.',
+    alg:'SIEVE: hodi? NE → fr. 8/min < 11 → T1 RDEČA'
+  },
+  {
+    num:7,
+    scenario:'Ženska, ~70 let, leži, ne reagira na klic. Diha s frekvenco 24/min. Kapilarna polnitev je 5 sekund, koža bleda in hladna.',
+    vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Frekvenca dihanja',v:'24 / min',s:'ok'},{l:'Kapilarna polnitev',v:'5 sek',s:'crit'}],
+    correct:'T1',
+    why:'Ne hodi, frekvenca 24/min je v redu, AMPAK kapilarna polnitev 5 sek > 2 sek → šok → T1 RDEČA.',
+    alg:'SIEVE: hodi? NE → fr. 24/min ✓ → kap. pol. 5 sek > 2 sek → T1 RDEČA'
+  },
+  {
+    num:8,
+    scenario:'Moški, ~30 let, sedi ob drevesu in drži glavo. Vstane ko ga pokličemo. Rahla krvavitev iz čela.',
+    vitals:[{l:'Hoja',v:'DA',s:'ok'},{l:'Zavest',v:'Jasna',s:'ok'},{l:'Krvavitev',v:'Manjša, čelo',s:'warn'}],
+    correct:'T3',
+    why:'Vstane in hodi → T3 ZELENA. Manjša krvavitev ne spremeni kategorije v SIEVE – usmerimo ga v zeleni sektor.',
+    alg:'SIEVE: hodi? DA → T3 ZELENA'
+  },
+  {
+    num:9,
+    scenario:'Deklica, ~12 let, leži, ne vstane. Po sprostitvi dihalne poti začne dihati s frekvenco 18/min. Kapilarna polnitev 3,5 sekunde.',
+    vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Dihanje po DP',v:'18 / min',s:'ok'},{l:'Kapilarna polnitev',v:'3,5 sek',s:'crit'}],
+    correct:'T1',
+    why:'Ne hodi, po sprostitvi DP diha 18/min (v redu), ampak kapilarna polnitev 3,5 sek > 2 sek → šok → T1 RDEČA.',
+    alg:'SIEVE: hodi? NE → fr. 18/min ✓ → kap. pol. 3,5 sek > 2 sek → T1 RDEČA'
+  },
+  {
+    num:10,
+    scenario:'Moški, ~25 let, leži in kriči od bolečine v nogi. Ko ga prosimo vstane in poskuša hoditi.',
+    vitals:[{l:'Hoja',v:'DA (s težavo)',s:'warn'},{l:'Frekvenca dihanja',v:'20 / min',s:'ok'},{l:'Poškodba',v:'Verjetni zlom noge',s:'warn'}],
+    correct:'T3',
+    why:'Kljub bolečini in verjetnem zlomu – HODI → T3 ZELENA. Zlom uda brez šoka ali dihalne stiske je zelena kategorija.',
+    alg:'SIEVE: hodi? DA → T3 ZELENA'
+  }
+];
+
+let cur=0, correct=0, wrong=0, answered=false;
+
+function render(){
+  const p=PATIENTS[cur];
+  document.getElementById('p-num').textContent='Pacient '+(cur+1)+' / '+PATIENTS.length;
+  document.getElementById('p-scenario').textContent=p.scenario;
+  // Vitals
+  document.getElementById('p-vitals').innerHTML=p.vitals.map(v=>
+    `<div class="vital"><div class="vital-label">${v.l}</div><div class="vital-val ${v.s}">${v.v}</div></div>`
+  ).join('');
+  // Reset buttons
+  document.querySelectorAll('.t-btn').forEach(b=>{
+    b.className=b.className.replace(/correct-pick|wrong-pick|reveal|locked/g,'').trim();
+  });
+  // Reset feedback
+  const fb=document.getElementById('p-fb');
+  fb.className='feedback';fb.innerHTML='';
+  answered=false;
+  updateProgress();
+}
+
+function choose(cat){
+  if(answered)return;
+  answered=true;
+  const p=PATIENTS[cur];
+  const ok=cat===p.correct;
+  if(ok)correct++;else wrong++;
+  updateScores();
+
+  // Button states
+  const map={T1:0,T2:1,T3:2,T4:3};
+  const btns=document.querySelectorAll('.t-btn');
+  btns.forEach(b=>b.classList.add('locked'));
+  btns[map[cat]].classList.add(ok?'correct-pick':'wrong-pick');
+  if(!ok)btns[map[p.correct]].classList.add('reveal');
+
+  // Feedback
+  const fb=document.getElementById('p-fb');
+  fb.className='feedback show '+(ok?'ok':'nok');
+  fb.innerHTML=`<strong>${ok?'Pravilno! ✓':'Napačno. ✗'}</strong> ${p.why}<div class="alg">${p.alg}</div>`;
+
+  // Auto advance
+  if(cur<PATIENTS.length-1){
+    setTimeout(()=>{cur++;render();},ok?2200:3200);
+  } else {
+    setTimeout(showResult,ok?2200:3200);
+  }
+}
+
+function updateProgress(){
+  const pct=cur/PATIENTS.length*100;
+  document.getElementById('prog-bar').style.width=pct+'%';
+  document.getElementById('prog-txt').textContent=cur+' / '+PATIENTS.length;
+}
+
+function updateScores(){
+  document.getElementById('sc-correct').textContent=correct;
+  document.getElementById('sc-wrong').textContent=wrong;
+  const done=correct+wrong;
+  if(done>0)document.getElementById('sc-pct').textContent=Math.round(correct/done*100)+'%';
+}
+
+function showResult(){
+  document.getElementById('game-area').style.display='none';
+  const r=document.getElementById('result');
+  r.classList.add('show');
+  document.getElementById('r-score').textContent=correct;
+  const pct=Math.round(correct/PATIENTS.length*100);
+  const[title,sub]=pct>=90?['Odlično!','Triažo obvladaš. Na terenu si doma.']:
+    pct>=70?['Dobro!','Večino primerov si razrešil pravilno. Ponovi napačne.']:
+    ['Vaditi naprej','Priporoča se ponoven pregled algoritma SIEVE.'];
+  document.getElementById('r-title').textContent=title;
+  document.getElementById('r-sub').textContent=sub;
+  const cats={T1:0,T2:0,T3:0,T4:0};
+  const catOk={T1:0,T2:0,T3:0,T4:0};
+  PATIENTS.forEach((p,i)=>{cats[p.correct]++;});
+  // we need per-category score - rebuild from answered data
+  document.getElementById('r-breakdown').innerHTML=[
+    {cat:'T1 Rdeča',col:'#C0392B'},
+    {cat:'T2 Rumena',col:'#B8940A'},
+    {cat:'T3 Zelena',col:'#1A7A40'},
+    {cat:'T4 Črna',col:'#4A5568'}
+  ].map(c=>`<div class="rb-card">
+    <div class="rb-label" style="color:${c.col}">${c.cat}</div>
+    <div class="rb-val">${cats[c.cat.split(' ')[0]]} vpr.</div>
+  </div>`).join('');
+}
+
+function restart(){
+  cur=0;correct=0;wrong=0;answered=false;
+  document.getElementById('game-area').style.display='block';
+  document.getElementById('result').classList.remove('show');
+  document.getElementById('sc-correct').textContent='0';
+  document.getElementById('sc-wrong').textContent='0';
+  document.getElementById('sc-pct').textContent='—';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
