@@ -72,9 +72,9 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .tbl-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted)}
 .loading{text-align:center;padding:48px;font-size:13px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:0.1em}
 .empty{text-align:center;padding:60px;color:var(--muted);font-size:14px}
-table{width:100%;border-collapse:collapse;table-layout:fixed}
+table{width:100%;border-collapse:collapse}
 th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding:10px 16px;text-align:left;border-bottom:0.5px solid var(--border);background:rgba(255,255,255,0.02);white-space:nowrap}
-td{padding:12px 16px;border-bottom:0.5px solid var(--border);font-size:13px;vertical-align:middle;overflow:hidden;text-overflow:ellipsis}
+td{padding:12px 16px;border-bottom:0.5px solid var(--border);font-size:13px;vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(255,255,255,0.025)}
 .n{font-weight:500;color:var(--white)}
@@ -136,6 +136,11 @@ tr:hover td{background:rgba(255,255,255,0.025)}
      <option value="">Vsi kvizi</option>
      <option value="prometna-nesreca">Prometna nesreča</option>
      <option value="mnozicne-nesrece">Množične nesreče</option>
+    </select>
+    <select class="sel hidden" id="fA" onchange="filtrirajAnkete()">
+     <option value="">Vse ankete</option>
+     <option value="Prometna nesreča">Prometna nesreča</option>
+     <option value="Množične nesreče">Množične nesreče</option>
     </select>
     <select class="sel hidden" id="fS" onchange="filtrirajSim()">
      <option value="">Vsi simulatorji</option>
@@ -212,7 +217,7 @@ tr:hover td{background:rgba(255,255,255,0.025)}
 firebase.initializeApp({apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",authDomain:"pnmp-kviz.firebaseapp.com",projectId:"pnmp-kviz",storageBucket:"pnmp-kviz.firebasestorage.app",messagingSenderId:"907229581116",appId:"1:907229581116:web:831cad9f6749bfb1015839"});
 const db=firebase.firestore();
 const PIN='1234';
-let kvizi=[],filtrirani=[],ankete=[],simulatorji=[],simFiltrirani=[];
+let kvizi=[],filtrirani=[],ankete=[],ankFiltrirane=[],simulatorji=[],simFiltrirani=[];
 let anketeOk=false,simulatorOk=false,curTab='k';
 
 /* PIN */
@@ -232,20 +237,19 @@ document.addEventListener('DOMContentLoaded',()=>{
  document.getElementById('pi').addEventListener('keydown',e=>{if(e.key==='Enter')checkPin();});
 });
 
-/* TABS – static, no jumping */
+/* TABS */
 function tab(t){
  curTab=t;
  ['k','a','s'].forEach(x=>{
   document.getElementById('t'+x.toUpperCase()).classList.toggle('on',t===x);
   document.getElementById('p'+x.toUpperCase()).classList.toggle('off',t!==x);
  });
- // Toggle filters – both occupy same slot, just opacity
  document.getElementById('fK').classList.toggle('hidden',t!=='k');
+ document.getElementById('fA').classList.toggle('hidden',t!=='a');
  document.getElementById('fS').classList.toggle('hidden',t!=='s');
-
  syncH();
  if(t==='k') statsKvizi();
- if(t==='a'){ if(!anketeOk) loadAnkete(); else statsAnkete(); }
+ if(t==='a'){ if(!anketeOk) loadAnkete(); else{ statsAnkete(); renderAnkete(ankFiltrirane); } }
  if(t==='s'){ if(!simulatorOk) loadSimulator(); else{ statsSimulator(); renderSimulator(simFiltrirani); } }
 }
 
@@ -296,15 +300,16 @@ function statsKvizi(){
 function renderKvizi(){
  const el=document.getElementById('tblK');
  if(!filtrirani.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
- let h='<table><colgroup><col><col style="width:130px"><col style="width:90px"><col style="width:80px"></colgroup><thead><tr><th>Ime in priimek</th><th>Kviz</th><th>Rezultat</th><th>Pregled</th></tr></thead><tbody>';
+ let h='<table><colgroup><col style="width:180px"><col style="width:140px"><col style="width:90px"><col style="width:100px"><col style="width:80px"></colgroup><thead><tr><th>Ime in priimek</th><th>Kviz</th><th>Rezultat</th><th>Čas</th><th>Pregled</th></tr></thead><tbody>';
  filtrirani.forEach(r=>{
   const pct=r.procent||0,cls=pct>=87?'hi':pct>=62?'md':'lo';
   const kv=r.kvizNaziv||r.kviz||'—';
   const col=kv.includes('prometna')||kv.includes('Prometna')?'#F4A09A':'#7FE8A8';
   h+=`<tr>
    <td class="n">${r.polnoIme||'—'}</td>
-   <td style="font-size:11px;font-weight:600;color:${col};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${kv}</td>
+   <td style="font-size:11px;font-weight:600;color:${col}">${kv}</td>
    <td><span class="sc ${cls}">${r.tocke||0}/${r.skupaj||8}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td>
+   <td class="tm">${fCas(r.cas)}</td>
    <td><button class="dbtn" onclick="openDrawer('${r._id}')">Pregled</button></td>
   </tr>`;
  });
@@ -320,36 +325,45 @@ async function loadAnkete(){
  try{
   const s=await db.collection('ankete').orderBy('cas','desc').limit(200).get();
   ankete=[];s.forEach(d=>ankete.push(d.data()));
-  anketeOk=true;statsAnkete();renderAnkete();
+  ankFiltrirane=[...ankete];
+  anketeOk=true;statsAnkete();renderAnkete(ankFiltrirane);
  }catch(e){ document.getElementById('tblA').innerHTML='<div class="loading">Napaka pri nalaganju anket.</div>'; }
 }
+function filtrirajAnkete(){
+ const f=document.getElementById('fA').value;
+ ankFiltrirane=f?ankete.filter(r=>r.kviz===f):ankete;
+ renderAnkete(ankFiltrirane);
+}
 function statsAnkete(){
- const n=ankete.length;
- const u=new Set(ankete.map(r=>r.polnoIme)).size;
- const p=n>0?Math.round(ankete.reduce((a,r)=>a+(r.ocena||0),0)/n*10)/10:0;
- const o=ankete.filter(a=>a.izboljsaj&&a.izboljsaj!=='—').length;
+ const data=ankFiltrirane.length?ankFiltrirane:ankete;
+ const n=data.length;
+ const u=new Set(data.map(r=>r.polnoIme)).size;
+ const p=n>0?Math.round(data.reduce((a,r)=>a+(r.ocena||0),0)/n*10)/10:0;
+ const o=data.filter(a=>a.izboljsaj&&a.izboljsaj!=='—').length;
  set('sN',n,'lN','Skupaj anket');
  set('sU',u,'lU','Tečajnikov');
  set('sP',p+' ★','lP','Povp. ocena');
  set('sO',o,'lO','S komentarji');
  document.getElementById('cntA').textContent=n+' zapisov';
 }
-function renderAnkete(){
+function renderAnkete(data){
+ data=data||ankete;
  const el=document.getElementById('tblA');
- if(!ankete.length){el.innerHTML='<div class="empty">Ni anket za prikaz.</div>';syncH();return;}
- let h='<table><colgroup><col><col style="width:130px"><col style="width:80px"><col style="width:200px"></colgroup><thead><tr><th>Ime in priimek</th><th>Tema</th><th>Ocena</th><th>Komentar</th></tr></thead><tbody>';
- ankete.forEach(r=>{
+ if(!data.length){el.innerHTML='<div class="empty">Ni anket za prikaz.</div>';syncH();return;}
+ let h='<table><thead><tr><th>Ime in priimek</th><th>Tema</th><th>Ocena</th><th>Čas</th><th>Pregled</th></tr></thead><tbody>';
+ data.forEach((r,i)=>{
   const stars='★'.repeat(r.ocena||0)+'☆'.repeat(5-(r.ocena||0));
-  const komentar=(r.vsec&&r.vsec!=='—')?r.vsec:(r.izboljsaj&&r.izboljsaj!=='—')?r.izboljsaj:'—';
   h+=`<tr>
    <td class="n">${r.polnoIme||'—'}</td>
-   <td style="font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.kviz||'—'}</td>
+   <td style="font-size:11px;color:var(--muted)">${r.kviz||'—'}</td>
    <td><span class="stars">${stars}</span></td>
-   <td style="font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${komentar}</td>
+   <td class="tm">${fCas(r.cas)}</td>
+   <td><button class="dbtn" onclick="openAnketaDrawer(${ankete.indexOf(r)})">Pregled</button></td>
   </tr>`;
  });
  h+='</tbody></table>';
  el.innerHTML=h;
+ document.getElementById('cntA').textContent=data.length+' zapisov';
  syncH();
 }
 
@@ -389,13 +403,14 @@ function statsSimulator(){
 function renderSimulator(data){
  const el=document.getElementById('tblS');
  if(!data||!data.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
- let h='<table><colgroup><col><col style="width:145px"><col style="width:90px"><col style="width:80px"></colgroup><thead><tr><th>Ime in priimek</th><th>Simulator</th><th>Rezultat</th><th>Pregled</th></tr></thead><tbody>';
+ let h='<table><colgroup><col style="width:180px"><col style="width:145px"><col style="width:90px"><col style="width:100px"><col style="width:80px"></colgroup><thead><tr><th>Ime in priimek</th><th>Simulator</th><th>Rezultat</th><th>Čas</th><th>Pregled</th></tr></thead><tbody>';
  data.forEach(r=>{
   const pct=r.procent||0,cls=pct>=90?'hi':pct>=60?'md':'lo';
   h+=`<tr>
    <td class="n">${r.polnoIme||'—'}</td>
-   <td style="font-size:11px;font-weight:600;color:${r._tipColor};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r._tipLabel}</td>
+   <td style="font-size:11px;font-weight:600;color:${r._tipColor}">${r._tipLabel}</td>
    <td><span class="sc ${cls}">${r.pravilno||0}/${r.skupaj||10}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td>
+   <td class="tm">${fCas(r.cas)}</td>
    <td><button class="dbtn" onclick="openSimDrawer('${r._id}')">Pregled</button></td>
   </tr>`;
  });
@@ -422,6 +437,34 @@ function openDrawer(id){
    </div>`;
   });
  }
+ document.getElementById('DRW_C').innerHTML=h;
+ document.getElementById('DRW').classList.add('on');
+ document.getElementById('OVL').classList.add('on');
+}
+
+/* ── DRAWER – ankete ── */
+function openAnketaDrawer(idx){
+ const r=ankete[idx];
+ if(!r)return;
+ const stars='★'.repeat(r.ocena||0)+'☆'.repeat(5-(r.ocena||0));
+ const col=(r.ocena||0)>=4?'var(--green)':(r.ocena||0)>=3?'var(--amber)':'var(--red)';
+ let h=`<div class="drw-nm">${r.polnoIme||'—'}</div>
+  <div class="drw-mt">${r.kviz||'—'} · ${fCas(r.cas)}</div>
+  <div class="drw-sc" style="color:${col}">${stars}</div>
+  <div class="drw-pct">${r.tezavnost||'—'} težavnost</div>`;
+ const polja=[
+  {label:'Kaj ti je bilo všeč',val:r.vsec},
+  {label:'Kaj bi izboljšal',val:r.izboljsaj},
+  {label:'Tema za naslednjič',val:r.naslednjic},
+ ];
+ polja.forEach(p=>{
+  if(p.val&&p.val!=='—'){
+   h+=`<div class="drw-q ok">
+    <div class="drw-qt">${p.label}</div>
+    <div class="drw-qa" style="color:var(--white)">${p.val}</div>
+   </div>`;
+  }
+ });
  document.getElementById('DRW_C').innerHTML=h;
  document.getElementById('DRW').classList.add('on');
  document.getElementById('OVL').classList.add('on');
