@@ -129,6 +129,11 @@ tr:hover td{background:rgba(255,255,255,0.025)}
     <option value="prometna-nesreca">Prometna nesreča</option>
     <option value="mnozicne-nesrece">Množične nesreče</option>
    </select>
+   <select class="sel" id="fS" onchange="filtrirajSim()" style="display:none">
+    <option value="">Vsi simulatorji</option>
+    <option value="simulator">Triažni (množične)</option>
+    <option value="simulator_pn">Prometna nesreča</option>
+   </select>
    <button class="act" onclick="reload()">↻</button>
    <button class="act" onclick="location.href='index.html'">← Portal</button>
   </div>
@@ -225,8 +230,9 @@ function tab(t){
  document.getElementById('tK').classList.toggle('on',t==='k');
  document.getElementById('tA').classList.toggle('on',t==='a');
  document.getElementById('tS').classList.toggle('on',t==='s');
- document.getElementById('fK').disabled=t!=='k';
- document.getElementById('fK').style.opacity=t!=='k'?'0.3':'1';
+ // Show correct filter
+ document.getElementById('fK').style.display=t==='k'?'':'none';
+ document.getElementById('fS').style.display=t==='s'?'':'none';
  document.getElementById('pK').classList.toggle('off',t!=='k');
  document.getElementById('pA').classList.toggle('off',t!=='a');
  document.getElementById('pS').classList.toggle('off',t!=='s');
@@ -241,7 +247,7 @@ function tab(t){
  }
  if(t==='s'){
   if(!simulatorOk) loadSimulator();
-  else statsSimulator();
+  else{ statsSimulator(); renderSimulator(); }
  }
 }
 
@@ -368,14 +374,18 @@ function statsSimulator(){
 }
 
 /* Render simulator */
-function renderSimulator(){
+function renderSimulator(data){
+ data = data || simulatorji;
  const el=document.getElementById('tblS');
- if(!simulatorji.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
- let h='<table><thead><tr><th>Ime in priimek</th><th>Rezultat</th><th>Pravilno</th><th>Napačno</th><th>Čas</th></tr></thead><tbody>';
- simulatorji.forEach(r=>{
+ if(!data.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
+ let h='<table><thead><tr><th>Ime in priimek</th><th>Simulator</th><th>Rezultat</th><th>Pravilno</th><th>Napačno</th><th>Čas</th></tr></thead><tbody>';
+ data.forEach(r=>{
   const pct=r.procent||0,cls=pct>=90?'hi':pct>=60?'md':'lo';
+  const tipLabel=r._tipLabel||'—';
+  const tipColor=r._tip==='simulator_pn'?'#C17D0A':'#148F77';
   h+=`<tr>
    <td class="n">${r.polnoIme||'—'}</td>
+   <td style="font-size:11px;font-weight:600;color:${tipColor}">${tipLabel}</td>
    <td><span class="sc ${cls}">${r.pravilno||0}/${r.skupaj||10}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td>
    <td style="color:#7FE8A8;font-weight:600">${r.pravilno||0}</td>
    <td style="color:#F4A09A;font-weight:600">${r.napacno||0}</td>
@@ -387,19 +397,30 @@ function renderSimulator(){
  syncH();
 }
 
-/* Load simulator */
+/* Load simulator – obe kolekciji */
 async function loadSimulator(){
  document.getElementById('tblS').innerHTML='<div class="loading">Nalagam...</div>';
  try{
-  const s=await db.collection('simulator').orderBy('cas','desc').limit(300).get();
   simulatorji=[];
-  s.forEach(d=>{const x=d.data();x._id=d.id;simulatorji.push(x);});
+  const [s1,s2]=await Promise.all([
+   db.collection('simulator').orderBy('cas','desc').limit(200).get(),
+   db.collection('simulator_pn').orderBy('cas','desc').limit(200).get()
+  ]);
+  s1.forEach(d=>{const x=d.data();x._id=d.id;x._tip='simulator';x._tipLabel='Triažni (množične)';simulatorji.push(x);});
+  s2.forEach(d=>{const x=d.data();x._id=d.id;x._tip='simulator_pn';x._tipLabel='Prometna nesreča';simulatorji.push(x);});
+  simulatorji.sort((a,b)=>(b.cas?.seconds||0)-(a.cas?.seconds||0));
   simulatorOk=true;
   statsSimulator();
   renderSimulator();
  }catch(e){
-  document.getElementById('tblS').innerHTML='<div class="loading">Napaka pri nalaganju rezultatov simulatorja.</div>';
+  document.getElementById('tblS').innerHTML='<div class="loading">Napaka pri nalaganju: '+e.message+'</div>';
  }
+}
+
+/* Filter simulator */
+function filtrirajSim(){
+ const f=document.getElementById('fS').value;
+ renderSimulator(f?simulatorji.filter(r=>r._tip===f):simulatorji);
 }
 
 /* Drawer */
