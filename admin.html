@@ -481,8 +481,9 @@ function openSimDrawer(id){
   <div class="drw-sc" style="color:${col}">${r.pravilno||0}/${r.skupaj||10}</div>
   <div class="drw-pct">${pct}% pravilnih · ${r.napacno||0} napačnih</div>`;
 
- if(r.odgovori&&r.odgovori.length){
-  r.odgovori.forEach(o=>{
+ if(r.odgovori&&Object.keys(r.odgovori).length){
+  Object.keys(r.odgovori).sort((a,b)=>parseInt(a.slice(1))-parseInt(b.slice(1))).forEach(k=>{
+   const o=r.odgovori[k];
    h+=`<div class="drw-q ${o.pravilno?'ok':'nok'}">
     <div class="drw-qt">${o.st}. ${o.scenario}</div>
     <div class="drw-qa">

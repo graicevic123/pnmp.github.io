@@ -484,7 +484,17 @@ function showResult(){
  const raw=sessionStorage.getItem('pnmp_active_user');
  const user=raw?JSON.parse(raw):{polnoIme:'Anonimno'};
  const pct=Math.round(correct/PATIENTS.length*100);
- db.collection('simulator_pn').add({polnoIme:user.polnoIme||'Anonimno',pravilno:correct,napacno:wrong,skupaj:PATIENTS.length,procent:pct,odgovori:odgovori,cas:firebase.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
+ const odgovoriObj={};
+ odgovori.forEach((o,i)=>{odgovoriObj['o'+(i+1)]=o;});
+ db.collection('simulator_pn').add({
+  polnoIme:user.polnoIme||'Anonimno',
+  pravilno:correct,
+  napacno:wrong,
+  skupaj:PATIENTS.length,
+  procent:pct,
+  odgovori:odgovoriObj,
+  cas:firebase.firestore.FieldValue.serverTimestamp()
+ }).then(()=>console.log('Saved OK')).catch(e=>console.error('Firebase error:',e));
  document.getElementById('GAME').style.display='none';
  const r=document.getElementById('RESULT');r.classList.add('show');
  document.getElementById('r-score').textContent=correct;
