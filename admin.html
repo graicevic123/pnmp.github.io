@@ -3,22 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PNMP Admin</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0D1B2A;--red:#C0392B;--amber:#D68910;--green:#1E8449;--white:#fff;--muted:#8A9BB0;--border:rgba(255,255,255,0.08)}
+:root{--navy:#0D1B2A;--red:#C0392B;--amber:#D68910;--green:#1E8449;--teal:#148F77;--white:#fff;--muted:#8A9BB0;--border:rgba(255,255,255,0.08)}
 body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(44,85,128,0.3) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(192,57,43,0.12) 0%,transparent 55%)}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(44,85,128,0.3) 0%,transparent 60%)}
 .page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 24px 80px}
 
-/* ── PIN ── */
+/* PIN */
 .pin-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center}
 .pin-wrap h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,7vw,72px);letter-spacing:0.03em;margin-bottom:6px}
 .pin-wrap h1 em{color:var(--red);font-style:normal}
@@ -26,38 +23,45 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .pin-box{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:14px;padding:28px;width:300px}
 .pin-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .pin-inp{width:100%;padding:12px 16px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;color:var(--white);font-family:'DM Mono',monospace;font-size:22px;letter-spacing:0.35em;text-align:center;outline:none;margin-bottom:12px}
-.pin-inp:focus{border-color:rgba(255,255,255,0.35)}
-.pin-btn{width:100%;padding:12px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:background 0.15s}
+.pin-btn{width:100%;padding:12px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer}
 .pin-btn:hover{background:#a93226}
 .pin-err{font-size:13px;color:#F4A09A;margin-top:8px;display:none}
 
-/* ── MAIN ── */
+/* MAIN */
 .main{display:none}
 
 /* Sticky header */
 .hdr{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(13,27,42,0.88);border-bottom:0.5px solid var(--border);padding:14px 0;margin-bottom:28px}
-.hdr-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.hdr h1{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.03em;line-height:1}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hdr h1{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.03em;line-height:1;flex-shrink:0}
 .hdr h1 em{color:var(--red);font-style:normal}
-.hdr-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
-/* Tabs */
-.tab{min-width:80px;text-align:center;padding:7px 14px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+/* Header right – STATIC layout, no jumping */
+.hdr-right{display:flex;align-items:center;gap:8px}
+/* Tabs group – fixed width container */
+.tab-group{display:flex;gap:6px;flex-shrink:0}
+/* Filter slot – fixed width so layout never shifts */
+.filter-slot{width:180px;flex-shrink:0;position:relative}
+.filter-slot select{position:absolute;top:0;left:0;width:100%;transition:opacity 0.15s}
+.filter-slot select.hidden{opacity:0;pointer-events:none}
+/* Action buttons */
+.act-group{display:flex;gap:6px;flex-shrink:0}
+
+.tab{width:86px;text-align:center;padding:7px 0;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.15s}
 .tab.on{background:var(--red);border-color:var(--red);color:#fff}
 .tab:hover:not(.on){color:var(--white);border-color:rgba(255,255,255,0.3)}
-.sel{padding:7px 12px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;outline:none;transition:opacity 0.15s}
-.sel:disabled{opacity:0.3;cursor:default}
+.sel{width:100%;padding:7px 10px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;outline:none}
 .sel option{background:#1B3A5C}
-.act{padding:7px 14px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s}
+.act{padding:7px 14px;background:transparent;border:0.5px solid rgba(255,255,255,0.15);border-radius:7px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s;white-space:nowrap}
 .act:hover{color:var(--white);border-color:rgba(255,255,255,0.3)}
 
-/* Stats – always shown */
+/* Stats */
 .stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
-.stat{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:10px;padding:14px 18px;flex:1;min-width:110px;text-align:center;transition:all 0.25s}
-.stat-n{font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;transition:all 0.25s}
-.stat-l{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);margin-top:4px;transition:all 0.25s}
+.stat{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:10px;padding:14px 18px;flex:1;min-width:110px;text-align:center}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1}
+.stat-l{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);margin-top:4px}
 
-/* Tab panels – KEY: both always rendered, just opacity toggle */
+/* Panels */
 .panels{position:relative}
 .panel{transition:opacity 0.2s}
 .panel.off{opacity:0;pointer-events:none;position:absolute;top:0;left:0;width:100%}
@@ -68,20 +72,18 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .tbl-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted)}
 .loading{text-align:center;padding:48px;font-size:13px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:0.1em}
 .empty{text-align:center;padding:60px;color:var(--muted);font-size:14px}
-table{width:100%;border-collapse:collapse}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
 th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding:10px 16px;text-align:left;border-bottom:0.5px solid var(--border);background:rgba(255,255,255,0.02);white-space:nowrap}
-td{padding:12px 16px;border-bottom:0.5px solid var(--border);font-size:13px;vertical-align:middle}
+td{padding:12px 16px;border-bottom:0.5px solid var(--border);font-size:13px;vertical-align:middle;overflow:hidden;text-overflow:ellipsis}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(255,255,255,0.025)}
 .n{font-weight:500;color:var(--white)}
 .sc{font-family:'Bebas Neue',sans-serif;font-size:20px}
 .sc.hi{color:var(--green)}.sc.md{color:var(--amber)}.sc.lo{color:var(--red)}
-.kv{font-family:'DM Mono',monospace;font-size:11px}
-.kv.p{color:#F4A09A}.kv.m{color:#FAC775}
 .tm{font-size:12px;color:var(--muted);white-space:nowrap}
-.dbtn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;padding:4px 10px;border-radius:5px;background:rgba(255,255,255,0.06);border:0.5px solid var(--border);color:var(--muted);cursor:pointer;transition:all 0.15s;text-transform:uppercase}
+.dbtn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;padding:4px 10px;border-radius:5px;background:rgba(255,255,255,0.06);border:0.5px solid var(--border);color:var(--muted);cursor:pointer;transition:all 0.15s;text-transform:uppercase;white-space:nowrap}
 .dbtn:hover{color:var(--white);border-color:rgba(255,255,255,0.3)}
-.stars{color:#FAC775;font-size:14px;letter-spacing:1px}
+.stars{color:#FAC775;font-size:14px}
 
 /* Drawer */
 .ovl{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;display:none}
@@ -100,6 +102,7 @@ tr:hover td{background:rgba(255,255,255,0.025)}
 .drw-qt{font-weight:500;color:var(--white);margin-bottom:5px;line-height:1.4}
 .drw-qa{font-size:12px;line-height:1.5}
 .ok-t{color:#7FE8A8}.nok-t{color:#F4A09A}
+.drw-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px}
 </style>
 </head>
 <body>
@@ -116,26 +119,34 @@ tr:hover td{background:rgba(255,255,255,0.025)}
  </div>
 </div>
 
-<!-- HEADER (sticky) -->
+<!-- HEADER -->
 <div class="hdr" id="HDR" style="display:none">
  <div class="hdr-inner">
   <h1>PNMP <em>ADMIN</em></h1>
   <div class="hdr-right">
-   <button class="tab on" id="tK" onclick="tab('k')">Kvizi</button>
-   <button class="tab" id="tA" onclick="tab('a')">Ankete</button>
-   <button class="tab" id="tS" onclick="tab('s')">Simulator</button>
-   <select class="sel" id="fK" onchange="filtriraj()">
-    <option value="">Vsi kvizi</option>
-    <option value="prometna-nesreca">Prometna nesreča</option>
-    <option value="mnozicne-nesrece">Množične nesreče</option>
-   </select>
-   <select class="sel" id="fS" onchange="filtrirajSim()" style="display:none">
-    <option value="">Vsi simulatorji</option>
-    <option value="simulator">Triažni (množične)</option>
-    <option value="simulator_pn">Prometna nesreča</option>
-   </select>
-   <button class="act" onclick="reload()">↻</button>
-   <button class="act" onclick="location.href='index.html'">← Portal</button>
+   <!-- Tabs – fixed width, ne skačejo -->
+   <div class="tab-group">
+    <button class="tab on" id="tK" onclick="tab('k')">Kvizi</button>
+    <button class="tab" id="tA" onclick="tab('a')">Ankete</button>
+    <button class="tab" id="tS" onclick="tab('s')">Simulator</button>
+   </div>
+   <!-- Filter slot – fixed width, oba selecta sta zložena drug čez drugega -->
+   <div class="filter-slot">
+    <select class="sel" id="fK" onchange="filtriraj()">
+     <option value="">Vsi kvizi</option>
+     <option value="prometna-nesreca">Prometna nesreča</option>
+     <option value="mnozicne-nesrece">Množične nesreče</option>
+    </select>
+    <select class="sel hidden" id="fS" onchange="filtrirajSim()">
+     <option value="">Vsi simulatorji</option>
+     <option value="simulator">Triažni (množične)</option>
+     <option value="simulator_pn">Prometna nesreča</option>
+    </select>
+   </div>
+   <div class="act-group">
+    <button class="act" onclick="reload()">↻</button>
+    <button class="act" onclick="location.href='index.html'">← Portal</button>
+   </div>
   </div>
  </div>
 </div>
@@ -144,7 +155,6 @@ tr:hover td{background:rgba(255,255,255,0.025)}
 <div class="main" id="MAIN">
  <div class="page">
 
-  <!-- Stats – always visible -->
   <div class="stats">
    <div class="stat"><div class="stat-n" id="sN">—</div><div class="stat-l" id="lN">Skupaj rešitev</div></div>
    <div class="stat"><div class="stat-n" id="sU">—</div><div class="stat-l" id="lU">Tečajnikov</div></div>
@@ -152,10 +162,9 @@ tr:hover td{background:rgba(255,255,255,0.025)}
    <div class="stat"><div class="stat-n" id="sO">—</div><div class="stat-l" id="lO">Odličnih (≥87%)</div></div>
   </div>
 
-  <!-- Tab panels – rendered together, opacity toggle = NO JUMP -->
   <div class="panels" id="PANELS">
 
-   <!-- Kvizi -->
+   <!-- KVIZI -->
    <div class="panel" id="pK">
     <div class="tbl-wrap">
      <div class="tbl-hdr">
@@ -166,7 +175,7 @@ tr:hover td{background:rgba(255,255,255,0.025)}
     </div>
    </div>
 
-   <!-- Ankete -->
+   <!-- ANKETE -->
    <div class="panel off" id="pA">
     <div class="tbl-wrap">
      <div class="tbl-hdr">
@@ -177,7 +186,7 @@ tr:hover td{background:rgba(255,255,255,0.025)}
     </div>
    </div>
 
-   <!-- Simulator -->
+   <!-- SIMULATOR -->
    <div class="panel off" id="pS">
     <div class="tbl-wrap">
      <div class="tbl-hdr">
@@ -192,7 +201,7 @@ tr:hover td{background:rgba(255,255,255,0.025)}
  </div>
 </div>
 
-<!-- Drawer -->
+<!-- Drawer overlay -->
 <div class="ovl" id="OVL" onclick="closeDrawer()"></div>
 <div class="drw" id="DRW">
  <button class="drw-x" onclick="closeDrawer()">✕</button>
@@ -202,14 +211,13 @@ tr:hover td{background:rgba(255,255,255,0.025)}
 <script>
 firebase.initializeApp({apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",authDomain:"pnmp-kviz.firebaseapp.com",projectId:"pnmp-kviz",storageBucket:"pnmp-kviz.firebasestorage.app",messagingSenderId:"907229581116",appId:"1:907229581116:web:831cad9f6749bfb1015839"});
 const db=firebase.firestore();
-
 const PIN='1234';
-let kvizi=[],filtrirani=[],ankete=[],simulatorji=[],anketeOk=false,simulatorOk=false,curTab='k';
+let kvizi=[],filtrirani=[],ankete=[],simulatorji=[],simFiltrirani=[];
+let anketeOk=false,simulatorOk=false,curTab='k';
 
 /* PIN */
 function checkPin(){
- const v=document.getElementById('pi').value;
- if(v===PIN){
+ if(document.getElementById('pi').value===PIN){
   document.getElementById('PIN').style.display='none';
   document.getElementById('HDR').style.display='block';
   document.getElementById('MAIN').style.display='block';
@@ -224,55 +232,56 @@ document.addEventListener('DOMContentLoaded',()=>{
  document.getElementById('pi').addEventListener('keydown',e=>{if(e.key==='Enter')checkPin();});
 });
 
-/* Tabs – opacity toggle, NO layout shift */
+/* TABS – static, no jumping */
 function tab(t){
  curTab=t;
- document.getElementById('tK').classList.toggle('on',t==='k');
- document.getElementById('tA').classList.toggle('on',t==='a');
- document.getElementById('tS').classList.toggle('on',t==='s');
- // Show correct filter
- document.getElementById('fK').style.display=t==='k'?'':'none';
- document.getElementById('fS').style.display=t==='s'?'':'none';
- document.getElementById('pK').classList.toggle('off',t!=='k');
- document.getElementById('pA').classList.toggle('off',t!=='a');
- document.getElementById('pS').classList.toggle('off',t!=='s');
+ ['k','a','s'].forEach(x=>{
+  document.getElementById('t'+x.toUpperCase()).classList.toggle('on',t===x);
+  document.getElementById('p'+x.toUpperCase()).classList.toggle('off',t!==x);
+ });
+ // Toggle filters – both occupy same slot, just opacity
+ document.getElementById('fK').classList.toggle('hidden',t!=='k');
+ document.getElementById('fS').classList.toggle('hidden',t!=='s');
 
- const active=document.getElementById(t==='k'?'pK':t==='a'?'pA':'pS');
- document.getElementById('PANELS').style.height=active.scrollHeight+'px';
-
+ syncH();
  if(t==='k') statsKvizi();
- if(t==='a'){
-  if(!anketeOk) loadAnkete();
-  else statsAnkete();
- }
- if(t==='s'){
-  if(!simulatorOk) loadSimulator();
-  else{ statsSimulator(); renderSimulator(); }
- }
+ if(t==='a'){ if(!anketeOk) loadAnkete(); else statsAnkete(); }
+ if(t==='s'){ if(!simulatorOk) loadSimulator(); else{ statsSimulator(); renderSimulator(simFiltrirani); } }
 }
 
-/* Reload */
-async function reload(){
+/* Sync panel height */
+function syncH(){
+ const active=document.getElementById(curTab==='k'?'pK':curTab==='a'?'pA':'pS');
+ document.getElementById('PANELS').style.height=active.scrollHeight+'px';
+}
+
+/* Helpers */
+function set(nId,nVal,lId,lVal){
+ document.getElementById(nId).textContent=nVal;
+ if(lId) document.getElementById(lId).textContent=lVal;
+}
+function fCas(ts){
+ if(!ts?.seconds) return '—';
+ const d=new Date(ts.seconds*1000);
+ return d.toLocaleDateString('sl-SI',{day:'2-digit',month:'2-digit',year:'2-digit'})+' '+d.toLocaleTimeString('sl-SI',{hour:'2-digit',minute:'2-digit'});
+}
+
+/* ── KVIZI ── */
+async function loadKvizi(){
  document.getElementById('tblK').innerHTML='<div class="loading">Nalagam...</div>';
  try{
   const s=await db.collection('rezultati').orderBy('cas','desc').limit(500).get();
   kvizi=[];
   s.forEach(d=>{const x=d.data();x._id=d.id;kvizi.push(x);});
-  filtriraj();
- }catch(e){
-  document.getElementById('tblK').innerHTML='<div class="loading">Napaka – preverite pravice Firestore.</div>';
- }
+  filtrirani=[...kvizi];
+  statsKvizi();renderKvizi();
+ }catch(e){ document.getElementById('tblK').innerHTML='<div class="loading">Napaka pri nalaganju.</div>'; }
 }
-
-/* Filter */
 function filtriraj(){
  const f=document.getElementById('fK').value;
- filtrirani=f?kvizi.filter(r=>r.kviz===f):kvizi;
- statsKvizi();
- renderKvizi();
+ filtrirani=f?kvizi.filter(r=>r.kviz===f||r.kvizNaziv===f):kvizi;
+ statsKvizi();renderKvizi();
 }
-
-/* Stats – kvizi */
 function statsKvizi(){
  const n=filtrirani.length;
  const u=new Set(filtrirani.map(r=>r.polnoIme)).size;
@@ -284,112 +293,59 @@ function statsKvizi(){
  set('sO',o,'lO','Odličnih (≥87%)');
  document.getElementById('cntK').textContent=n+' zapisov';
 }
-
-/* Stats – ankete */
-function statsAnkete(){
- const n=ankete.length;
- const u=new Set(ankete.map(a=>a.polnoIme)).size;
- const p=n>0?(ankete.reduce((a,x)=>a+(x.ocena||0),0)/n).toFixed(1)+' ★':0;
- const o=ankete.filter(a=>a.izboljsaj&&a.izboljsaj!=='—').length;
- set('sN',n,'lN','Skupaj anket');
- set('sU',u,'lU','Tečajnikov');
- set('sP',p,'lP','Povp. ocena');
- set('sO',o,'lO','S predlogi');
- document.getElementById('cntA').textContent=n+' odgovorov';
-}
-
-function set(nId,nVal,lId,lVal){
- document.getElementById(nId).textContent=nVal;
- document.getElementById(lId).textContent=lVal;
-}
-
-/* Format timestamp */
-function fCas(ts){
- if(!ts||!ts.toDate)return'—';
- const d=ts.toDate();
- return d.toLocaleDateString('sl-SI',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('sl-SI',{hour:'2-digit',minute:'2-digit'});
-}
-
-/* Render kvizi */
 function renderKvizi(){
  const el=document.getElementById('tblK');
  if(!filtrirani.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
- let h='<table><thead><tr><th>Ime in priimek</th><th>Kviz</th><th>Rezultat</th><th>Čas</th><th></th></tr></thead><tbody>';
+ let h='<table><colgroup><col><col style="width:130px"><col style="width:90px"><col style="width:80px"></colgroup><thead><tr><th>Ime in priimek</th><th>Kviz</th><th>Rezultat</th><th>Pregled</th></tr></thead><tbody>';
  filtrirani.forEach(r=>{
   const pct=r.procent||0,cls=pct>=87?'hi':pct>=62?'md':'lo';
-  const kc=r.kviz==='prometna-nesreca'?'p':'m';
-  h+=`<tr><td class="n">${r.polnoIme||'—'}</td><td><span class="kv ${kc}">${r.kvizNaziv||r.kviz||'—'}</span></td><td><span class="sc ${cls}">${r.tocke||0}/${r.skupaj||8}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td><td class="tm">${fCas(r.cas)}</td><td><button class="dbtn" onclick="openDrawer('${r._id}')">Pregled</button></td></tr>`;
+  const kv=r.kvizNaziv||r.kviz||'—';
+  const col=kv.includes('prometna')||kv.includes('Prometna')?'#F4A09A':'#7FE8A8';
+  h+=`<tr>
+   <td class="n">${r.polnoIme||'—'}</td>
+   <td style="font-size:11px;font-weight:600;color:${col};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${kv}</td>
+   <td><span class="sc ${cls}">${r.tocke||0}/${r.skupaj||8}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td>
+   <td><button class="dbtn" onclick="openDrawer('${r._id}')">Pregled</button></td>
+  </tr>`;
  });
  h+='</tbody></table>';
  el.innerHTML=h;
+ document.getElementById('cntK').textContent=filtrirani.length+' zapisov';
  syncH();
 }
 
-/* Render ankete */
-function renderAnkete(){
- const el=document.getElementById('tblA');
- if(!ankete.length){el.innerHTML='<div class="empty">Ni anket za prikaz.</div>';syncH();return;}
- let h='<table><thead><tr><th>Ime</th><th>Kviz</th><th>Ocena</th><th>Težavnost</th><th>Všeč mi je</th><th>Izboljšave</th><th>Naslednjič</th><th>Čas</th></tr></thead><tbody>';
- ankete.forEach(a=>{
-  const s='★'.repeat(a.ocena||0)+'☆'.repeat(5-(a.ocena||0));
-  h+=`<tr><td class="n">${a.polnoIme||'—'}</td><td style="font-size:12px;color:var(--muted)">${a.kviz||'—'}</td><td><span class="stars">${s}</span></td><td style="font-size:12px;color:var(--muted)">${a.tezavnost||'—'}</td><td style="font-size:12px;max-width:150px">${a.vsec||'—'}</td><td style="font-size:12px;max-width:150px">${a.izboljsaj||'—'}</td><td style="font-size:12px;max-width:130px">${a.naslednjic||'—'}</td><td class="tm">${fCas(a.cas)}</td></tr>`;
- });
- h+='</tbody></table>';
- el.innerHTML=h;
- syncH();
-}
-
-/* Sync panels wrapper height */
-function syncH(){
- const active=document.getElementById(curTab==='k'?'pK':curTab==='a'?'pA':'pS');
- document.getElementById('PANELS').style.height=active.scrollHeight+'px';
-}
-
-/* Load ankete */
+/* ── ANKETE ── */
 async function loadAnkete(){
  document.getElementById('tblA').innerHTML='<div class="loading">Nalagam...</div>';
  try{
   const s=await db.collection('ankete').orderBy('cas','desc').limit(200).get();
-  ankete=[];
-  s.forEach(d=>ankete.push(d.data()));
-  anketeOk=true;
-  statsAnkete();
-  renderAnkete();
- }catch(e){
-  document.getElementById('tblA').innerHTML='<div class="loading">Napaka pri nalaganju anket.</div>';
- }
+  ankete=[];s.forEach(d=>ankete.push(d.data()));
+  anketeOk=true;statsAnkete();renderAnkete();
+ }catch(e){ document.getElementById('tblA').innerHTML='<div class="loading">Napaka pri nalaganju anket.</div>'; }
 }
-
-/* Stats – simulator */
-function statsSimulator(){
- const n=simulatorji.length;
- const u=new Set(simulatorji.map(r=>r.polnoIme)).size;
- const p=n>0?Math.round(simulatorji.reduce((a,r)=>a+(r.procent||0),0)/n):0;
- const o=simulatorji.filter(r=>(r.procent||0)>=90).length;
- set('sN',n,'lN','Skupaj rešitev');
+function statsAnkete(){
+ const n=ankete.length;
+ const u=new Set(ankete.map(r=>r.polnoIme)).size;
+ const p=n>0?Math.round(ankete.reduce((a,r)=>a+(r.ocena||0),0)/n*10)/10:0;
+ const o=ankete.filter(a=>a.izboljsaj&&a.izboljsaj!=='—').length;
+ set('sN',n,'lN','Skupaj anket');
  set('sU',u,'lU','Tečajnikov');
- set('sP',p+'%','lP','Povp. uspešnost');
- set('sO',o,'lO','Odličnih (≥90%)');
- document.getElementById('cntS').textContent=n+' zapisov';
+ set('sP',p+' ★','lP','Povp. ocena');
+ set('sO',o,'lO','S komentarji');
+ document.getElementById('cntA').textContent=n+' zapisov';
 }
-
-/* Render simulator */
-function renderSimulator(data){
- data = data || simulatorji;
- const el=document.getElementById('tblS');
- if(!data.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
- let h='<table style="table-layout:fixed;width:100%"><colgroup><col><col style="width:145px"><col style="width:100px"><col style="width:72px"><col style="width:72px"><col style="width:90px"></colgroup><thead><tr><th>Ime in priimek</th><th>Simulator</th><th>Rezultat</th><th>Pravilno</th><th>Napačno</th><th>Čas</th></tr></thead><tbody>';
- data.forEach(r=>{
-  const pct=r.procent||0,cls=pct>=90?'hi':pct>=60?'md':'lo';
-  const tipLabel=r._tipLabel||'—';
-  const tipColor=r._tip==='simulator_pn'?'#C17D0A':'#148F77';
+function renderAnkete(){
+ const el=document.getElementById('tblA');
+ if(!ankete.length){el.innerHTML='<div class="empty">Ni anket za prikaz.</div>';syncH();return;}
+ let h='<table><colgroup><col><col style="width:130px"><col style="width:80px"><col style="width:200px"></colgroup><thead><tr><th>Ime in priimek</th><th>Tema</th><th>Ocena</th><th>Komentar</th></tr></thead><tbody>';
+ ankete.forEach(r=>{
+  const stars='★'.repeat(r.ocena||0)+'☆'.repeat(5-(r.ocena||0));
+  const komentar=(r.vsec&&r.vsec!=='—')?r.vsec:(r.izboljsaj&&r.izboljsaj!=='—')?r.izboljsaj:'—';
   h+=`<tr>
    <td class="n">${r.polnoIme||'—'}</td>
-   <td style="font-size:11px;font-weight:600;color:${tipColor};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${tipLabel}</td>
-   <td><span class="sc ${cls}">${r.pravilno||0}/${r.skupaj||10}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td>
-   <td style="color:#7FE8A8;font-weight:600">${r.pravilno||0}</td>
-   <td style="color:#F4A09A;font-weight:600">${r.napacno||0}</td>
-   <td class="tm">${fCas(r.cas)}</td>
+   <td style="font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.kviz||'—'}</td>
+   <td><span class="stars">${stars}</span></td>
+   <td style="font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${komentar}</td>
   </tr>`;
  });
  h+='</tbody></table>';
@@ -397,7 +353,7 @@ function renderSimulator(data){
  syncH();
 }
 
-/* Load simulator – obe kolekciji */
+/* ── SIMULATOR ── */
 async function loadSimulator(){
  document.getElementById('tblS').innerHTML='<div class="loading">Nalagam...</div>';
  try{
@@ -406,45 +362,97 @@ async function loadSimulator(){
    db.collection('simulator').orderBy('cas','desc').limit(200).get(),
    db.collection('simulator_pn').orderBy('cas','desc').limit(200).get()
   ]);
-  s1.forEach(d=>{const x=d.data();x._id=d.id;x._tip='simulator';x._tipLabel='Triažni (množične)';simulatorji.push(x);});
-  s2.forEach(d=>{const x=d.data();x._id=d.id;x._tip='simulator_pn';x._tipLabel='Prometna nesreča';simulatorji.push(x);});
+  s1.forEach(d=>{const x=d.data();x._id=d.id;x._tip='simulator';x._tipLabel='Triažni (množične)';x._tipColor='#148F77';simulatorji.push(x);});
+  s2.forEach(d=>{const x=d.data();x._id=d.id;x._tip='simulator_pn';x._tipLabel='Prometna nesreča';x._tipColor='#C17D0A';simulatorji.push(x);});
   simulatorji.sort((a,b)=>(b.cas?.seconds||0)-(a.cas?.seconds||0));
+  simFiltrirani=[...simulatorji];
   simulatorOk=true;
-  statsSimulator();
-  renderSimulator();
- }catch(e){
-  document.getElementById('tblS').innerHTML='<div class="loading">Napaka pri nalaganju: '+e.message+'</div>';
- }
+  statsSimulator();renderSimulator(simFiltrirani);
+ }catch(e){ document.getElementById('tblS').innerHTML='<div class="loading">Napaka: '+e.message+'</div>'; }
 }
-
-/* Filter simulator */
 function filtrirajSim(){
  const f=document.getElementById('fS').value;
- const data=f?simulatorji.filter(r=>r._tip===f):simulatorji;
- renderSimulator(data);
- // Stats vedno kažejo skupne podatke - brez premikanja
- statsSimulator();
+ simFiltrirani=f?simulatorji.filter(r=>r._tip===f):simulatorji;
+ renderSimulator(simFiltrirani);
+}
+function statsSimulator(){
+ const n=simulatorji.length;
+ const u=new Set(simulatorji.map(r=>r.polnoIme)).size;
+ const p=n>0?Math.round(simulatorji.reduce((a,r)=>a+(r.procent||0),0)/n):0;
+ const o=simulatorji.filter(r=>(r.procent||0)>=90).length;
+ set('sN',n,'lN','Skupaj rešitev');
+ set('sU',u,'lU','Tečajnikov');
+ set('sP',p+'%','lP','Povp. rezultat');
+ set('sO',o,'lO','Odličnih (≥90%)');
+ document.getElementById('cntS').textContent=simulatorji.length+' zapisov';
+}
+function renderSimulator(data){
+ const el=document.getElementById('tblS');
+ if(!data||!data.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
+ let h='<table><colgroup><col><col style="width:145px"><col style="width:90px"><col style="width:80px"></colgroup><thead><tr><th>Ime in priimek</th><th>Simulator</th><th>Rezultat</th><th>Pregled</th></tr></thead><tbody>';
+ data.forEach(r=>{
+  const pct=r.procent||0,cls=pct>=90?'hi':pct>=60?'md':'lo';
+  h+=`<tr>
+   <td class="n">${r.polnoIme||'—'}</td>
+   <td style="font-size:11px;font-weight:600;color:${r._tipColor};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r._tipLabel}</td>
+   <td><span class="sc ${cls}">${r.pravilno||0}/${r.skupaj||10}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td>
+   <td><button class="dbtn" onclick="openSimDrawer('${r._id}')">Pregled</button></td>
+  </tr>`;
+ });
+ h+='</tbody></table>';
+ el.innerHTML=h;
+ syncH();
 }
 
-/* Drawer */
+/* ── DRAWER – kvizi ── */
 function openDrawer(id){
  const r=kvizi.find(x=>x._id===id);
  if(!r)return;
- const pct=r.procent||0,col=pct>=87?'#1E8449':pct>=62?'#D68910':'#C0392B';
- let h=`<div class="drw-nm">${r.polnoIme||'—'}</div><div class="drw-mt">${r.kvizNaziv||r.kviz} · ${fCas(r.cas)}</div><div class="drw-sc" style="color:${col}">${r.tocke||0}/${r.skupaj||8}</div><div class="drw-pct">${pct}% pravilnih</div>`;
+ const pct=r.procent||0,col=pct>=87?'var(--green)':pct>=62?'var(--amber)':'var(--red)';
+ let h=`<div class="drw-nm">${r.polnoIme||'—'}</div>
+  <div class="drw-mt">${r.kvizNaziv||r.kviz||'—'} · ${fCas(r.cas)}</div>
+  <div class="drw-sc" style="color:${col}">${r.tocke||0}/${r.skupaj||8}</div>
+  <div class="drw-pct">${pct}% pravilnih</div>`;
  if(r.odgovori){
   Object.keys(r.odgovori).sort((a,b)=>+a.slice(1)-+b.slice(1)).forEach(k=>{
    const o=r.odgovori[k];
-   h+=`<div class="drw-q ${o.pravilno?'ok':'nok'}"><div class="drw-qt">${k.replace('v','')}. ${o.vprasanje}</div><div class="drw-qa">Izbral: <span class="${o.pravilno?'ok-t':'nok-t'}">${o.izbran}</span>${!o.pravilno?'<br>Pravilno: <span class="ok-t">'+o.pravilen+'</span>':''}</div></div>`;
+   h+=`<div class="drw-q ${o.pravilno?'ok':'nok'}">
+    <div class="drw-qt">${k.replace('v','')}. ${o.vprasanje||''}</div>
+    <div class="drw-qa">Izbral: <span class="${o.pravilno?'ok-t':'nok-t'}">${o.izbran||'—'}</span>${!o.pravilno?'<br>Pravilno: <span class="ok-t">'+(o.pravilen||'—')+'</span>':''}</div>
+   </div>`;
   });
  }
  document.getElementById('DRW_C').innerHTML=h;
  document.getElementById('DRW').classList.add('on');
  document.getElementById('OVL').classList.add('on');
 }
+
+/* ── DRAWER – simulator ── */
+function openSimDrawer(id){
+ const r=simulatorji.find(x=>x._id===id);
+ if(!r)return;
+ const pct=r.procent||0,col=pct>=90?'var(--green)':pct>=60?'var(--amber)':'var(--red)';
+ let h=`<div class="drw-nm">${r.polnoIme||'—'}</div>
+  <div class="drw-mt">${r._tipLabel||'—'} · ${fCas(r.cas)}</div>
+  <div class="drw-badge" style="background:${r._tipColor}22;color:${r._tipColor};border:0.5px solid ${r._tipColor}44">${r._tipLabel}</div>
+  <div class="drw-sc" style="color:${col}">${r.pravilno||0}/${r.skupaj||10}</div>
+  <div class="drw-pct">${pct}% pravilnih · ${r.napacno||0} napačnih</div>`;
+ document.getElementById('DRW_C').innerHTML=h;
+ document.getElementById('DRW').classList.add('on');
+ document.getElementById('OVL').classList.add('on');
+}
+
 function closeDrawer(){
  document.getElementById('DRW').classList.remove('on');
  document.getElementById('OVL').classList.remove('on');
+}
+
+/* ── RELOAD ── */
+async function reload(){
+ await loadKvizi();
+ anketeOk=false;simulatorOk=false;
+ if(curTab==='a') loadAnkete();
+ if(curTab==='s') loadSimulator();
 }
 </script>
 </body>
