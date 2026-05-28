@@ -150,6 +150,7 @@ tr:hover td{background:rgba(255,255,255,0.025)}
    </div>
    <div class="act-group">
     <button class="act" onclick="reload()">↻</button>
+    <button class="act" style="color:#F4A09A;border-color:rgba(192,57,43,0.4)" onclick="pocistiVse()">🗑 Počisti</button>
     <button class="act" onclick="location.href='index.html'">← Portal</button>
    </div>
   </div>
@@ -506,7 +507,29 @@ function closeDrawer(){
  document.getElementById('OVL').classList.remove('on');
 }
 
-/* ── RELOAD ── */
+/* ── POČISTI VSE ── */
+async function pocistiVse(){
+ const colMap={k:['rezultati'],a:['ankete'],s:['simulator','simulator_pn']};
+ const colNames={k:'kvize',a:'ankete',s:'rezultate simulatorja'};
+ const cols=colMap[curTab];
+ const ime=colNames[curTab];
+ if(!confirm(`Izbriši VSE ${ime}?\n\nTega ni mogoče razveljaviti!`))return;
+ let n=0;
+ try{
+  for(const col of cols){
+   const snap=await db.collection(col).get();
+   const batch=db.batch();
+   snap.docs.forEach(d=>{batch.delete(d.ref);n++;});
+   await batch.commit();
+  }
+  alert(`Izbrisano ${n} zapisov.`);
+  kvizi=[];filtrirani=[];ankete=[];ankFiltrirane=[];simulatorji=[];simFiltrirani=[];
+  anketeOk=false;simulatorOk=false;
+  reload();
+ }catch(e){
+  alert('Napaka: '+e.message);
+ }
+}
 async function reload(){
  await loadKvizi();
  anketeOk=false;simulatorOk=false;
