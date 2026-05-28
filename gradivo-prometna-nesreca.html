@@ -421,7 +421,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
    <div class="kviz-eyebrow">Simulator · 10 scenarijev</div>
    <div class="kviz-title">Prometni simulator</div>
    <div class="kviz-desc">Povleci pravi akcijski kartonček za vsakega od 10 poškodovancev. Odloči se med urgentnim iznosom, hitrim iznosom, imobilizacijo stoječega ali snemanjem čelade.</div>
-   <a class="btn-kviz" href="pn-simulator.html">Začni simulator →</a>
+   <a class="btn-kviz" style="background:#C17D0A" href="pn-simulator.html">Začni simulator →</a>
   </div>
   <div style="flex-shrink:0;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:10px;padding:16px;text-align:center;min-width:130px">
    <div style="font-size:42px;margin-bottom:8px">🚗</div>
@@ -534,6 +534,10 @@ new QRCode(document.getElementById('qr-canvas'), {
  text:'https://graicevic123.github.io/pnmp.github.io/prometna-nesreca.html',
  width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M
 });
+
+// QR – simulator
+const SIM_URL = 'https://graicevic123.github.io/pnmp.github.io/pn-simulator.html';
+new QRCode(document.getElementById('qr-simulator'), {text:SIM_URL,width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M});
 
 // QR – anketa
 new QRCode(document.getElementById('qr-anketa'), {

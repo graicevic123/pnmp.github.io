@@ -317,12 +317,12 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
   <div class="section-header-line"></div>
  </div>
 
- <div class="kviz-section" style="background:rgba(20,143,119,0.08);border-color:rgba(20,143,119,0.25)">
+ <div class="kviz-section" style="background:rgba(193,125,10,0.1);border-color:rgba(193,125,10,0.35)">
   <div class="kviz-text">
    <div class="kviz-eyebrow">Simulator · 10 scenarijev</div>
    <div class="kviz-title">Triažni simulator</div>
    <div class="kviz-desc">Oceni 10 pacientov z resničnimi kliničnimi opisi in vitalnimi parametri. Za vsakega izberi pravilno triažno kategorijo po algoritmu SIEVE. Vsak odgovor takoj razloži zakaj je pravilen ali napačen – korak za korakom.</div>
-   <a class="btn-kviz" style="background:var(--teal)" href="triazni-simulator.html">Začni simulator →</a>
+   <a class="btn-kviz" style="background:#C17D0A" href="triazni-simulator.html">Začni simulator →</a>
   </div>
   <div style="flex-shrink:0;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:10px;padding:16px;text-align:center;min-width:130px">
    <div style="font-size:42px;margin-bottom:8px">🏥</div>
@@ -432,6 +432,10 @@ const db = firebase.firestore();
 // QR koda za kviz
 const KVIZ_URL = 'https://graicevic123.github.io/pnmp.github.io/mnozicne-nesrece.html';
 new QRCode(document.getElementById('qr-canvas'), {text:KVIZ_URL,width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M});
+
+// QR koda za simulator
+const SIM_URL = 'https://graicevic123.github.io/pnmp.github.io/triazni-simulator.html';
+new QRCode(document.getElementById('qr-simulator'), {text:SIM_URL,width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M});
 
 // QR koda za anketo
 const ANKETA_URL = 'https://graicevic123.github.io/pnmp.github.io/gradivo-mnozicne-nesrece.html#anketa';
