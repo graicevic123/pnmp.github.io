@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PNMP – Simulator prometnih nesreč</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -11,18 +14,18 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0D1B2A;--mid:#152535;--dark:#1B3A5C;
-  --c1:#C0392B;--c1b:#7A1A0E;
-  --c2:#C17D0A;--c2b:#7A4E00;
-  --c3:#1A7A40;--c3b:#0D4D27;
-  --c4:#1A5A8A;--c4b:#0D3A5C;
-  --white:#fff;--text:#C8D8E8;--muted:#7A9AB5;--border:rgba(255,255,255,0.08);
+ --navy:#0D1B2A;--mid:#152535;--dark:#1B3A5C;
+ --c1:#C0392B;--c1b:#7A1A0E;
+ --c2:#C17D0A;--c2b:#7A4E00;
+ --c3:#1A7A40;--c3b:#0D4D27;
+ --c4:#1A5A8A;--c4b:#0D3A5C;
+ --white:#fff;--text:#C8D8E8;--muted:#7A9AB5;--border:rgba(255,255,255,0.08);
 }
 html,body{height:100%;overflow-x:hidden}
 body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse 70% 50% at 15% 10%,rgba(44,85,128,0.25) 0%,transparent 60%),
-             radial-gradient(ellipse 50% 40% at 85% 85%,rgba(192,57,43,0.1) 0%,transparent 55%)}
+ background:radial-gradient(ellipse 70% 50% at 15% 10%,rgba(44,85,128,0.25) 0%,transparent 60%),
+       radial-gradient(ellipse 50% 40% at 85% 85%,rgba(192,57,43,0.1) 0%,transparent 55%)}
 .back-btn{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:12px 20px 0;transition:color 0.15s;position:relative;z-index:1}
 .back-btn:hover{color:var(--white)}
 
@@ -139,121 +142,109 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 <!-- INTRO -->
 <div class="intro" id="INTRO">
-  <p class="intro-eyebrow">PNMP · Prometna nesreča</p>
-  <h1 class="intro-title">PROMETNI<br><span>SIMULATOR</span></h1>
-  <p class="intro-sub">Za vsakega od 10 poškodovancev povleci pravi akcijski kartonček. Odloči se med urgentnim iznosom, hitrim iznosom, imobilizacijo stoječega ali snemanjem čelade.</p>
+ <p class="intro-eyebrow">PNMP · Prometna nesreča</p>
+ <h1 class="intro-title">PROMETNI<br><span>SIMULATOR</span></h1>
+ <p class="intro-sub">Za vsakega od 10 poškodovancev povleci pravi akcijski kartonček. Odloči se med urgentnim iznosom, hitrim iznosom, imobilizacijo stoječega ali snemanjem čelade.</p>
 
-  <div class="cards-preview">
-    <div class="card-demo" style="background:#7A1A0E;border:2px solid #C0392B;color:#fff;--rot:-4deg">
-      <div class="icon">🚨</div>
-      <div class="code">URGENTNI IZNOS</div>
-    </div>
-    <div class="card-demo" style="background:#7A4E00;border:2px solid #C17D0A;color:#fff;--rot:2deg">
-      <div class="icon">🛏️</div>
-      <div class="code">HITRI IZNOS</div>
-    </div>
-    <div class="card-demo" style="background:#0D4D27;border:2px solid #1A7A40;color:#fff;--rot:-2deg">
-      <div class="icon">🦺</div>
-      <div class="code">IMOBILI&shy;ZACIJA</div>
-    </div>
-    <div class="card-demo" style="background:#0D3A5C;border:2px solid #1A5A8A;color:#fff;--rot:3deg">
-      <div class="icon" style="display:flex;justify-content:center;color:#fff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28">
-  <ellipse cx="32" cy="30" rx="24" ry="26" fill="currentColor" opacity="0.9"/>
-  <path d="M14 42 Q20 58 32 58 Q44 58 50 42 Q44 50 32 50 Q20 50 14 42Z" fill="currentColor" opacity="0.85"/>
-  <path d="M17 28 Q18 18 32 16 Q46 18 47 28 Q46 36 32 36 Q18 36 17 28Z" fill="rgba(0,0,0,0.7)"/>
-  <path d="M19 22 Q26 18 38 20" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <rect x="26" y="7" width="12" height="4" rx="2" fill="rgba(0,0,0,0.4)"/>
-</svg></div>
-      <div class="code">SNEMANJE ČELADE</div>
-    </div>
+ <div class="cards-preview">
+  <div class="card-demo" style="background:#7A1A0E;border:2px solid #C0392B;color:#fff;--rot:-4deg">
+   <div class="icon">🚨</div>
+   <div class="code">URGENTNI IZNOS</div>
   </div>
+  <div class="card-demo" style="background:#7A4E00;border:2px solid #C17D0A;color:#fff;--rot:2deg">
+   <div class="icon">🛏️</div>
+   <div class="code">HITRI IZNOS</div>
+  </div>
+  <div class="card-demo" style="background:#0D4D27;border:2px solid #1A7A40;color:#fff;--rot:-2deg">
+   <div class="icon">🦺</div>
+   <div class="code">IMOBILI&shy;ZACIJA</div>
+  </div>
+  <div class="card-demo" style="background:#0D3A5C;border:2px solid #1A5A8A;color:#fff;--rot:3deg">
+   <div class="icon">🏍</div>
+   <div class="code">SNEMANJE ČELADE</div>
+  </div>
+ </div>
 
-  <button class="btn-start" onclick="zacniIgro()">Začni →</button>
+ <button class="btn-start" onclick="zacniIgro()">Začni →</button>
 </div>
 
 <!-- GAME -->
 <div class="game" id="GAME">
 
-  <div class="game-top">
-    <div class="prog-wrap">
-      <div class="prog-label">
-        <span>NAPREDEK</span><span id="prog-txt">0 / 10</span>
-      </div>
-      <div class="prog-bar-bg">
-        <div class="prog-bar-fill" id="prog-bar" style="width:0%"></div>
-      </div>
-    </div>
-    <div class="score-chips">
-      <div class="chip ok" id="chip-ok">✓ 0</div>
-      <div class="chip nok" id="chip-nok">✗ 0</div>
-    </div>
+ <div class="game-top">
+  <div class="prog-wrap">
+   <div class="prog-label">
+    <span>NAPREDEK</span><span id="prog-txt">0 / 10</span>
+   </div>
+   <div class="prog-bar-bg">
+    <div class="prog-bar-fill" id="prog-bar" style="width:0%"></div>
+   </div>
   </div>
+  <div class="score-chips">
+   <div class="chip ok" id="chip-ok">✓ 0</div>
+   <div class="chip nok" id="chip-nok">✗ 0</div>
+  </div>
+ </div>
 
-  <div class="patient-area animate-in" id="patient-area">
-    <div class="patient-num" id="p-num">Poškodovanec 1 / 10</div>
-    <div class="patient-figure">
-      <div class="figure-icon" id="fig-icon">
-        🧑
-        <div class="action-slot" id="action-slot">?</div>
-      </div>
-      <div class="patient-info">
-        <div class="patient-scenario" id="p-scenario"></div>
-        <div class="vitals" id="p-vitals"></div>
-      </div>
-    </div>
-    <div class="attached-action" id="attached-action"></div>
-    <div class="feedback" id="p-fb"></div>
+ <div class="patient-area animate-in" id="patient-area">
+  <div class="patient-num" id="p-num">Poškodovanec 1 / 10</div>
+  <div class="patient-figure">
+   <div class="figure-icon" id="fig-icon">
+    🧑
+    <div class="action-slot" id="action-slot">?</div>
+   </div>
+   <div class="patient-info">
+    <div class="patient-scenario" id="p-scenario"></div>
+    <div class="vitals" id="p-vitals"></div>
+   </div>
   </div>
+  <div class="attached-action" id="attached-action"></div>
+  <div class="feedback" id="p-fb"></div>
+ </div>
 
-  <div class="actions-label">Povleci ali klikni pravi ukrep:</div>
-  <div class="actions-grid">
-    <div class="action-card c1" id="cardUI" onclick="selectCard('UI')">
-      <div class="ac-icon">🚨</div>
-      <div class="ac-code">Urgentni iznos</div>
-      <div class="ac-hint">Rautkov prijem<br>takoj!</div>
-    </div>
-    <div class="action-card c2" id="cardHI" onclick="selectCard('HI')">
-      <div class="ac-icon">🛏️</div>
-      <div class="ac-code">Hitri iznos</div>
-      <div class="ac-hint">Zajemalna nosila<br>kontrolirano</div>
-    </div>
-    <div class="action-card c3" id="cardIM" onclick="selectCard('IM')">
-      <div class="ac-icon">🦺</div>
-      <div class="ac-code">Imobilizacija</div>
-      <div class="ac-hint">Stoječi<br>poškodovanec</div>
-    </div>
-    <div class="action-card c4" id="cardSC" onclick="selectCard('SC')">
-      <div class="ac-icon" style="display:flex;align-items:center;justify-content:center;color:#fff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28">
-  <ellipse cx="32" cy="30" rx="24" ry="26" fill="currentColor" opacity="0.9"/>
-  <path d="M14 42 Q20 58 32 58 Q44 58 50 42 Q44 50 32 50 Q20 50 14 42Z" fill="currentColor" opacity="0.85"/>
-  <path d="M17 28 Q18 18 32 16 Q46 18 47 28 Q46 36 32 36 Q18 36 17 28Z" fill="rgba(0,0,0,0.7)"/>
-  <path d="M19 22 Q26 18 38 20" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <rect x="26" y="7" width="12" height="4" rx="2" fill="rgba(0,0,0,0.4)"/>
-</svg></div>
-      <div class="ac-code">Snemanje čelade</div>
-      <div class="ac-hint">Motorist<br>najprej čelada</div>
-    </div>
+ <div class="actions-label">Povleci ali klikni pravi ukrep:</div>
+ <div class="actions-grid">
+  <div class="action-card c1" id="cardUI" onclick="selectCard('UI')">
+   <div class="ac-icon">🚨</div>
+   <div class="ac-code">Urgentni iznos</div>
+   <div class="ac-hint">Rautkov prijem<br>takoj!</div>
   </div>
+  <div class="action-card c2" id="cardHI" onclick="selectCard('HI')">
+   <div class="ac-icon">🛏️</div>
+   <div class="ac-code">Hitri iznos</div>
+   <div class="ac-hint">Zajemalna nosila<br>kontrolirano</div>
+  </div>
+  <div class="action-card c3" id="cardIM" onclick="selectCard('IM')">
+   <div class="ac-icon">🦺</div>
+   <div class="ac-code">Imobilizacija</div>
+   <div class="ac-hint">Stoječi<br>poškodovanec</div>
+  </div>
+  <div class="action-card c4" id="cardSC" onclick="selectCard('SC')">
+   <div class="ac-icon">🏍</div>
+   <div class="ac-code">Snemanje čelade</div>
+   <div class="ac-hint">Motorist<br>najprej čelada</div>
+  </div>
+ </div>
 
-  <div class="confirm-row">
-    <button class="btn-confirm" id="btn-confirm" onclick="potrdi()">Izvedi ukrep →</button>
-  </div>
+ <div class="confirm-row">
+  <button class="btn-confirm" id="btn-confirm" onclick="potrdi()">Izvedi ukrep →</button>
+ </div>
 
 </div>
 
 <!-- RESULT -->
 <div class="result" id="RESULT">
-  <div class="result-actions" id="result-actions"></div>
-  <div class="result-score" id="r-score">0</div>
-  <div class="result-denom">/ 10 POŠKODOVANCEV</div>
-  <div class="result-title" id="r-title">—</div>
-  <div class="result-sub" id="r-sub">—</div>
-  <div class="result-stats">
-    <div class="rs"><div class="rs-num" id="rs-ok" style="color:#7FE8A8">0</div><div class="rs-lbl">Pravilno</div></div>
-    <div class="rs"><div class="rs-num" id="rs-nok" style="color:#F4A09A">0</div><div class="rs-lbl">Napačno</div></div>
-    <div class="rs"><div class="rs-num" id="rs-pct" style="color:var(--muted)">0%</div><div class="rs-lbl">Uspešnost</div></div>
-  </div>
-  <button class="btn-again" onclick="restart()">↺ &nbsp;Ponovi</button>
+ <div class="result-actions" id="result-actions"></div>
+ <div class="result-score" id="r-score">0</div>
+ <div class="result-denom">/ 10 POŠKODOVANCEV</div>
+ <div class="result-title" id="r-title">—</div>
+ <div class="result-sub" id="r-sub">—</div>
+ <div class="result-stats">
+  <div class="rs"><div class="rs-num" id="rs-ok" style="color:#7FE8A8">0</div><div class="rs-lbl">Pravilno</div></div>
+  <div class="rs"><div class="rs-num" id="rs-nok" style="color:#F4A09A">0</div><div class="rs-lbl">Napačno</div></div>
+  <div class="rs"><div class="rs-num" id="rs-pct" style="color:var(--muted)">0%</div><div class="rs-lbl">Uspešnost</div></div>
+ </div>
+ <button class="btn-again" onclick="restart()">↺ &nbsp;Ponovi</button>
 </div>
 
 <script>
@@ -262,265 +253,263 @@ const db = firebase.firestore();
 
 // UI=Urgentni iznos, HI=Hitri iznos, IM=Imobilizacija stoječega, SC=Snemanje čelade
 const ACTIONS = {
-  UI:{icon:'🚨',label:'Urgentni iznos',color:'#7A1A0E',border:'#C0392B'},
-  HI:{icon:'🛏️',label:'Hitri iznos',color:'#7A4E00',border:'#C17D0A'},
-  IM:{icon:'🦺',label:'Imobilizacija',color:'#0D4D27',border:'#1A7A40'},
-  SC:{icon:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28">
-  <ellipse cx="32" cy="30" rx="24" ry="26" fill="currentColor" opacity="0.9"/>
-  <path d="M14 42 Q20 58 32 58 Q44 58 50 42 Q44 50 32 50 Q20 50 14 42Z" fill="currentColor" opacity="0.85"/>
-  <path d="M17 28 Q18 18 32 16 Q46 18 47 28 Q46 36 32 36 Q18 36 17 28Z" fill="rgba(0,0,0,0.7)"/>
-  <path d="M19 22 Q26 18 38 20" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <rect x="26" y="7" width="12" height="4" rx="2" fill="rgba(0,0,0,0.4)"/>
-</svg>',label:'Snemanje čelade',color:'#0D3A5C',border:'#1A5A8A'}
+ UI:{icon:'🚨',label:'Urgentni iznos',color:'#7A1A0E',border:'#C0392B'},
+ HI:{icon:'🛏️',label:'Hitri iznos',color:'#7A4E00',border:'#C17D0A'},
+ IM:{icon:'🦺',label:'Imobilizacija',color:'#0D4D27',border:'#1A7A40'},
+ SC:{icon:'🏍',label:'Snemanje čelade',color:'#0D3A5C',border:'#1A5A8A'}
 };
 
 const PATIENTS = [
-  {
-    icon:'👨',
-    scenario:'Voznik osebnega vozila, ~35 let, sedi v sedežu, nezavesten. Airbagi sproženi. Pod pokrovom motorja se kadi – dim se širi v potniško kabino.',
-    vitals:[{l:'Zavest',v:'Nezavesten',s:'crit'},{l:'Nevarnost',v:'Dim/požar',s:'crit'},{l:'Dihalna pot',v:'Neznano',s:'warn'}],
-    correct:'UI',
-    why:'Neposredna smrtna nevarnost (dim, možen požar) → URGENTNI IZNOS z Rautkovim prijemom. Ni časa za nosila ali opornico.',
-    alg:'Kriterij: neposredna nevarnost za življenje (požar, dim, eksplozija) → Rautkov prijem, takoj ven'
-  },
-  {
-    icon:'👩',
-    scenario:'Sovoznica, ~28 let, pri zavesti, pritoži se nad bolečino v vratu in hrbtu. Airbagi sproženi, varnostni pas je bil pripet. Vozilo stabilno, ni nevarnosti.',
-    vitals:[{l:'Zavest',v:'Jasna',s:'ok'},{l:'Dihanje',v:'Normalno',s:'ok'},{l:'Bolečina',v:'Vrat in hrbet',s:'crit'}],
-    correct:'HI',
-    why:'Pri zavesti, dihanje normalno, ni neposredne nevarnosti → HITRI IZNOS z zajemalnimi nosili. Skrbno zavarujemo vratno hrbtenico.',
-    alg:'Ni neposredne nevarnosti + sum poškodbe hrbtenice → zajemalna nosila, kontroliran iznos'
-  },
-  {
-    icon:'🏍',
-    scenario:'Motorist, ~22 let, leži ob cesti. Čelada tipa "full face" na glavi, vidno počena na desni strani. Pri zavesti, pritožuje se nad bolečino v vratu.',
-    vitals:[{l:'Zavest',v:'Jasna',s:'ok'},{l:'Dihanje',v:'Normalno',s:'ok'},{l:'Čelada',v:'Počena (full face)',s:'warn'}],
-    correct:'SC',
-    why:'Motorist s čelado in bolečino v vratu → SNEMANJE ČELADE pred vsem drugim. Dva reševalca: eden drži glavo, drugi snema čelado.',
-    alg:'Motorist + čelada + sum poškodbe hrbtenice → najprej snemi čelado (2 osebi), nato varuj vrat'
-  },
-  {
-    icon:'👨‍🦱',
-    scenario:'Pešec, ~45 let, stoji ob vozilu, ki ga je zadelo. Mravljinčenje v obeh rokah, bolečina v vratu. Hodi, a nestabilno. Brez izgube zavesti.',
-    vitals:[{l:'Hoja',v:'DA (nestabilno)',s:'warn'},{l:'Mravljinčenje',v:'Obe roki',s:'crit'},{l:'Bolečina',v:'Vrat',s:'crit'}],
-    correct:'IM',
-    why:'Stoječi poškodovanec z nevrološkimi znaki (mravljinčenje) → IMOBILIZACIJA STOJEČEGA. Ročno varujemo vrat, namestimo opornico, ga spustimo na nosila.',
-    alg:'Stoji + nevrološki znaki + bolečina v vratu → imobilizacija stoječega z zajemalnimi nosili'
-  },
-  {
-    icon:'🧒',
-    scenario:'Otrok, ~10 let, sedi v zadnjem sedežu v otroški sedežu. Joče, odziven. Manjše odrgnine na obrazu. Vratu in hrbta se ne pritožuje.',
-    vitals:[{l:'Zavest',v:'Jasna, joka',s:'ok'},{l:'Dihanje',v:'Normalno',s:'ok'},{l:'Poškodbe',v:'Odrgnine',s:'warn'}],
-    correct:'HI',
-    why:'Otrok je odziven, brez znakov poškodbe hrbtenice. Ni neposredne nevarnosti → HITRI IZNOS z zajemalnimi nosili. Otroci se vedno iznašajo kontrolirano.',
-    alg:'Ni neposredne nevarnosti + otrok + ni nevroloških znakov → zajemalna nosila'
-  },
-  {
-    icon:'👴',
-    scenario:'Voznik, ~68 let, sedi v vozilu. Zmeden, bled, potenje, tresenje rok. Pove da je diabetik in da ni jedel. Vozilo je trčilo v ograjo, ni požara.',
-    vitals:[{l:'Zavest',v:'Zmeden',s:'warn'},{l:'Koža',v:'Bleda, potna',s:'warn'},{l:'Sladkorna bolezen',v:'Da, ni jedel',s:'crit'}],
-    correct:'HI',
-    why:'Hipoglikemija + manjša prometna nesreča brez neposredne nevarnosti → HITRI IZNOS z zajemalnimi nosili. Po iznosu ukrepamo za hipoglikemijo.',
-    alg:'Ni neposredne nevarnosti → zajemalna nosila; hkrati preverimo KS in ukrepamo za hipoglikemijo'
-  },
-  {
-    icon:'🏍',
-    scenario:'Motorist, ~30 let, leži na boku. Čelada modularna, zaprta. Ne reagira na klic, dihanje je glasno in oteženo.',
-    vitals:[{l:'Zavest',v:'Nezavesten',s:'crit'},{l:'Dihanje',v:'Glasno, oteženo',s:'crit'},{l:'Čelada',v:'Modularna, zaprta',s:'warn'}],
-    correct:'SC',
-    why:'Nezavesten motorist z oteženim dihanjem in čelado → SNEMANJE ČELADE takoj, da zagotovimo prosto dihalno pot. To ima prednost pred vsem drugim.',
-    alg:'Motorist + nezavesten + oteženo dihanje → najprej čelada (dihalna pot!), nato ABC'
-  },
-  {
-    icon:'👩‍🦳',
-    scenario:'Sovoznica, ~55 let, pri zavesti, tarna nad bolečino v prsnem košu od varnostnega pasu. Dihanje normalno. Vozilo stabilno, ni nevarnosti.',
-    vitals:[{l:'Zavest',v:'Jasna',s:'ok'},{l:'Dihanje',v:'Normalno',s:'ok'},{l:'Bolečina',v:'Prsni koš',s:'warn'}],
-    correct:'HI',
-    why:'Pri zavesti, dihanje normalno, ni znakov poškodbe hrbtenice, ni neposredne nevarnosti → HITRI IZNOS z zajemalnimi nosili.',
-    alg:'Ni neposredne nevarnosti + ni nevroloških znakov → zajemalna nosila'
-  },
-  {
-    icon:'👱',
-    scenario:'Voznik, ~25 let, vstane iz vozila in hodi naokoli, a se pritožuje nad bolečino v vratu in mravljinčenjem v desni roki po trku.',
-    vitals:[{l:'Hoja',v:'DA',s:'ok'},{l:'Mravljinčenje',v:'Desna roka',s:'crit'},{l:'Bolečina',v:'Vrat',s:'crit'}],
-    correct:'IM',
-    why:'Hodi, a ima nevrološke znake (mravljinčenje) in bolečino v vratu → IMOBILIZACIJA STOJEČEGA. Takoj ročno zavarujemo vrat in ga ne pustimo hoditi.',
-    alg:'Stoji + hodi + nevrološki znaki → ustavi ga, imobilizacija stoječega z zajemalnimi nosili'
-  },
-  {
-    icon:'👨',
-    scenario:'Voznik, ~40 let, ujet v vozilu – vrata se ne odpirajo. Nezavesten, ne diha. Vozilo stabilno, brez dima ali ognja.',
-    vitals:[{l:'Zavest',v:'Nezavesten',s:'crit'},{l:'Dihanje',v:'Odsotno',s:'crit'},{l:'Nevarnost',v:'Ni požara',s:'ok'}],
-    correct:'UI',
-    why:'Ne diha → potrebuje oživljanje, ki ga v vozilu NI mogoče izvesti → URGENTNI IZNOS z Rautkovim prijemom. Takoj ven, nato TPO.',
-    alg:'Ne diha → ni možno oživljati v vozilu → Rautkov prijem, takoj ven, nato ABC/TPO'
-  }
+ {
+  icon:'👨',
+  scenario:'Voznik osebnega vozila, ~35 let, sedi v sedežu, nezavesten. Airbagi sproženi. Pod pokrovom motorja se kadi – dim se širi v potniško kabino.',
+  vitals:[{l:'Zavest',v:'Nezavesten',s:'crit'},{l:'Nevarnost',v:'Dim/požar',s:'crit'},{l:'Dihalna pot',v:'Neznano',s:'warn'}],
+  correct:'UI',
+  why:'Neposredna smrtna nevarnost (dim, možen požar) → URGENTNI IZNOS z Rautkovim prijemom. Ni časa za nosila ali opornico.',
+  alg:'Kriterij: neposredna nevarnost za življenje (požar, dim, eksplozija) → Rautkov prijem, takoj ven'
+ },
+ {
+  icon:'👩',
+  scenario:'Sovoznica, ~28 let, pri zavesti, pritoži se nad bolečino v vratu in hrbtu. Airbagi sproženi, varnostni pas je bil pripet. Vozilo stabilno, ni nevarnosti.',
+  vitals:[{l:'Zavest',v:'Jasna',s:'ok'},{l:'Dihanje',v:'Normalno',s:'ok'},{l:'Bolečina',v:'Vrat in hrbet',s:'crit'}],
+  correct:'HI',
+  why:'Pri zavesti, dihanje normalno, ni neposredne nevarnosti → HITRI IZNOS z zajemalnimi nosili. Skrbno zavarujemo vratno hrbtenico.',
+  alg:'Ni neposredne nevarnosti + sum poškodbe hrbtenice → zajemalna nosila, kontroliran iznos'
+ },
+ {
+  icon:'🏍',
+  scenario:'Motorist, ~22 let, leži ob cesti. Čelada tipa "full face" na glavi, vidno počena na desni strani. Pri zavesti, pritožuje se nad bolečino v vratu.',
+  vitals:[{l:'Zavest',v:'Jasna',s:'ok'},{l:'Dihanje',v:'Normalno',s:'ok'},{l:'Čelada',v:'Počena (full face)',s:'warn'}],
+  correct:'SC',
+  why:'Motorist s čelado in bolečino v vratu → SNEMANJE ČELADE pred vsem drugim. Dva reševalca: eden drži glavo, drugi snema čelado.',
+  alg:'Motorist + čelada + sum poškodbe hrbtenice → najprej snemi čelado (2 osebi), nato varuj vrat'
+ },
+ {
+  icon:'👨‍🦱',
+  scenario:'Pešec, ~45 let, stoji ob vozilu, ki ga je zadelo. Mravljinčenje v obeh rokah, bolečina v vratu. Hodi, a nestabilno. Brez izgube zavesti.',
+  vitals:[{l:'Hoja',v:'DA (nestabilno)',s:'warn'},{l:'Mravljinčenje',v:'Obe roki',s:'crit'},{l:'Bolečina',v:'Vrat',s:'crit'}],
+  correct:'IM',
+  why:'Stoječi poškodovanec z nevrološkimi znaki (mravljinčenje) → IMOBILIZACIJA STOJEČEGA. Ročno varujemo vrat, namestimo opornico, ga spustimo na nosila.',
+  alg:'Stoji + nevrološki znaki + bolečina v vratu → imobilizacija stoječega z zajemalnimi nosili'
+ },
+ {
+  icon:'🧒',
+  scenario:'Otrok, ~10 let, sedi v zadnjem sedežu v otroški sedežu. Joče, odziven. Manjše odrgnine na obrazu. Vratu in hrbta se ne pritožuje.',
+  vitals:[{l:'Zavest',v:'Jasna, joka',s:'ok'},{l:'Dihanje',v:'Normalno',s:'ok'},{l:'Poškodbe',v:'Odrgnine',s:'warn'}],
+  correct:'HI',
+  why:'Otrok je odziven, brez znakov poškodbe hrbtenice. Ni neposredne nevarnosti → HITRI IZNOS z zajemalnimi nosili. Otroci se vedno iznašajo kontrolirano.',
+  alg:'Ni neposredne nevarnosti + otrok + ni nevroloških znakov → zajemalna nosila'
+ },
+ {
+  icon:'👴',
+  scenario:'Voznik, ~68 let, sedi v vozilu. Zmeden, bled, potenje, tresenje rok. Pove da je diabetik in da ni jedel. Vozilo je trčilo v ograjo, ni požara.',
+  vitals:[{l:'Zavest',v:'Zmeden',s:'warn'},{l:'Koža',v:'Bleda, potna',s:'warn'},{l:'Sladkorna bolezen',v:'Da, ni jedel',s:'crit'}],
+  correct:'HI',
+  why:'Hipoglikemija + manjša prometna nesreča brez neposredne nevarnosti → HITRI IZNOS z zajemalnimi nosili. Po iznosu ukrepamo za hipoglikemijo.',
+  alg:'Ni neposredne nevarnosti → zajemalna nosila; hkrati preverimo KS in ukrepamo za hipoglikemijo'
+ },
+ {
+  icon:'🏍',
+  scenario:'Motorist, ~30 let, leži na boku. Čelada modularna, zaprta. Ne reagira na klic, dihanje je glasno in oteženo.',
+  vitals:[{l:'Zavest',v:'Nezavesten',s:'crit'},{l:'Dihanje',v:'Glasno, oteženo',s:'crit'},{l:'Čelada',v:'Modularna, zaprta',s:'warn'}],
+  correct:'SC',
+  why:'Nezavesten motorist z oteženim dihanjem in čelado → SNEMANJE ČELADE takoj, da zagotovimo prosto dihalno pot. To ima prednost pred vsem drugim.',
+  alg:'Motorist + nezavesten + oteženo dihanje → najprej čelada (dihalna pot!), nato ABC'
+ },
+ {
+  icon:'👩‍🦳',
+  scenario:'Sovoznica, ~55 let, pri zavesti, tarna nad bolečino v prsnem košu od varnostnega pasu. Dihanje normalno. Vozilo stabilno, ni nevarnosti.',
+  vitals:[{l:'Zavest',v:'Jasna',s:'ok'},{l:'Dihanje',v:'Normalno',s:'ok'},{l:'Bolečina',v:'Prsni koš',s:'warn'}],
+  correct:'HI',
+  why:'Pri zavesti, dihanje normalno, ni znakov poškodbe hrbtenice, ni neposredne nevarnosti → HITRI IZNOS z zajemalnimi nosili.',
+  alg:'Ni neposredne nevarnosti + ni nevroloških znakov → zajemalna nosila'
+ },
+ {
+  icon:'👱',
+  scenario:'Voznik, ~25 let, vstane iz vozila in hodi naokoli, a se pritožuje nad bolečino v vratu in mravljinčenjem v desni roki po trku.',
+  vitals:[{l:'Hoja',v:'DA',s:'ok'},{l:'Mravljinčenje',v:'Desna roka',s:'crit'},{l:'Bolečina',v:'Vrat',s:'crit'}],
+  correct:'IM',
+  why:'Hodi, a ima nevrološke znake (mravljinčenje) in bolečino v vratu → IMOBILIZACIJA STOJEČEGA. Takoj ročno zavarujemo vrat in ga ne pustimo hoditi.',
+  alg:'Stoji + hodi + nevrološki znaki → ustavi ga, imobilizacija stoječega z zajemalnimi nosili'
+ },
+ {
+  icon:'👨',
+  scenario:'Voznik, ~40 let, ujet v vozilu – vrata se ne odpirajo. Nezavesten, ne diha. Vozilo stabilno, brez dima ali ognja.',
+  vitals:[{l:'Zavest',v:'Nezavesten',s:'crit'},{l:'Dihanje',v:'Odsotno',s:'crit'},{l:'Nevarnost',v:'Ni požara',s:'ok'}],
+  correct:'UI',
+  why:'Ne diha → potrebuje oživljanje, ki ga v vozilu NI mogoče izvesti → URGENTNI IZNOS z Rautkovim prijemom. Takoj ven, nato TPO.',
+  alg:'Ne diha → ni možno oživljati v vozilu → Rautkov prijem, takoj ven, nato ABC/TPO'
+ }
 ];
 
 const CARD_IDS = {UI:'cardUI',HI:'cardHI',IM:'cardIM',SC:'cardSC'};
 let cur=0,correct=0,wrong=0,selected=null,answered=false,ghost=null,dragging=null;
 
 function zacniIgro(){
+ try{
   document.getElementById('INTRO').style.display='none';
   document.getElementById('GAME').style.display='block';
   render();
   initDrag();
+ }catch(e){
+  console.error('Napaka pri zagonu:', e);
+ }
 }
 
 function initDrag(){
-  Object.keys(CARD_IDS).forEach(t=>{
-    const el=document.getElementById(CARD_IDS[t]);
-    el.addEventListener('mousedown',e=>startDrag(e,t,false));
-    el.addEventListener('touchstart',e=>startDrag(e,t,true),{passive:false});
-  });
+ Object.keys(CARD_IDS).forEach(t=>{
+  const el=document.getElementById(CARD_IDS[t]);
+  el.addEventListener('mousedown',e=>startDrag(e,t,false));
+  el.addEventListener('touchstart',e=>startDrag(e,t,true),{passive:false});
+ });
 }
 
 function startDrag(e,t,isTouch){
-  if(answered)return;
-  e.preventDefault();
-  dragging=t;
-  const a=ACTIONS[t];
-  ghost=document.createElement('div');
-  ghost.className='drag-ghost';
-  ghost.style.cssText=`background:${a.color};border:2px solid ${a.border};color:#fff;`;
-  ghost.innerHTML=`<div class="ac-icon">${a.icon}</div><div class="ac-code">${a.label}</div>`;
-  document.body.appendChild(ghost);
-  document.getElementById(CARD_IDS[t]).classList.add('dragging');
-  selectCard(t);
-  const pos=isTouch?{x:e.touches[0].clientX,y:e.touches[0].clientY}:{x:e.clientX,y:e.clientY};
-  moveGhost(pos.x,pos.y);
-  const mv=isTouch?(ev=>{ev.preventDefault();moveGhost(ev.touches[0].clientX,ev.touches[0].clientY)}):(ev=>moveGhost(ev.clientX,ev.clientY));
-  const up=isTouch?(ev=>{ev.preventDefault();endDrag(ev.changedTouches[0].clientX,ev.changedTouches[0].clientY)}):(ev=>endDrag(ev.clientX,ev.clientY));
-  document.addEventListener(isTouch?'touchmove':'mousemove',mv,{passive:false});
-  document.addEventListener(isTouch?'touchend':'mouseup',function h(ev){
-    document.removeEventListener(isTouch?'touchmove':'mousemove',mv);
-    document.removeEventListener(isTouch?'touchend':'mouseup',h);
-    up(ev);
-  },{once:true,passive:false});
+ if(answered)return;
+ e.preventDefault();
+ dragging=t;
+ const a=ACTIONS[t];
+ ghost=document.createElement('div');
+ ghost.className='drag-ghost';
+ ghost.style.cssText=`background:${a.color};border:2px solid ${a.border};color:#fff;`;
+ ghost.innerHTML=`<div class="ac-icon">${a.icon}</div><div class="ac-code">${a.label}</div>`;
+ document.body.appendChild(ghost);
+ document.getElementById(CARD_IDS[t]).classList.add('dragging');
+ selectCard(t);
+ const pos=isTouch?{x:e.touches[0].clientX,y:e.touches[0].clientY}:{x:e.clientX,y:e.clientY};
+ moveGhost(pos.x,pos.y);
+ const mv=isTouch?(ev=>{ev.preventDefault();moveGhost(ev.touches[0].clientX,ev.touches[0].clientY)}):(ev=>moveGhost(ev.clientX,ev.clientY));
+ const up=isTouch?(ev=>{ev.preventDefault();endDrag(ev.changedTouches[0].clientX,ev.changedTouches[0].clientY)}):(ev=>endDrag(ev.clientX,ev.clientY));
+ document.addEventListener(isTouch?'touchmove':'mousemove',mv,{passive:false});
+ document.addEventListener(isTouch?'touchend':'mouseup',function h(ev){
+  document.removeEventListener(isTouch?'touchmove':'mousemove',mv);
+  document.removeEventListener(isTouch?'touchend':'mouseup',h);
+  up(ev);
+ },{once:true,passive:false});
 }
 
 function moveGhost(x,y){
-  if(!ghost)return;
-  ghost.style.left=x+'px';ghost.style.top=y+'px';
-  const fig=document.getElementById('fig-icon');
-  const r=fig.getBoundingClientRect();
-  fig.classList.toggle('drag-over',x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom);
+ if(!ghost)return;
+ ghost.style.left=x+'px';ghost.style.top=y+'px';
+ const fig=document.getElementById('fig-icon');
+ const r=fig.getBoundingClientRect();
+ fig.classList.toggle('drag-over',x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom);
 }
 
 function endDrag(x,y){
-  if(!ghost)return;
-  ghost.remove();ghost=null;
-  const el=document.getElementById(CARD_IDS[dragging]);
-  if(el)el.classList.remove('dragging');
-  document.getElementById('fig-icon').classList.remove('drag-over');
-  const pa=document.getElementById('patient-area');
-  const r=pa.getBoundingClientRect();
-  if(x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom&&selected) potrdi();
-  dragging=null;
+ if(!ghost)return;
+ ghost.remove();ghost=null;
+ const el=document.getElementById(CARD_IDS[dragging]);
+ if(el)el.classList.remove('dragging');
+ document.getElementById('fig-icon').classList.remove('drag-over');
+ const pa=document.getElementById('patient-area');
+ const r=pa.getBoundingClientRect();
+ if(x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom&&selected) potrdi();
+ dragging=null;
 }
 
 function selectCard(t){
-  if(answered)return;
-  selected=t;
-  Object.keys(CARD_IDS).forEach(id=>{
-    document.getElementById(CARD_IDS[id]).classList.toggle('selected',id===t);
-  });
-  updateConfirmBtn();
+ if(answered)return;
+ selected=t;
+ Object.keys(CARD_IDS).forEach(id=>{
+  document.getElementById(CARD_IDS[id]).classList.toggle('selected',id===t);
+ });
+ updateConfirmBtn();
 }
 
 function render(){
-  const p=PATIENTS[cur];
-  document.getElementById('p-num').textContent='Poškodovanec '+(cur+1)+' / '+PATIENTS.length;
-  document.getElementById('p-scenario').textContent=p.scenario;
-  document.getElementById('fig-icon').innerHTML=p.icon+'<div class="action-slot" id="action-slot">?</div>';
-  document.getElementById('p-vitals').innerHTML=p.vitals.map(v=>`<div class="vital"><div class="vital-lbl">${v.l}</div><div class="vital-val ${v.s}">${v.v}</div></div>`).join('');
-  document.getElementById('p-fb').className='feedback';
-  document.getElementById('p-fb').innerHTML='';
-  document.getElementById('attached-action').style.display='none';
-  Object.keys(CARD_IDS).forEach(t=>{
-    const el=document.getElementById(CARD_IDS[t]);
-    el.className=el.className.replace(/selected|locked|correct-used|wrong-used|reveal-correct|dragging/g,'').trim();
-  });
-  selected=null;answered=false;
-  updateConfirmBtn();updateProgress();
-  const pa=document.getElementById('patient-area');
-  pa.classList.remove('animate-in');void pa.offsetWidth;pa.classList.add('animate-in');
+ const p=PATIENTS[cur];
+ document.getElementById('p-num').textContent='Poškodovanec '+(cur+1)+' / '+PATIENTS.length;
+ document.getElementById('p-scenario').textContent=p.scenario;
+ document.getElementById('fig-icon').innerHTML=p.icon+'<div class="action-slot" id="action-slot">?</div>';
+ document.getElementById('p-vitals').innerHTML=p.vitals.map(v=>`<div class="vital"><div class="vital-lbl">${v.l}</div><div class="vital-val ${v.s}">${v.v}</div></div>`).join('');
+ document.getElementById('p-fb').className='feedback';
+ document.getElementById('p-fb').innerHTML='';
+ document.getElementById('attached-action').style.display='none';
+ Object.keys(CARD_IDS).forEach(t=>{
+  const el=document.getElementById(CARD_IDS[t]);
+  el.className=el.className.replace(/selected|locked|correct-used|wrong-used|reveal-correct|dragging/g,'').trim();
+ });
+ selected=null;answered=false;
+ updateConfirmBtn();updateProgress();
+ const pa=document.getElementById('patient-area');
+ pa.classList.remove('animate-in');void pa.offsetWidth;pa.classList.add('animate-in');
 }
 
 function updateConfirmBtn(){
-  document.getElementById('btn-confirm').classList.toggle('active',!!selected&&!answered);
+ document.getElementById('btn-confirm').classList.toggle('active',!!selected&&!answered);
 }
 
 function potrdi(){
-  if(!selected||answered)return;
-  answered=true;
-  const p=PATIENTS[cur];
-  const ok=selected===p.correct;
-  if(ok)correct++;else wrong++;
-  Object.keys(CARD_IDS).forEach(t=>{
-    const el=document.getElementById(CARD_IDS[t]);
-    el.classList.add('locked');el.classList.remove('selected');
-    if(t===selected)el.classList.add(ok?'correct-used':'wrong-used');
-    if(!ok&&t===p.correct)el.classList.add('reveal-correct');
-  });
-  const a=ACTIONS[selected];
-  const at=document.getElementById('attached-action');
-  at.textContent=a.icon+' '+a.label;
-  at.style.cssText=`display:block;background:${a.color};border:1.5px solid ${a.border};color:#fff`;
-  const slot=document.getElementById('action-slot');
-  slot.innerHTML=a.icon;
-  slot.style.cssText=`background:${a.color};border:2px solid ${a.border};font-size:18px;border-style:solid`;
-  const pa=document.getElementById('patient-area');
-  pa.classList.add(ok?'flash-ok':'flash-nok');
-  setTimeout(()=>pa.classList.remove('flash-ok','flash-nok'),800);
-  const fb=document.getElementById('p-fb');
-  fb.className='feedback show '+(ok?'ok':'nok');
-  fb.innerHTML=`<strong>${ok?'Pravilno! ✓':'Napačno. ✗'}</strong> ${p.why}<div class="fb-why">${p.alg}</div>`;
-  updateConfirmBtn();
-  document.getElementById('chip-ok').textContent='✓ '+correct;
-  document.getElementById('chip-nok').textContent='✗ '+wrong;
-  setTimeout(()=>{if(cur<PATIENTS.length-1){cur++;render();}else showResult();},ok?2000:3200);
+ if(!selected||answered)return;
+ answered=true;
+ const p=PATIENTS[cur];
+ const ok=selected===p.correct;
+ if(ok)correct++;else wrong++;
+ Object.keys(CARD_IDS).forEach(t=>{
+  const el=document.getElementById(CARD_IDS[t]);
+  el.classList.add('locked');el.classList.remove('selected');
+  if(t===selected)el.classList.add(ok?'correct-used':'wrong-used');
+  if(!ok&&t===p.correct)el.classList.add('reveal-correct');
+ });
+ const a=ACTIONS[selected];
+ const at=document.getElementById('attached-action');
+ at.textContent=a.icon+' '+a.label;
+ at.style.cssText=`display:block;background:${a.color};border:1.5px solid ${a.border};color:#fff`;
+ const slot=document.getElementById('action-slot');
+ slot.innerHTML=a.icon;
+ slot.style.cssText=`background:${a.color};border:2px solid ${a.border};font-size:18px;border-style:solid`;
+ const pa=document.getElementById('patient-area');
+ pa.classList.add(ok?'flash-ok':'flash-nok');
+ setTimeout(()=>pa.classList.remove('flash-ok','flash-nok'),800);
+ const fb=document.getElementById('p-fb');
+ fb.className='feedback show '+(ok?'ok':'nok');
+ fb.innerHTML=`<strong>${ok?'Pravilno! ✓':'Napačno. ✗'}</strong> ${p.why}<div class="fb-why">${p.alg}</div>`;
+ updateConfirmBtn();
+ document.getElementById('chip-ok').textContent='✓ '+correct;
+ document.getElementById('chip-nok').textContent='✗ '+wrong;
+ setTimeout(()=>{if(cur<PATIENTS.length-1){cur++;render();}else showResult();},ok?2000:3200);
 }
 
 function updateProgress(){
-  document.getElementById('prog-bar').style.width=(cur/PATIENTS.length*100)+'%';
-  document.getElementById('prog-txt').textContent=cur+' / '+PATIENTS.length;
+ document.getElementById('prog-bar').style.width=(cur/PATIENTS.length*100)+'%';
+ document.getElementById('prog-txt').textContent=cur+' / '+PATIENTS.length;
 }
 
 function showResult(){
-  const raw=sessionStorage.getItem('pnmp_active_user');
-  const user=raw?JSON.parse(raw):{polnoIme:'Anonimno'};
-  const pct=Math.round(correct/PATIENTS.length*100);
-  db.collection('simulator_pn').add({polnoIme:user.polnoIme||'Anonimno',pravilno:correct,napacno:wrong,skupaj:PATIENTS.length,procent:pct,cas:firebase.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
-  document.getElementById('GAME').style.display='none';
-  const r=document.getElementById('RESULT');r.classList.add('show');
-  document.getElementById('r-score').textContent=correct;
-  document.getElementById('rs-ok').textContent=correct;
-  document.getElementById('rs-nok').textContent=wrong;
-  document.getElementById('rs-pct').textContent=pct+'%';
-  const[title,sub]=pct>=90?['Odlično!','Pravilno si se odločil za vsak ukrep.']:pct>=70?['Dobro!','Večino primerov si pravilno rešil. Ponovi napačne.']:['Vaditi naprej','Priporočamo ponoven pregled protokolov iznosa in imobilizacije.'];
-  document.getElementById('r-title').textContent=title;
-  document.getElementById('r-sub').textContent=sub;
-  const cnt={UI:0,HI:0,IM:0,SC:0};
-  PATIENTS.forEach(p=>cnt[p.correct]++);
-  let h='';
-  Object.keys(ACTIONS).forEach(t=>{
-    const a=ACTIONS[t];
-    for(let i=0;i<cnt[t];i++) h+=`<div class="ra-item" style="background:${a.color};border:2px solid ${a.border}"><div class="ac-icon">${a.icon}</div><div class="ac-code" style="font-family:'Bebas Neue',sans-serif;font-size:10px">${t}</div></div>`;
-  });
-  document.getElementById('result-actions').innerHTML=h;
-  document.querySelectorAll('.ra-item').forEach((el,i)=>{
-    setTimeout(()=>{el.style.opacity='1';el.style.transform='translateY(-4px)';},100+i*80);
-  });
+ const raw=sessionStorage.getItem('pnmp_active_user');
+ const user=raw?JSON.parse(raw):{polnoIme:'Anonimno'};
+ const pct=Math.round(correct/PATIENTS.length*100);
+ db.collection('simulator_pn').add({polnoIme:user.polnoIme||'Anonimno',pravilno:correct,napacno:wrong,skupaj:PATIENTS.length,procent:pct,cas:firebase.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
+ document.getElementById('GAME').style.display='none';
+ const r=document.getElementById('RESULT');r.classList.add('show');
+ document.getElementById('r-score').textContent=correct;
+ document.getElementById('rs-ok').textContent=correct;
+ document.getElementById('rs-nok').textContent=wrong;
+ document.getElementById('rs-pct').textContent=pct+'%';
+ const[title,sub]=pct>=90?['Odlično!','Pravilno si se odločil za vsak ukrep.']:pct>=70?['Dobro!','Večino primerov si pravilno rešil. Ponovi napačne.']:['Vaditi naprej','Priporočamo ponoven pregled protokolov iznosa in imobilizacije.'];
+ document.getElementById('r-title').textContent=title;
+ document.getElementById('r-sub').textContent=sub;
+ const cnt={UI:0,HI:0,IM:0,SC:0};
+ PATIENTS.forEach(p=>cnt[p.correct]++);
+ let h='';
+ Object.keys(ACTIONS).forEach(t=>{
+  const a=ACTIONS[t];
+  for(let i=0;i<cnt[t];i++) h+=`<div class="ra-item" style="background:${a.color};border:2px solid ${a.border}"><div class="ac-icon">${a.icon}</div><div class="ac-code" style="font-family:'Bebas Neue',sans-serif;font-size:10px">${t}</div></div>`;
+ });
+ document.getElementById('result-actions').innerHTML=h;
+ document.querySelectorAll('.ra-item').forEach((el,i)=>{
+  setTimeout(()=>{el.style.opacity='1';el.style.transform='translateY(-4px)';},100+i*80);
+ });
 }
 
 function restart(){
-  cur=0;correct=0;wrong=0;selected=null;answered=false;
-  document.getElementById('RESULT').classList.remove('show');
-  document.getElementById('GAME').style.display='block';
-  document.getElementById('chip-ok').textContent='✓ 0';
-  document.getElementById('chip-nok').textContent='✗ 0';
-  render();
+ cur=0;correct=0;wrong=0;selected=null;answered=false;
+ document.getElementById('RESULT').classList.remove('show');
+ document.getElementById('GAME').style.display='block';
+ document.getElementById('chip-ok').textContent='✓ 0';
+ document.getElementById('chip-nok').textContent='✗ 0';
+ render();
 }
 </script>
 </body>
