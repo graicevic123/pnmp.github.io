@@ -378,14 +378,14 @@ function renderSimulator(data){
  data = data || simulatorji;
  const el=document.getElementById('tblS');
  if(!data.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
- let h='<table><thead><tr><th>Ime in priimek</th><th>Simulator</th><th>Rezultat</th><th>Pravilno</th><th>Napačno</th><th>Čas</th></tr></thead><tbody>';
+ let h='<table style="table-layout:fixed;width:100%"><colgroup><col><col style="width:145px"><col style="width:100px"><col style="width:72px"><col style="width:72px"><col style="width:90px"></colgroup><thead><tr><th>Ime in priimek</th><th>Simulator</th><th>Rezultat</th><th>Pravilno</th><th>Napačno</th><th>Čas</th></tr></thead><tbody>';
  data.forEach(r=>{
   const pct=r.procent||0,cls=pct>=90?'hi':pct>=60?'md':'lo';
   const tipLabel=r._tipLabel||'—';
   const tipColor=r._tip==='simulator_pn'?'#C17D0A':'#148F77';
   h+=`<tr>
    <td class="n">${r.polnoIme||'—'}</td>
-   <td style="font-size:11px;font-weight:600;color:${tipColor}">${tipLabel}</td>
+   <td style="font-size:11px;font-weight:600;color:${tipColor};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${tipLabel}</td>
    <td><span class="sc ${cls}">${r.pravilno||0}/${r.skupaj||10}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td>
    <td style="color:#7FE8A8;font-weight:600">${r.pravilno||0}</td>
    <td style="color:#F4A09A;font-weight:600">${r.napacno||0}</td>
@@ -420,7 +420,10 @@ async function loadSimulator(){
 /* Filter simulator */
 function filtrirajSim(){
  const f=document.getElementById('fS').value;
- renderSimulator(f?simulatorji.filter(r=>r._tip===f):simulatorji);
+ const data=f?simulatorji.filter(r=>r._tip===f):simulatorji;
+ renderSimulator(data);
+ // Stats vedno kažejo skupne podatke - brez premikanja
+ statsSimulator();
 }
 
 /* Drawer */
