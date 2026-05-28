@@ -345,8 +345,11 @@ const PATIENTS = [
 const CARD_IDS = {UI:'cardUI',HI:'cardHI',IM:'cardIM',SC:'cardSC'};
 let cur=0,correct=0,wrong=0,selected=null,answered=false,ghost=null,dragging=null,odgovori=[];
 
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+
 function zacniIgro(){
  try{
+  shuffle(PATIENTS);
   document.getElementById('INTRO').style.display='none';
   document.getElementById('GAME').style.display='block';
   render();
@@ -446,6 +449,7 @@ function potrdi(){
  const p=PATIENTS[cur];
  const ok=selected===p.correct;
  if(ok)correct++;else wrong++;
+ odgovori.push({st:cur+1,scenario:p.scenario.substring(0,70),izbran:selected,pravilen:p.correct,pravilno:ok});
  Object.keys(CARD_IDS).forEach(t=>{
   const el=document.getElementById(CARD_IDS[t]);
   el.classList.add('locked');el.classList.remove('selected');
@@ -480,7 +484,7 @@ function showResult(){
  const raw=sessionStorage.getItem('pnmp_active_user');
  const user=raw?JSON.parse(raw):{polnoIme:'Anonimno'};
  const pct=Math.round(correct/PATIENTS.length*100);
- db.collection('simulator_pn').add({polnoIme:user.polnoIme||'Anonimno',pravilno:correct,napacno:wrong,skupaj:PATIENTS.length,procent:pct,cas:firebase.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
+ db.collection('simulator_pn').add({polnoIme:user.polnoIme||'Anonimno',pravilno:correct,napacno:wrong,skupaj:PATIENTS.length,procent:pct,odgovori:odgovori,cas:firebase.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
  document.getElementById('GAME').style.display='none';
  const r=document.getElementById('RESULT');r.classList.add('show');
  document.getElementById('r-score').textContent=correct;
