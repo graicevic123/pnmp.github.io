@@ -143,134 +143,134 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 
 <div class="wrap">
 
-  <!-- Hero -->
-  <div class="hero">
-    <p class="hero-eyebrow">Namenjeno prostovoljnim gasilskim društvom v GZL</p>
-    <h1>PNMP<span class="sub">PRVA IN NUJNA MEDICINSKA POMOČ</span><span class="red">PORTAL</span></h1>
-    <p class="hero-sub">Zbirno mesto kvizov, gradiv in usposabljanja za ekipe PNMP.<br>Pred začetkom se prijavi z imenom in priimkom.</p>
+ <!-- Hero -->
+ <div class="hero">
+  <p class="hero-eyebrow">Namenjeno prostovoljnim gasilskim društvom v GZL</p>
+  <h1>PNMP<span class="sub">PRVA IN NUJNA MEDICINSKA POMOČ</span><span class="red">PORTAL</span></h1>
+  <p class="hero-sub">Zbirno mesto kvizov, gradiv in usposabljanja za ekipe PNMP.<br>Pred začetkom se prijavi z imenom in priimkom.</p>
+ </div>
+
+ <!-- Login -->
+ <div class="login-box" id="login-box">
+  <div class="login-title">Prijava tečajnika</div>
+  <div class="login-fields">
+   <div><div class="field-label">Ime</div><input class="field-input" type="text" id="inp-ime" placeholder="Janez" autocomplete="given-name"></div>
+   <div><div class="field-label">Priimek</div><input class="field-input" type="text" id="inp-priimek" placeholder="Novak" autocomplete="family-name"></div>
+  </div>
+  <button class="login-btn" onclick="prijava()">Začni usposabljanje →</button>
+  <div class="login-error" id="login-error">Prosimo, vnesi ime in priimek.</div>
+ </div>
+
+ <div class="welcome-bar" id="welcome-bar">
+  <span class="welcome-name">Prijavljen: <strong id="welcome-name-txt">—</strong></span>
+  <button class="logout-btn" onclick="odjava()">Odjava</button>
+ </div>
+
+ <!-- Stats -->
+ <div class="section-header" style="margin-top:48px">
+  <div class="section-header-line"></div>
+  <div class="section-header-badge">Pregled</div>
+  <div class="section-header-line"></div>
+ </div>
+ <div class="stats">
+  <div class="stat"><div class="stat-num">6</div><div class="stat-lbl">Tematskih sklopov</div></div>
+  <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Aktivni gradivi</div></div>
+  <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Aktivna kviza</div></div>
+  <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Simulatorja</div></div>
+ </div>
+
+ <span class="lock-msg" id="lock-msg">Prijavi se zgoraj, da odpreš vsebine.</span>
+
+ <!-- ── GRADIVA ── -->
+ <div class="section-header">
+  <div class="section-header-line"></div>
+  <div class="section-header-badge">Gradiva, predavanja in kvizi</div>
+  <div class="section-header-line"></div>
+ </div>
+
+ <div class="materials-grid portal-locked" id="materials-content">
+
+  <a class="card-link teal" href="#" onclick="odpriStran(event,'gradivo-mnozicne-nesrece.html')">
+   <div class="badge badge-teal">Predavanje + simulator</div>
+   <div class="card-type">Gradivo · Množične nesreče</div>
+   <div class="card-title">MNOŽIČNE NESREČE<span class="card-sub">PREDBOLNIŠNIČNA RAVEN · SIEVE · SORT</span></div>
+   <div class="card-desc">Predbolnišnična raven, vloga gasilcev – METHANE, SIEVE, SORT, HNMP. Vključuje triažni simulator.</div>
+   <div class="card-meta"><span class="card-count">PPT · Kviz · Simulator</span><span class="card-arrow">→</span></div>
+  </a>
+
+  <a class="card-link red" href="#" onclick="odpriStran(event,'gradivo-prometna-nesreca.html')">
+   <div class="badge badge-red">Aktivno</div>
+   <div class="card-type">Gradivo · Prometna nesreča</div>
+   <div class="card-title">PROMETNA NESREČA<span class="card-sub">IZNOS · MOTORIST · IMOBILIZACIJA</span></div>
+   <div class="card-desc">Iznos iz vozila z zajemalnimi nosili, imobilizacija stoječega poškodovanca, snemanje čelade motorista.</div>
+   <div class="card-meta"><span class="card-count">PPT · Kviz · Delavnice</span><span class="card-arrow">→</span></div>
+  </a>
+
+  <div class="card-link green soon">
+   <div class="badge badge-soon">Kmalu</div>
+   <div class="card-type">Gradivo · Reanimacija</div>
+   <div class="card-title">REANIMACIJA<span class="card-sub">TPO · AED · VERIGA PREŽIVETJA</span></div>
+   <div class="card-desc">Temeljni postopki oživljanja odraslih in otrok, uporaba AED, smernice ERC.</div>
+   <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
   </div>
 
-  <!-- Login -->
-  <div class="login-box" id="login-box">
-    <div class="login-title">Prijava tečajnika</div>
-    <div class="login-fields">
-      <div><div class="field-label">Ime</div><input class="field-input" type="text" id="inp-ime" placeholder="Janez" autocomplete="given-name"></div>
-      <div><div class="field-label">Priimek</div><input class="field-input" type="text" id="inp-priimek" placeholder="Novak" autocomplete="family-name"></div>
-    </div>
-    <button class="login-btn" onclick="prijava()">Začni usposabljanje →</button>
-    <div class="login-error" id="login-error">Prosimo, vnesi ime in priimek.</div>
+  <div class="card-link blue soon">
+   <div class="badge badge-soon">Kmalu</div>
+   <div class="card-type">Gradivo · Hipoglikemija</div>
+   <div class="card-title">HIPOGLIKEMIJA<span class="card-sub">SLADKORNA BOLEZEN · INZULINSKA ČRPALKA</span></div>
+   <div class="card-desc">Prepoznavanje znakov, merjenje krvnega sladkorja, upravljanje z inzulinsko črpalko na terenu.</div>
+   <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
   </div>
 
-  <div class="welcome-bar" id="welcome-bar">
-    <span class="welcome-name">Prijavljen: <strong id="welcome-name-txt">—</strong></span>
-    <button class="logout-btn" onclick="odjava()">Odjava</button>
+  <div class="card-link purple soon">
+   <div class="badge badge-soon">Kmalu</div>
+   <div class="card-type">Gradivo · Poškodbe</div>
+   <div class="card-title">POŠKODBE<span class="card-sub">OPEKLINE · ZLOMI · KRVAVITVE</span></div>
+   <div class="card-desc">Obvladovanje hudih krvavitev, oskrba opeklin, imobilizacija zlomov po protokolu ITLS.</div>
+   <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
   </div>
 
-  <!-- Stats -->
-  <div class="section-header" style="margin-top:48px">
-    <div class="section-header-line"></div>
-    <div class="section-header-badge">Pregled</div>
-    <div class="section-header-line"></div>
-  </div>
-  <div class="stats">
-    <div class="stat"><div class="stat-num">6</div><div class="stat-lbl">Tematskih sklopov</div></div>
-    <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Aktivni gradivi</div></div>
-    <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Aktivna kviza</div></div>
-    <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Simulatorja</div></div>
+  <div class="card-link blue soon">
+   <div class="badge badge-soon">Kmalu</div>
+   <div class="card-type">Gradivo · Posebni primeri</div>
+   <div class="card-title">POSEBNI PRIMERI<span class="card-sub">POROD · ZASTRUPITEV · UTOPITEV</span></div>
+   <div class="card-desc">Nujna stanja na terenu: porod, zastrupitev, utopitev, električna poškodba.</div>
+   <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
   </div>
 
-  <span class="lock-msg" id="lock-msg">Prijavi se zgoraj, da odpreš vsebine.</span>
+ </div>
 
-  <!-- ── GRADIVA ── -->
-  <div class="section-header">
-    <div class="section-header-line"></div>
-    <div class="section-header-badge">Gradiva, predavanja in kvizi</div>
-    <div class="section-header-line"></div>
+ <!-- ── ANKETA INFO ── -->
+ <div class="section-header">
+  <div class="section-header-line"></div>
+  <div class="section-header-badge">Povratne informacije</div>
+  <div class="section-header-line"></div>
+ </div>
+
+ <div style="background:rgba(20,143,119,0.08);border:0.5px solid rgba(20,143,119,0.25);border-radius:14px;padding:24px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+  <div style="font-size:28px;flex-shrink:0">📋</div>
+  <div style="flex:1;min-width:200px">
+   <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Anketa o usposabljanju</div>
+   <div style="font-size:15px;font-weight:600;color:var(--white);margin-bottom:4px">Anketa je del vsakega gradiva</div>
+   <div style="font-size:13px;color:var(--muted);line-height:1.6">Povratne informacije oddaš direktno na strani posameznega predavanja ali kviza – takoj po ogledu ali reševanju. Poišči anketo na dnu vsake gradivne strani.</div>
   </div>
+ </div>
 
-  <div class="materials-grid portal-locked" id="materials-content">
-
-    <a class="card-link teal" href="#" onclick="odpriStran(event,'gradivo-mnozicne-nesrece.html')">
-      <div class="badge badge-teal">Predavanje + simulator</div>
-      <div class="card-type">Gradivo · Množične nesreče</div>
-      <div class="card-title">MNOŽIČNE NESREČE<span class="card-sub">PREDBOLNIŠNIČNA RAVEN · SIEVE · SORT</span></div>
-      <div class="card-desc">Predbolnišnična raven, vloga gasilcev – METHANE, SIEVE, SORT, HNMP. Vključuje triažni simulator.</div>
-      <div class="card-meta"><span class="card-count">PPT · Kviz · Simulator</span><span class="card-arrow">→</span></div>
-    </a>
-
-    <a class="card-link red" href="#" onclick="odpriStran(event,'gradivo-prometna-nesreca.html')">
-      <div class="badge badge-red">Aktivno</div>
-      <div class="card-type">Gradivo · Prometna nesreča</div>
-      <div class="card-title">PROMETNA NESREČA<span class="card-sub">IZNOS · MOTORIST · IMOBILIZACIJA</span></div>
-      <div class="card-desc">Iznos iz vozila z zajemalnimi nosili, imobilizacija stoječega poškodovanca, snemanje čelade motorista.</div>
-      <div class="card-meta"><span class="card-count">PPT · Kviz · Delavnice</span><span class="card-arrow">→</span></div>
-    </a>
-
-    <div class="card-link green soon">
-      <div class="badge badge-soon">Kmalu</div>
-      <div class="card-type">Gradivo · Reanimacija</div>
-      <div class="card-title">REANIMACIJA<span class="card-sub">TPO · AED · VERIGA PREŽIVETJA</span></div>
-      <div class="card-desc">Temeljni postopki oživljanja odraslih in otrok, uporaba AED, smernice ERC.</div>
-      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
-    </div>
-
-    <div class="card-link blue soon">
-      <div class="badge badge-soon">Kmalu</div>
-      <div class="card-type">Gradivo · Hipoglikemija</div>
-      <div class="card-title">HIPOGLIKEMIJA<span class="card-sub">SLADKORNA BOLEZEN · INZULINSKA ČRPALKA</span></div>
-      <div class="card-desc">Prepoznavanje znakov, merjenje krvnega sladkorja, upravljanje z inzulinsko črpalko na terenu.</div>
-      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
-    </div>
-
-    <div class="card-link purple soon">
-      <div class="badge badge-soon">Kmalu</div>
-      <div class="card-type">Gradivo · Poškodbe</div>
-      <div class="card-title">POŠKODBE<span class="card-sub">OPEKLINE · ZLOMI · KRVAVITVE</span></div>
-      <div class="card-desc">Obvladovanje hudih krvavitev, oskrba opeklin, imobilizacija zlomov po protokolu ITLS.</div>
-      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
-    </div>
-
-    <div class="card-link blue soon">
-      <div class="badge badge-soon">Kmalu</div>
-      <div class="card-type">Gradivo · Posebni primeri</div>
-      <div class="card-title">POSEBNI PRIMERI<span class="card-sub">POROD · ZASTRUPITEV · UTOPITEV</span></div>
-      <div class="card-desc">Nujna stanja na terenu: porod, zastrupitev, utopitev, električna poškodba.</div>
-      <div class="card-meta"><span class="card-count">V pripravi</span><span class="card-arrow">→</span></div>
-    </div>
-
-  </div>
-
-  <!-- ── ANKETA INFO ── -->
-  <div class="section-header">
-    <div class="section-header-line"></div>
-    <div class="section-header-badge">Povratne informacije</div>
-    <div class="section-header-line"></div>
-  </div>
-
-  <div style="background:rgba(20,143,119,0.08);border:0.5px solid rgba(20,143,119,0.25);border-radius:14px;padding:24px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-    <div style="font-size:28px;flex-shrink:0">📋</div>
-    <div style="flex:1;min-width:200px">
-      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Anketa o usposabljanju</div>
-      <div style="font-size:15px;font-weight:600;color:var(--white);margin-bottom:4px">Anketa je del vsakega gradiva</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.6">Povratne informacije oddaš direktno na strani posameznega predavanja ali kviza – takoj po ogledu ali reševanju. Poišči anketo na dnu vsake gradivne strani.</div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="footer">
-    <p><strong>PNMP ekipa</strong> · Namenjeno prostovoljnim gasilskim društvom v GZL<br>Gradiva so namenjena izključno internem usposabljanju.</p>
-  </div>
+ <!-- Footer -->
+ <div class="footer">
+  <p><strong>PNMP ekipa</strong> · Namenjeno prostovoljnim gasilskim društvom v GZL<br>Gradiva so namenjena izključno internem usposabljanju.</p>
+ </div>
 
 </div>
 
 <script>
 firebase.initializeApp({
-  apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",
-  authDomain:"pnmp-kviz.firebaseapp.com",
-  projectId:"pnmp-kviz",
-  storageBucket:"pnmp-kviz.firebasestorage.app",
-  messagingSenderId:"907229581116",
-  appId:"1:907229581116:web:831cad9f6749bfb1015839"
+ apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",
+ authDomain:"pnmp-kviz.firebaseapp.com",
+ projectId:"pnmp-kviz",
+ storageBucket:"pnmp-kviz.firebasestorage.app",
+ messagingSenderId:"907229581116",
+ appId:"1:907229581116:web:831cad9f6749bfb1015839"
 });
 const db=firebase.firestore();
 
@@ -278,83 +278,83 @@ const SK='pnmp_user';
 let activeStars=0;
 
 function setStars(n){
-  activeStars=n;
-  document.querySelectorAll('.star').forEach(s=>{
-    s.classList.toggle('active',parseInt(s.dataset.v)<=n);
-  });
+ activeStars=n;
+ document.querySelectorAll('.star').forEach(s=>{
+  s.classList.toggle('active',parseInt(s.dataset.v)<=n);
+ });
 }
 
 function prijava(){
-  const ime=document.getElementById('inp-ime').value.trim();
-  const priimek=document.getElementById('inp-priimek').value.trim();
-  if(!ime||!priimek){document.getElementById('login-error').style.display='block';return;}
-  const user={ime,priimek,polnoIme:ime+' '+priimek};
-  sessionStorage.setItem(SK,JSON.stringify(user));
-  pokaziPortal(user);
+ const ime=document.getElementById('inp-ime').value.trim();
+ const priimek=document.getElementById('inp-priimek').value.trim();
+ if(!ime||!priimek){document.getElementById('login-error').style.display='block';return;}
+ const user={ime,priimek,polnoIme:ime+' '+priimek};
+ sessionStorage.setItem(SK,JSON.stringify(user));
+ pokaziPortal(user);
 }
 
 function odjava(){
-  sessionStorage.removeItem(SK);
-  document.getElementById('welcome-bar').classList.remove('show');
-  document.getElementById('login-box').style.display='block';
-  ['materials-content','survey-content'].forEach(id=>{
-    document.getElementById(id).classList.remove('unlocked');
-    document.getElementById(id).classList.add('portal-locked');
-  });
-  document.getElementById('lock-msg').classList.remove('hide');
+ sessionStorage.removeItem(SK);
+ document.getElementById('welcome-bar').classList.remove('show');
+ document.getElementById('login-box').style.display='block';
+ ['materials-content','survey-content'].forEach(id=>{
+  document.getElementById(id).classList.remove('unlocked');
+  document.getElementById(id).classList.add('portal-locked');
+ });
+ document.getElementById('lock-msg').classList.remove('hide');
 }
 
 function pokaziPortal(user){
-  document.getElementById('login-box').style.display='none';
-  document.getElementById('login-error').style.display='none';
-  document.getElementById('welcome-bar').classList.add('show');
-  document.getElementById('welcome-name-txt').textContent=user.polnoIme;
-  ['materials-content','survey-content'].forEach(id=>{
-    document.getElementById(id).classList.remove('portal-locked');
-    document.getElementById(id).classList.add('unlocked');
-  });
-  document.getElementById('lock-msg').classList.add('hide');
+ document.getElementById('login-box').style.display='none';
+ document.getElementById('login-error').style.display='none';
+ document.getElementById('welcome-bar').classList.add('show');
+ document.getElementById('welcome-name-txt').textContent=user.polnoIme;
+ ['materials-content','survey-content'].forEach(id=>{
+  document.getElementById(id).classList.remove('portal-locked');
+  document.getElementById(id).classList.add('unlocked');
+ });
+ document.getElementById('lock-msg').classList.add('hide');
 }
 
 function odpriStran(e,url){
-  e.preventDefault();
-  const raw=sessionStorage.getItem(SK);
-  if(!raw)return;
-  sessionStorage.setItem('pnmp_active_user',raw);
-  window.location.href=url;
+ e.preventDefault();
+ const raw=sessionStorage.getItem(SK);
+ if(!raw)return;
+ sessionStorage.setItem('pnmp_active_user',raw);
+ window.location.href=url;
 }
 
 async function posljiAnketo(){
-  const kviz=document.getElementById('ankt-kviz').value;
-  const err=document.getElementById('survey-error');
-  if(!kviz||!activeStars){err.style.display='inline';return;}
-  err.style.display='none';
-  const user=sessionStorage.getItem(SK)?JSON.parse(sessionStorage.getItem(SK)):{polnoIme:'Anonimno'};
-  try{
-    await db.collection('ankete').add({
-      polnoIme:user.polnoIme||'Anonimno',
-      kviz,
-      tezavnost:document.getElementById('ankt-tezavnost').value||'—',
-      ocena:activeStars,
-      vsec:document.getElementById('ankt-vsec').value.trim()||'—',
-      izboljsaj:document.getElementById('ankt-izboljsaj').value.trim()||'—',
-      naslednjic:document.getElementById('ankt-naslednjic').value.trim()||'—',
-      cas:firebase.firestore.FieldValue.serverTimestamp()
-    });
-    document.getElementById('survey-form').style.display='none';
-    document.getElementById('survey-success').classList.add('show');
-  }catch(e){
-    document.getElementById('survey-error').textContent='Napaka pri pošiljanju. Preveri internetno povezavo.';
-    document.getElementById('survey-error').style.display='inline';
-  }
+ const kviz=document.getElementById('ankt-kviz').value;
+ const err=document.getElementById('survey-error');
+ if(!kviz||!activeStars){err.style.display='inline';return;}
+ err.style.display='none';
+ const user=sessionStorage.getItem(SK)?JSON.parse(sessionStorage.getItem(SK)):{polnoIme:'Anonimno'};
+ try{
+  await db.collection('ankete').add({
+   polnoIme:user.polnoIme||'Anonimno',
+   kviz,
+   tezavnost:document.getElementById('ankt-tezavnost').value||'—',
+   ocena:activeStars,
+   vsec:document.getElementById('ankt-vsec').value.trim()||'—',
+   izboljsaj:document.getElementById('ankt-izboljsaj').value.trim()||'—',
+   naslednjic:document.getElementById('ankt-naslednjic').value.trim()||'—',
+   cas:firebase.firestore.FieldValue.serverTimestamp()
+  });
+  document.getElementById('survey-form').style.display='none';
+  document.getElementById('survey-success').classList.add('show');
+ }catch(e){
+  document.getElementById('survey-error').textContent='Napaka pri pošiljanju. Preveri internetno povezavo.';
+  document.getElementById('survey-error').style.display='inline';
+ }
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-  ['inp-ime','inp-priimek'].forEach(id=>{
-    document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')prijava();});
-  });
-  const raw=sessionStorage.getItem(SK);
-  if(raw)pokaziPortal(JSON.parse(raw));
+ ['inp-ime','inp-priimek'].forEach(id=>{
+  document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')prijava();});
+ });
+ const raw=sessionStorage.getItem(SK);
+ if(raw)pokaziPortal(JSON.parse(raw));
 });
 </script>
 </body>

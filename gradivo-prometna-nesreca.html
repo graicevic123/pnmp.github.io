@@ -142,398 +142,385 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 </head>
 <body>
 <div class="wrap">
-  <a class="back-btn" href="index.html">← Nazaj na portal</a>
+ <a class="back-btn" href="index.html">← Nazaj na portal</a>
 
-  <div class="hero">
-    <p class="hero-eyebrow">Gradiva in predavanja</p>
-    <h1>PROMETNA NESREČA<span class="sub">IZNOS · MOTORIST · IMOBILIZACIJA</span></h1>
-    <p class="hero-sub">Gradiva za usposabljanje iz vadb prometnih nesreč. Vadbe pokrivajo iznos iz vozila, motorista, vrvno tehniko in imobilizacijo stoječega poškodovanca.</p>
+ <div class="hero">
+  <p class="hero-eyebrow">Gradiva in predavanja</p>
+  <h1>PROMETNA NESREČA<span class="sub">IZNOS · MOTORIST · IMOBILIZACIJA</span></h1>
+  <p class="hero-sub">Gradiva za usposabljanje iz vadb prometnih nesreč. Vadbe pokrivajo iznos iz vozila, motorista, vrvno tehniko in imobilizacijo stoječega poškodovanca.</p>
+ </div>
+
+ <!-- PREDAVANJA -->
+ <div class="section-header">
+  <div class="section-header-line"></div>
+  <div class="section-header-badge">Predavanja</div>
+  <div class="section-header-line"></div>
+ </div>
+
+ <div class="doc-grid">
+  <div class="doc-card red">
+   <div class="doc-card-top">
+    <div class="doc-badge" style="background:rgba(192,57,43,0.2);color:#F4A09A;border:0.5px solid rgba(192,57,43,0.3)">PowerPoint · 16 diapozitivov</div>
+    <div class="doc-title">Obnovitvena delavnica</div>
+    <div class="doc-sub">Prometna nesreča · 12. 5. 2025</div>
+    <div class="doc-desc">Časovnica delavnice, razporeditev skupin, poudarki za nadaljnje delo (čelada, medenični pas, iznos iz vozila, ITLS, imobilizacija, hipoglikemija), scenarij presenečenja in opisi poškodovancev.</div>
+   </div>
+   <div class="doc-meta">
+    <span class="doc-stat">16 diapozitivov</span>
+    <span class="doc-stat">·</span>
+    <span class="doc-stat">.pptx</span>
+    <div class="doc-actions">
+     <button class="btn-view" style="background:var(--red)" onclick="odpriViewer('OBN_DEL_PN_PREDSTAVITEV_dark.pptx','Obnovitvena delavnica – Prometna nesreča')">▶ Ogled</button>
+     <a class="btn-dl" href="OBN_DEL_PN_PREDSTAVITEV_dark.pptx" download>↓ Prenesi</a>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <!-- KAJ BOŠ SPOZNAL – flip kartice -->
+ <div class="section-header">
+  <div class="section-header-line"></div>
+  <div class="section-header-badge">Kaj boš spoznal</div>
+  <div class="section-header-line"></div>
+ </div>
+
+ <p style="font-size:13px;color:var(--muted);margin-bottom:20px">Prevrni kartico za podrobnosti →</p>
+
+ <div class="flip-grid">
+
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+   <div class="flip-inner">
+    <div class="flip-front" style="--accent:var(--red)">
+     <div class="flip-icon">🚗</div>
+     <div class="flip-title">Iznos iz vozila</div>
+     <div class="flip-hint">pritisni za več</div>
+    </div>
+    <div class="flip-back" style="--accent:var(--red)">
+     <div class="flip-back-title">Iznos iz vozila</div>
+     <ul class="flip-list">
+      <li>Razlika med urgentnim iznosom (Rautkov prijem) in hitrim iznosom z zajemalnimi nosili</li>
+      <li>Kdaj izbiramo kateri iznos?</li>
+      <li>Varovanje vratne hrbtenice med zamenjavo oseb</li>
+      <li>Nameščanje vratne opornice – korak za korakom</li>
+     </ul>
+    </div>
+   </div>
   </div>
 
-  <!-- PREDAVANJA -->
-  <div class="section-header">
-    <div class="section-header-line"></div>
-    <div class="section-header-badge">Predavanja</div>
-    <div class="section-header-line"></div>
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+   <div class="flip-inner">
+    <div class="flip-front" style="--accent:#8A5A00">
+     <div class="flip-icon">🏍</div>
+     <div class="flip-title">Motorist in čelada</div>
+     <div class="flip-hint">pritisni za več</div>
+    </div>
+    <div class="flip-back" style="--accent:#C17D0A">
+     <div class="flip-back-title">Motorist in čelada</div>
+     <ul class="flip-list">
+      <li>Trije tipi čelad: odprta, modularna, integralna</li>
+      <li>Postopek snemanja vsake od treh</li>
+      <li>Edina izjema: tujek, zaboden skozi čelado</li>
+      <li>ITLS protokol po zavarovanju motorista</li>
+     </ul>
+    </div>
+   </div>
   </div>
 
-  <div class="doc-grid">
-    <div class="doc-card red">
-      <div class="doc-card-top">
-        <div class="doc-badge" style="background:rgba(192,57,43,0.2);color:#F4A09A;border:0.5px solid rgba(192,57,43,0.3)">PowerPoint · 16 diapozitivov</div>
-        <div class="doc-title">Obnovitvena delavnica</div>
-        <div class="doc-sub">Prometna nesreča · 12. 5. 2025</div>
-        <div class="doc-desc">Časovnica delavnice, razporeditev skupin, poudarki za nadaljnje delo (čelada, medenični pas, iznos iz vozila, ITLS, imobilizacija, hipoglikemija), scenarij presenečenja in opisi poškodovancev.</div>
-      </div>
-      <div class="doc-meta">
-        <span class="doc-stat">16 diapozitivov</span>
-        <span class="doc-stat">·</span>
-        <span class="doc-stat">.pptx</span>
-        <div class="doc-actions">
-          <button class="btn-view" style="background:var(--red)" onclick="odpriViewer('OBN_DEL_PN_PREDSTAVITEV_dark.pptx','Obnovitvena delavnica – Prometna nesreča')">▶ Ogled</button>
-          <a class="btn-dl" href="OBN_DEL_PN_PREDSTAVITEV_dark.pptx" download>↓ Prenesi</a>
-        </div>
-      </div>
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+   <div class="flip-inner">
+    <div class="flip-front" style="--accent:var(--teal)">
+     <div class="flip-icon">🩺</div>
+     <div class="flip-title">ITLS protokol</div>
+     <div class="flip-hint">pritisni za več</div>
     </div>
+    <div class="flip-back" style="--accent:var(--teal)">
+     <div class="flip-back-title">ITLS protokol</div>
+     <ul class="flip-list">
+      <li>ABC – dihalna pot, dihanje, cirkulacija</li>
+      <li>AVPU – stopnja zavesti</li>
+      <li>SAMPLE – anamneza na terenu</li>
+      <li>Kdaj pregled prekinemo in začnemo z iznosom?</li>
+     </ul>
+    </div>
+   </div>
   </div>
 
-  <!-- KAJ BOŠ SPOZNAL – flip kartice -->
-  <div class="section-header">
-    <div class="section-header-line"></div>
-    <div class="section-header-badge">Kaj boš spoznal</div>
-    <div class="section-header-line"></div>
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+   <div class="flip-inner">
+    <div class="flip-front" style="--accent:#7A1010">
+     <div class="flip-icon">🩸</div>
+     <div class="flip-title">Hipoglikemija</div>
+     <div class="flip-hint">pritisni za več</div>
+    </div>
+    <div class="flip-back" style="--accent:#C0392B">
+     <div class="flip-back-title">Hipoglikemija na terenu</div>
+     <ul class="flip-list">
+      <li>Meja: pod 3,5 mmol/L (pri kroničnih bolnikih 4,0)</li>
+      <li>Prepoznava simptomov: bledica, potenje, zmedenost</li>
+      <li>Inzulinska črpalka – kdaj jo ustavimo?</li>
+      <li>Kdaj damo za jesti/piti – odvisno od AVPU</li>
+     </ul>
+    </div>
+   </div>
   </div>
 
-  <p style="font-size:13px;color:var(--muted);margin-bottom:20px">Prevrni kartico za podrobnosti →</p>
-
-  <div class="flip-grid">
-
-    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front" style="--accent:var(--red)">
-          <div class="flip-icon">🚗</div>
-          <div class="flip-title">Iznos iz vozila</div>
-          <div class="flip-hint">pritisni za več</div>
-        </div>
-        <div class="flip-back" style="--accent:var(--red)">
-          <div class="flip-back-title">Iznos iz vozila</div>
-          <ul class="flip-list">
-            <li>Razlika med urgentnim iznosom (Rautkov prijem) in hitrim iznosom z zajemalnimi nosili</li>
-            <li>Kdaj izbiramo kateri iznos?</li>
-            <li>Varovanje vratne hrbtenice med zamenjavo oseb</li>
-            <li>Nameščanje vratne opornice – korak za korakom</li>
-          </ul>
-        </div>
-      </div>
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+   <div class="flip-inner">
+    <div class="flip-front" style="--accent:var(--green)">
+     <div class="flip-icon">🛏️</div>
+     <div class="flip-title">Imobilizacija stoječega</div>
+     <div class="flip-hint">pritisni za več</div>
     </div>
-
-    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front" style="--accent:#8A5A00">
-          <div class="flip-icon" style="font-size:inherit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="44" height="44">
-  <!-- Outer shell -->
-  <ellipse cx="32" cy="30" rx="24" ry="26" fill="currentColor" opacity="0.9"/>
-  <!-- Chin guard -->
-  <path d="M14 42 Q20 58 32 58 Q44 58 50 42 Q44 50 32 50 Q20 50 14 42Z" fill="currentColor" opacity="0.85"/>
-  <!-- Visor opening -->
-  <path d="M17 28 Q18 18 32 16 Q46 18 47 28 Q46 36 32 36 Q18 36 17 28Z" fill="#0D1B2A" opacity="0.95"/>
-  <!-- Visor shine -->
-  <path d="M19 22 Q26 18 38 20" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <!-- Air vent top -->
-  <rect x="26" y="7" width="12" height="4" rx="2" fill="#0D1B2A" opacity="0.5"/>
-  <!-- Chin vent -->
-  <rect x="25" y="46" width="14" height="3" rx="1.5" fill="#0D1B2A" opacity="0.4"/>
-</svg></div>
-          <div class="flip-title">Motorist in čelada</div>
-          <div class="flip-hint">pritisni za več</div>
-        </div>
-        <div class="flip-back" style="--accent:#C17D0A">
-          <div class="flip-back-title">Motorist in čelada</div>
-          <ul class="flip-list">
-            <li>Trije tipi čelad: odprta, modularna, integralna</li>
-            <li>Postopek snemanja vsake od treh</li>
-            <li>Edina izjema: tujek, zaboden skozi čelado</li>
-            <li>ITLS protokol po zavarovanju motorista</li>
-          </ul>
-        </div>
-      </div>
+    <div class="flip-back" style="--accent:var(--green)">
+     <div class="flip-back-title">Imobilizacija stoječega</div>
+     <ul class="flip-list">
+      <li>Indikacije: mravljinčenje, bolečina v vratu po padcu</li>
+      <li>Postopek z zajemalnimi nosili iz stoječega položaja</li>
+      <li>Ročno varovanje hrbtenice ves čas</li>
+      <li>Previdni pri spustu – hrbet!</li>
+     </ul>
     </div>
-
-    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front" style="--accent:var(--teal)">
-          <div class="flip-icon">🩺</div>
-          <div class="flip-title">ITLS protokol</div>
-          <div class="flip-hint">pritisni za več</div>
-        </div>
-        <div class="flip-back" style="--accent:var(--teal)">
-          <div class="flip-back-title">ITLS protokol</div>
-          <ul class="flip-list">
-            <li>ABC – dihalna pot, dihanje, cirkulacija</li>
-            <li>AVPU – stopnja zavesti</li>
-            <li>SAMPLE – anamneza na terenu</li>
-            <li>Kdaj pregled prekinemo in začnemo z iznosom?</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front" style="--accent:#7A1010">
-          <div class="flip-icon">🩸</div>
-          <div class="flip-title">Hipoglikemija</div>
-          <div class="flip-hint">pritisni za več</div>
-        </div>
-        <div class="flip-back" style="--accent:#C0392B">
-          <div class="flip-back-title">Hipoglikemija na terenu</div>
-          <ul class="flip-list">
-            <li>Meja: pod 3,5 mmol/L (pri kroničnih bolnikih 4,0)</li>
-            <li>Prepoznava simptomov: bledica, potenje, zmedenost</li>
-            <li>Inzulinska črpalka – kdaj jo ustavimo?</li>
-            <li>Kdaj damo za jesti/piti – odvisno od AVPU</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front" style="--accent:var(--green)">
-          <div class="flip-icon">🛏️</div>
-          <div class="flip-title">Imobilizacija stoječega</div>
-          <div class="flip-hint">pritisni za več</div>
-        </div>
-        <div class="flip-back" style="--accent:var(--green)">
-          <div class="flip-back-title">Imobilizacija stoječega</div>
-          <ul class="flip-list">
-            <li>Indikacije: mravljinčenje, bolečina v vratu po padcu</li>
-            <li>Postopek z zajemalnimi nosili iz stoječega položaja</li>
-            <li>Ročno varovanje hrbtenice ves čas</li>
-            <li>Previdni pri spustu – hrbet!</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front" style="--accent:var(--navy-light)">
-          <div class="flip-icon">🩹</div>
-          <div class="flip-title">Imobilizacija poškodbe</div>
-          <div class="flip-hint">pritisni za več</div>
-        </div>
-        <div class="flip-back" style="--accent:var(--navy-light)">
-          <div class="flip-back-title">Imobilizacija poškodbe</div>
-          <ul class="flip-list">
-            <li>Vedno imobilizirati sklep NAD in POD mestom poškodbe</li>
-            <li>Preveri občutljivost, gibljivost, krvni obtok pred in po</li>
-            <li>Medenični pas – pri sumu na poškodbo medenice</li>
-            <li>NE »žagamo« – rahlo privzdignemo in potisnemo</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
+   </div>
   </div>
 
-  <!-- VADBE – flip kartice z video zadaj -->
-  <div class="section-header">
-    <div class="section-header-line"></div>
-    <div class="section-header-badge">Delavnice</div>
-    <div class="section-header-line"></div>
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+   <div class="flip-inner">
+    <div class="flip-front" style="--accent:var(--navy-light)">
+     <div class="flip-icon">🩹</div>
+     <div class="flip-title">Imobilizacija poškodbe</div>
+     <div class="flip-hint">pritisni za več</div>
+    </div>
+    <div class="flip-back" style="--accent:var(--navy-light)">
+     <div class="flip-back-title">Imobilizacija poškodbe</div>
+     <ul class="flip-list">
+      <li>Vedno imobilizirati sklep NAD in POD mestom poškodbe</li>
+      <li>Preveri občutljivost, gibljivost, krvni obtok pred in po</li>
+      <li>Medenični pas – pri sumu na poškodbo medenice</li>
+      <li>NE »žagamo« – rahlo privzdignemo in potisnemo</li>
+     </ul>
+    </div>
+   </div>
   </div>
 
-  <p style="font-size:13px;color:var(--muted);margin-bottom:20px">Prevrni kartico za video prikaz →</p>
+ </div>
 
-  <div class="flip-grid">
+ <!-- VADBE – flip kartice z video zadaj -->
+ <div class="section-header">
+  <div class="section-header-line"></div>
+  <div class="section-header-badge">Delavnice</div>
+  <div class="section-header-line"></div>
+ </div>
 
-    <div class="flip-card flip-card-tall" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front" style="--accent:var(--red)">
-          <div class="flip-num">01</div>
-          <div class="flip-title">Iznos iz vozila z zajemalnimi nosili</div>
-          <div class="flip-meta">7 gasilcev · 35 min</div>
-          <div class="flip-hint">pritisni za delavnico</div>
+ <p style="font-size:13px;color:var(--muted);margin-bottom:20px">Prevrni kartico za video prikaz →</p>
+
+ <div class="flip-grid">
+
+  <div class="flip-card flip-card-tall" onclick="this.classList.toggle('flipped')">
+   <div class="flip-inner">
+    <div class="flip-front" style="--accent:var(--red)">
+     <div class="flip-num">01</div>
+     <div class="flip-title">Iznos iz vozila z zajemalnimi nosili</div>
+     <div class="flip-meta">7 gasilcev · 35 min</div>
+     <div class="flip-hint">pritisni za delavnico</div>
+    </div>
+    <div class="flip-back" style="--accent:var(--red)">
+     <div class="flip-back-title">Delavnica 1 – video</div>
+     <div class="flip-video-wrap">
+      <div class="flip-video-placeholder">▶<br><span>Video kmalu</span></div>
+     </div>
+     <div style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center">Pristop, vratna opornica, iznos z nosili</div>
+    </div>
+   </div>
+  </div>
+
+  <div class="flip-card flip-card-tall" onclick="this.classList.toggle('flipped')">
+   <div class="flip-inner">
+    <div class="flip-front" style="--accent:#C17D0A">
+     <div class="flip-num">02</div>
+     <div class="flip-title">Hipoglikemija + manjša poškodba</div>
+     <div class="flip-meta">6 gasilcev · 35 min</div>
+     <div class="flip-hint">pritisni za delavnico</div>
+    </div>
+    <div class="flip-back" style="--accent:#C17D0A">
+     <div class="flip-back-title">Delavnica 2 – video</div>
+     <div class="flip-video-wrap">
+      <div class="flip-video-placeholder">▶<br><span>Video kmalu</span></div>
+     </div>
+     <div style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center">Merjenje KS, inzulinska črpalka, imobilizacija</div>
+    </div>
+   </div>
+  </div>
+
+  <div class="flip-card flip-card-tall" onclick="this.classList.toggle('flipped')">
+   <div class="flip-inner">
+    <div class="flip-front" style="--accent:var(--navy-light)">
+     <div class="flip-num">03</div>
+     <div class="flip-title">Motorist – snemanje čelade</div>
+     <div class="flip-meta">6 gasilcev · 35 min</div>
+     <div class="flip-hint">pritisni za delavnico</div>
+    </div>
+    <div class="flip-back" style="--accent:var(--navy-light)">
+     <div class="flip-back-title">Delavnica 3 – video</div>
+     <div class="flip-video-wrap">
+      <div class="flip-video-placeholder">▶<br><span>Video kmalu</span></div>
+     </div>
+     <div style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center">Sum poškodbe hrbtenjače, poškodovanec v jarku</div>
+    </div>
+   </div>
+  </div>
+
+  <div class="flip-card flip-card-tall" onclick="this.classList.toggle('flipped')">
+   <div class="flip-inner">
+    <div class="flip-front" style="--accent:var(--green)">
+     <div class="flip-num">04</div>
+     <div class="flip-title">Imobilizacija stoječega poškodovanca</div>
+     <div class="flip-meta">6–7 gasilcev · 35 min</div>
+     <div class="flip-hint">pritisni za delavnico</div>
+    </div>
+    <div class="flip-back" style="--accent:var(--green)">
+     <div class="flip-back-title">Delavnica 4 – video</div>
+     <div class="flip-video-wrap">
+      <div class="flip-video-placeholder">▶<br><span>Video kmalu</span></div>
+     </div>
+     <div style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center">Motorist po padcu, mravljinčenje, bolečina v vratu</div>
+    </div>
+   </div>
+  </div>
+
+ </div>
+
+ <!-- KVIZ + QR -->
+ <div class="section-header">
+  <div class="section-header-line"></div>
+  <div class="section-header-badge">Preveri znanje</div>
+  <div class="section-header-line"></div>
+ </div>
+
+ <div class="kviz-section">
+  <div class="kviz-text">
+   <div class="kviz-eyebrow">Kviz · 8 vprašanj</div>
+   <div class="kviz-title">Prometna nesreča</div>
+   <div class="kviz-desc">Preveri znanje iz vseh štirih vadb. Vprašanja pokrivajo iznos iz vozila, nameščanje vratne opornice, hipoglikemijo, snemanje čelade in imobilizacijo stoječega.</div>
+   <a class="btn-kviz" href="prometna-nesreca.html">Začni kviz →</a>
+  </div>
+  <div class="qr-wrap">
+   <div id="qr-canvas"></div>
+   <div class="qr-label">Skeniraj za kviz</div>
+  </div>
+ </div>
+
+ <!-- SIMULATOR -->
+ <div class="section-header">
+  <div class="section-header-line"></div>
+  <div class="section-header-badge">Prometni simulator</div>
+  <div class="section-header-line"></div>
+ </div>
+
+ <div class="kviz-section">
+  <div class="kviz-text">
+   <div class="kviz-eyebrow">Simulator · 10 scenarijev</div>
+   <div class="kviz-title">Prometni simulator</div>
+   <div class="kviz-desc">Povleci pravi akcijski kartonček za vsakega od 10 poškodovancev. Odloči se med urgentnim iznosom, hitrim iznosom, imobilizacijo stoječega ali snemanjem čelade.</div>
+   <a class="btn-kviz" href="pn-simulator.html">Začni simulator →</a>
+  </div>
+  <div style="flex-shrink:0;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:10px;padding:16px;text-align:center;min-width:130px">
+   <div style="font-size:42px;margin-bottom:8px">🚗</div>
+   <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)">Iznos · Čelada</div>
+   <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:4px">Imobilizacija</div>
+  </div>
+ </div>
+
+ <!-- ANKETA -->
+ <div class="section-header" id="anketa">
+  <div class="section-header-line"></div>
+  <div class="section-header-badge">Anketa o usposabljanju</div>
+  <div class="section-header-line"></div>
+ </div>
+
+ <div class="kviz-section" style="background:rgba(192,57,43,0.08);border-color:rgba(192,57,43,0.25);flex-direction:column;gap:0">
+
+  <!-- Login gate za anketo -->
+  <div id="anketa-login" style="width:100%">
+   <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Anketa · Prometna nesreča</div>
+   <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;margin-bottom:6px">Povratne informacije</div>
+   <div style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6">Tvoje mnenje nam pomaga izboljšati usposabljanje. Vpiši ime in priimek, nato izpolni anketo.</div>
+   <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+    <div style="flex:1;min-width:140px"><div class="field-label">Ime</div><input class="lg-input" type="text" id="ank-ime" placeholder="Janez" autocomplete="given-name"></div>
+    <div style="flex:1;min-width:140px"><div class="field-label">Priimek</div><input class="lg-input" type="text" id="ank-priimek" placeholder="Novak" autocomplete="family-name"></div>
+   </div>
+   <button class="btn-kviz" onclick="odklenjiAnketo()">Naprej →</button>
+   <div id="anketa-login-err" style="font-size:13px;color:#F4A09A;margin-top:8px;display:none">Prosimo, vpiši ime in priimek.</div>
+  </div>
+
+  <!-- Anketa forma -->
+  <div id="anketa-wrap" style="display:none;width:100%">
+   <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start">
+    <div style="flex:1;min-width:260px">
+     <div id="survey-form">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:6px">Prijavljen: <span id="ank-user-label" style="color:var(--white)"></span></div>
+      <div class="survey-fields" style="margin-top:12px">
+       <div>
+        <div class="field-label">Kako ocenjuješ težavnost kviza?</div>
+        <select class="select-input" id="ankt-tezavnost">
+         <option value="">Izberi ...</option>
+         <option value="Prelahko">Prelahko</option>
+         <option value="Ravno prav">Ravno prav</option>
+         <option value="Pretežko">Pretežko</option>
+        </select>
+       </div>
+       <div>
+        <div class="field-label">Ocena vadbe in kviza (1–5 zvezdic)</div>
+        <div class="stars-wrap">
+         <span class="star" data-v="1" onclick="setStars(1)">★</span>
+         <span class="star" data-v="2" onclick="setStars(2)">★</span>
+         <span class="star" data-v="3" onclick="setStars(3)">★</span>
+         <span class="star" data-v="4" onclick="setStars(4)">★</span>
+         <span class="star" data-v="5" onclick="setStars(5)">★</span>
         </div>
-        <div class="flip-back" style="--accent:var(--red)">
-          <div class="flip-back-title">Delavnica 1 – video</div>
-          <div class="flip-video-wrap">
-            <div class="flip-video-placeholder">▶<br><span>Video kmalu</span></div>
-          </div>
-          <div style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center">Pristop, vratna opornica, iznos z nosili</div>
-        </div>
+       </div>
+       <div><div class="field-label">Kaj ti je bilo všeč?</div><textarea class="textarea-input" id="ankt-vsec" placeholder="Npr. jasna razlaga, praktični primeri ..."></textarea></div>
+       <div><div class="field-label">Kaj bi izboljšal?</div><textarea class="textarea-input" id="ankt-izboljsaj" placeholder="Npr. več slik, krajša vprašanja ..."></textarea></div>
+       <div><div class="field-label">Katera tema te zanima za naslednjič?</div><textarea class="textarea-input" id="ankt-naslednjic" placeholder="Npr. reanimacija, opekline ..." style="min-height:70px"></textarea></div>
       </div>
-    </div>
-
-    <div class="flip-card flip-card-tall" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front" style="--accent:#C17D0A">
-          <div class="flip-num">02</div>
-          <div class="flip-title">Hipoglikemija + manjša poškodba</div>
-          <div class="flip-meta">6 gasilcev · 35 min</div>
-          <div class="flip-hint">pritisni za delavnico</div>
-        </div>
-        <div class="flip-back" style="--accent:#C17D0A">
-          <div class="flip-back-title">Delavnica 2 – video</div>
-          <div class="flip-video-wrap">
-            <div class="flip-video-placeholder">▶<br><span>Video kmalu</span></div>
-          </div>
-          <div style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center">Merjenje KS, inzulinska črpalka, imobilizacija</div>
-        </div>
+      <div style="margin-top:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+       <button class="btn-kviz" onclick="posljiAnketo()">Pošlji anketo →</button>
+       <span id="survey-error" style="font-size:13px;color:#F4A09A;display:none">Prosimo, oceni z zvezdicami.</span>
       </div>
+     </div>
+     <div id="survey-success" style="display:none;padding:24px 0;text-align:center">
+      <div style="font-size:36px;margin-bottom:12px">✅</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:6px">Hvala!</div>
+      <div style="font-size:13px;color:var(--muted)">Tvoje mnenje smo zabeležili.</div>
+     </div>
     </div>
-
-    <div class="flip-card flip-card-tall" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front" style="--accent:var(--navy-light)">
-          <div class="flip-num">03</div>
-          <div class="flip-title">Motorist – snemanje čelade</div>
-          <div class="flip-meta">6 gasilcev · 35 min</div>
-          <div class="flip-hint">pritisni za delavnico</div>
-        </div>
-        <div class="flip-back" style="--accent:var(--navy-light)">
-          <div class="flip-back-title">Delavnica 3 – video</div>
-          <div class="flip-video-wrap">
-            <div class="flip-video-placeholder">▶<br><span>Video kmalu</span></div>
-          </div>
-          <div style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center">Sum poškodbe hrbtenjače, poškodovanec v jarku</div>
-        </div>
-      </div>
+    <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center">
+     <div class="qr-wrap">
+      <div id="qr-anketa"></div>
+      <div class="qr-label">Skeniraj za anketo</div>
+     </div>
     </div>
-
-    <div class="flip-card flip-card-tall" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front" style="--accent:var(--green)">
-          <div class="flip-num">04</div>
-          <div class="flip-title">Imobilizacija stoječega poškodovanca</div>
-          <div class="flip-meta">6–7 gasilcev · 35 min</div>
-          <div class="flip-hint">pritisni za delavnico</div>
-        </div>
-        <div class="flip-back" style="--accent:var(--green)">
-          <div class="flip-back-title">Delavnica 4 – video</div>
-          <div class="flip-video-wrap">
-            <div class="flip-video-placeholder">▶<br><span>Video kmalu</span></div>
-          </div>
-          <div style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center">Motorist po padcu, mravljinčenje, bolečina v vratu</div>
-        </div>
-      </div>
-    </div>
-
+   </div>
   </div>
 
-  <!-- KVIZ + QR -->
-  <div class="section-header">
-    <div class="section-header-line"></div>
-    <div class="section-header-badge">Preveri znanje</div>
-    <div class="section-header-line"></div>
-  </div>
+ </div>
 
-  <div class="kviz-section">
-    <div class="kviz-text">
-      <div class="kviz-eyebrow">Kviz · 8 vprašanj</div>
-      <div class="kviz-title">Prometna nesreča</div>
-      <div class="kviz-desc">Preveri znanje iz vseh štirih vadb. Vprašanja pokrivajo iznos iz vozila, nameščanje vratne opornice, hipoglikemijo, snemanje čelade in imobilizacijo stoječega.</div>
-      <a class="btn-kviz" href="prometna-nesreca.html">Začni kviz →</a>
-    </div>
-    <div class="qr-wrap">
-      <div id="qr-canvas"></div>
-      <div class="qr-label">Skeniraj za kviz</div>
-    </div>
-  </div>
-
-  <!-- SIMULATOR -->
-  <div class="section-header">
-    <div class="section-header-line"></div>
-    <div class="section-header-badge">Prometni simulator</div>
-    <div class="section-header-line"></div>
-  </div>
-
-  <div class="kviz-section">
-    <div class="kviz-text">
-      <div class="kviz-eyebrow">Simulator · 10 scenarijev</div>
-      <div class="kviz-title">Prometni simulator</div>
-      <div class="kviz-desc">Povleci pravi akcijski kartonček za vsakega od 10 poškodovancev. Odloči se med urgentnim iznosom, hitrim iznosom, imobilizacijo stoječega ali snemanjem čelade.</div>
-      <a class="btn-kviz" href="pn-simulator.html">Začni simulator →</a>
-    </div>
-    <div style="flex-shrink:0;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:10px;padding:16px;text-align:center;min-width:130px">
-      <div style="font-size:42px;margin-bottom:8px">🚗</div>
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)">Iznos · Čelada</div>
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:4px">Imobilizacija</div>
-    </div>
-  </div>
-
-  <!-- ANKETA -->
-  <div class="section-header" id="anketa">
-    <div class="section-header-line"></div>
-    <div class="section-header-badge">Anketa o usposabljanju</div>
-    <div class="section-header-line"></div>
-  </div>
-
-  <div class="kviz-section" style="background:rgba(192,57,43,0.08);border-color:rgba(192,57,43,0.25);flex-direction:column;gap:0">
-
-    <!-- Login gate za anketo -->
-    <div id="anketa-login" style="width:100%">
-      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Anketa · Prometna nesreča</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;margin-bottom:6px">Povratne informacije</div>
-      <div style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6">Tvoje mnenje nam pomaga izboljšati usposabljanje. Vpiši ime in priimek, nato izpolni anketo.</div>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
-        <div style="flex:1;min-width:140px"><div class="field-label">Ime</div><input class="lg-input" type="text" id="ank-ime" placeholder="Janez" autocomplete="given-name"></div>
-        <div style="flex:1;min-width:140px"><div class="field-label">Priimek</div><input class="lg-input" type="text" id="ank-priimek" placeholder="Novak" autocomplete="family-name"></div>
-      </div>
-      <button class="btn-kviz" onclick="odklenjiAnketo()">Naprej →</button>
-      <div id="anketa-login-err" style="font-size:13px;color:#F4A09A;margin-top:8px;display:none">Prosimo, vpiši ime in priimek.</div>
-    </div>
-
-    <!-- Anketa forma -->
-    <div id="anketa-wrap" style="display:none;width:100%">
-      <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start">
-        <div style="flex:1;min-width:260px">
-          <div id="survey-form">
-            <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:6px">Prijavljen: <span id="ank-user-label" style="color:var(--white)"></span></div>
-            <div class="survey-fields" style="margin-top:12px">
-              <div>
-                <div class="field-label">Kako ocenjuješ težavnost kviza?</div>
-                <select class="select-input" id="ankt-tezavnost">
-                  <option value="">Izberi ...</option>
-                  <option value="Prelahko">Prelahko</option>
-                  <option value="Ravno prav">Ravno prav</option>
-                  <option value="Pretežko">Pretežko</option>
-                </select>
-              </div>
-              <div>
-                <div class="field-label">Ocena vadbe in kviza (1–5 zvezdic)</div>
-                <div class="stars-wrap">
-                  <span class="star" data-v="1" onclick="setStars(1)">★</span>
-                  <span class="star" data-v="2" onclick="setStars(2)">★</span>
-                  <span class="star" data-v="3" onclick="setStars(3)">★</span>
-                  <span class="star" data-v="4" onclick="setStars(4)">★</span>
-                  <span class="star" data-v="5" onclick="setStars(5)">★</span>
-                </div>
-              </div>
-              <div><div class="field-label">Kaj ti je bilo všeč?</div><textarea class="textarea-input" id="ankt-vsec" placeholder="Npr. jasna razlaga, praktični primeri ..."></textarea></div>
-              <div><div class="field-label">Kaj bi izboljšal?</div><textarea class="textarea-input" id="ankt-izboljsaj" placeholder="Npr. več slik, krajša vprašanja ..."></textarea></div>
-              <div><div class="field-label">Katera tema te zanima za naslednjič?</div><textarea class="textarea-input" id="ankt-naslednjic" placeholder="Npr. reanimacija, opekline ..." style="min-height:70px"></textarea></div>
-            </div>
-            <div style="margin-top:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-              <button class="btn-kviz" onclick="posljiAnketo()">Pošlji anketo →</button>
-              <span id="survey-error" style="font-size:13px;color:#F4A09A;display:none">Prosimo, oceni z zvezdicami.</span>
-            </div>
-          </div>
-          <div id="survey-success" style="display:none;padding:24px 0;text-align:center">
-            <div style="font-size:36px;margin-bottom:12px">✅</div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:6px">Hvala!</div>
-            <div style="font-size:13px;color:var(--muted)">Tvoje mnenje smo zabeležili.</div>
-          </div>
-        </div>
-        <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center">
-          <div class="qr-wrap">
-            <div id="qr-anketa"></div>
-            <div class="qr-label">Skeniraj za anketo</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer">
-    <p><strong>PNMP ekipa</strong> · Namenjeno prostovoljnim gasilskim društvom v GZL<br>Gradiva so namenjena izključno internem usposabljanju.</p>
-  </div>
+ <div class="footer">
+  <p><strong>PNMP ekipa</strong> · Namenjeno prostovoljnim gasilskim društvom v GZL<br>Gradiva so namenjena izključno internem usposabljanju.</p>
+ </div>
 </div>
 
 <!-- Viewer modal -->
 <div class="modal-overlay" id="modal" onclick="zapriViewer(event)">
-  <div class="modal" onclick="event.stopPropagation()">
-    <div class="modal-hdr">
-      <span class="modal-title" id="modal-title">—</span>
-      <button class="modal-close" onclick="zapriViewer()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="modal-loading" id="modal-loading">Nalagam predavanje...</div>
-      <iframe id="modal-iframe" onload="document.getElementById('modal-loading').style.display='none'"></iframe>
-    </div>
+ <div class="modal" onclick="event.stopPropagation()">
+  <div class="modal-hdr">
+   <span class="modal-title" id="modal-title">—</span>
+   <button class="modal-close" onclick="zapriViewer()">✕</button>
   </div>
+  <div class="modal-body">
+   <div class="modal-loading" id="modal-loading">Nalagam predavanje...</div>
+   <iframe id="modal-iframe" onload="document.getElementById('modal-loading').style.display='none'"></iframe>
+  </div>
+ </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -544,93 +531,93 @@ const db = firebase.firestore();
 
 // QR – kviz
 new QRCode(document.getElementById('qr-canvas'), {
-  text:'https://graicevic123.github.io/pnmp.github.io/prometna-nesreca.html',
-  width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M
+ text:'https://graicevic123.github.io/pnmp.github.io/prometna-nesreca.html',
+ width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M
 });
 
 // QR – anketa
 new QRCode(document.getElementById('qr-anketa'), {
-  text:'https://graicevic123.github.io/pnmp.github.io/gradivo-prometna-nesreca.html#anketa',
-  width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M
+ text:'https://graicevic123.github.io/pnmp.github.io/gradivo-prometna-nesreca.html#anketa',
+ width:128,height:128,colorDark:'#FFFFFF',colorLight:'#0D1B2A',correctLevel:QRCode.CorrectLevel.M
 });
 
 // Stars
 let activeStars = 0;
 function setStars(n){
-  activeStars = n;
-  document.querySelectorAll('.star').forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= n));
+ activeStars = n;
+ document.querySelectorAll('.star').forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= n));
 }
 
 // Odkleni anketo
 function odklenjiAnketo(){
-  const ime = document.getElementById('ank-ime').value.trim();
-  const priimek = document.getElementById('ank-priimek').value.trim();
-  if(!ime || !priimek){ document.getElementById('anketa-login-err').style.display='block'; return; }
-  const user = {ime, priimek, polnoIme: ime + ' ' + priimek};
-  sessionStorage.setItem('pnmp_active_user', JSON.stringify(user));
-  document.getElementById('anketa-login').style.display = 'none';
-  document.getElementById('anketa-wrap').style.display = 'block';
-  document.getElementById('ank-user-label').textContent = user.polnoIme;
+ const ime = document.getElementById('ank-ime').value.trim();
+ const priimek = document.getElementById('ank-priimek').value.trim();
+ if(!ime || !priimek){ document.getElementById('anketa-login-err').style.display='block'; return; }
+ const user = {ime, priimek, polnoIme: ime + ' ' + priimek};
+ sessionStorage.setItem('pnmp_active_user', JSON.stringify(user));
+ document.getElementById('anketa-login').style.display = 'none';
+ document.getElementById('anketa-wrap').style.display = 'block';
+ document.getElementById('ank-user-label').textContent = user.polnoIme;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const raw = sessionStorage.getItem('pnmp_active_user');
-  if(raw){
-    const u = JSON.parse(raw);
-    document.getElementById('anketa-login').style.display = 'none';
-    document.getElementById('anketa-wrap').style.display = 'block';
-    document.getElementById('ank-user-label').textContent = u.polnoIme;
-  }
-  ['ank-ime','ank-priimek'].forEach(id => {
-    document.getElementById(id)?.addEventListener('keydown', e => { if(e.key==='Enter') odklenjiAnketo(); });
-  });
+ const raw = sessionStorage.getItem('pnmp_active_user');
+ if(raw){
+  const u = JSON.parse(raw);
+  document.getElementById('anketa-login').style.display = 'none';
+  document.getElementById('anketa-wrap').style.display = 'block';
+  document.getElementById('ank-user-label').textContent = u.polnoIme;
+ }
+ ['ank-ime','ank-priimek'].forEach(id => {
+  document.getElementById(id)?.addEventListener('keydown', e => { if(e.key==='Enter') odklenjiAnketo(); });
+ });
 });
 
 // Survey submit
 async function posljiAnketo(){
-  if(!activeStars){ document.getElementById('survey-error').style.display='inline'; return; }
-  document.getElementById('survey-error').style.display='none';
-  const raw = sessionStorage.getItem('pnmp_active_user');
-  const user = raw ? JSON.parse(raw) : {polnoIme:'Anonimno'};
-  try{
-    await db.collection('ankete').add({
-      polnoIme: user.polnoIme || 'Anonimno',
-      kviz: 'Prometna nesreča',
-      tema: 'Iznos iz vozila, motorist, imobilizacija',
-      tezavnost: document.getElementById('ankt-tezavnost').value || '—',
-      ocena: activeStars,
-      vsec: document.getElementById('ankt-vsec').value.trim() || '—',
-      izboljsaj: document.getElementById('ankt-izboljsaj').value.trim() || '—',
-      naslednjic: document.getElementById('ankt-naslednjic').value.trim() || '—',
-      cas: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    document.getElementById('survey-form').style.display = 'none';
-    document.getElementById('survey-success').style.display = 'block';
-  } catch(e) {
-    document.getElementById('survey-error').textContent = 'Napaka pri pošiljanju.';
-    document.getElementById('survey-error').style.display = 'inline';
-  }
+ if(!activeStars){ document.getElementById('survey-error').style.display='inline'; return; }
+ document.getElementById('survey-error').style.display='none';
+ const raw = sessionStorage.getItem('pnmp_active_user');
+ const user = raw ? JSON.parse(raw) : {polnoIme:'Anonimno'};
+ try{
+  await db.collection('ankete').add({
+   polnoIme: user.polnoIme || 'Anonimno',
+   kviz: 'Prometna nesreča',
+   tema: 'Iznos iz vozila, motorist, imobilizacija',
+   tezavnost: document.getElementById('ankt-tezavnost').value || '—',
+   ocena: activeStars,
+   vsec: document.getElementById('ankt-vsec').value.trim() || '—',
+   izboljsaj: document.getElementById('ankt-izboljsaj').value.trim() || '—',
+   naslednjic: document.getElementById('ankt-naslednjic').value.trim() || '—',
+   cas: firebase.firestore.FieldValue.serverTimestamp()
+  });
+  document.getElementById('survey-form').style.display = 'none';
+  document.getElementById('survey-success').style.display = 'block';
+ } catch(e) {
+  document.getElementById('survey-error').textContent = 'Napaka pri pošiljanju.';
+  document.getElementById('survey-error').style.display = 'inline';
+ }
 }
 
 // Viewer
 const GITHUB_BASE = 'https://graicevic123.github.io/pnmp.github.io/';
 function odpriViewer(filename, title){
-  const fileUrl = GITHUB_BASE + filename;
-  const viewerUrl = 'https://docs.google.com/viewer?url=' + encodeURIComponent(fileUrl) + '&embedded=true';
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-loading').style.display = 'flex';
-  document.getElementById('modal-iframe').src = viewerUrl;
-  document.getElementById('modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
+ const fileUrl = GITHUB_BASE + filename;
+ const viewerUrl = 'https://docs.google.com/viewer?url=' + encodeURIComponent(fileUrl) + '&embedded=true';
+ document.getElementById('modal-title').textContent = title;
+ document.getElementById('modal-loading').style.display = 'flex';
+ document.getElementById('modal-iframe').src = viewerUrl;
+ document.getElementById('modal').classList.add('open');
+ document.body.style.overflow = 'hidden';
 }
 function zapriViewer(e){
-  if(e && e.target !== document.getElementById('modal')) return;
-  document.getElementById('modal').classList.remove('open');
-  document.getElementById('modal-iframe').src = '';
-  document.body.style.overflow = '';
+ if(e && e.target !== document.getElementById('modal')) return;
+ document.getElementById('modal').classList.remove('open');
+ document.getElementById('modal-iframe').src = '';
+ document.body.style.overflow = '';
 }
 document.addEventListener('keydown', e => {
-  if(e.key==='Escape'){ document.getElementById('modal').classList.remove('open'); document.getElementById('modal-iframe').src=''; document.body.style.overflow=''; }
+ if(e.key==='Escape'){ document.getElementById('modal').classList.remove('open'); document.getElementById('modal-iframe').src=''; document.body.style.overflow=''; }
 });
 </script>
 </body>

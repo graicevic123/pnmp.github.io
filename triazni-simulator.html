@@ -11,18 +11,19 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0D1B2A;--mid:#152535;--dark:#1B3A5C;
-  --t1:#C0392B;--t1b:#8B1A10;--t1g:rgba(192,57,43,0.15);
-  --t2:#C17D0A;--t2b:#7A4E00;--t2g:rgba(193,125,10,0.15);
-  --t3:#1A7A40;--t3b:#0D4D27;--t3g:rgba(26,122,64,0.15);
-  --t4:#2C3E50;--t4b:#1a252f;--t4g:rgba(44,62,80,0.3);
-  --white:#fff;--text:#C8D8E8;--muted:#7A9AB5;--border:rgba(255,255,255,0.08);
+ --navy:#0D1B2A;--mid:#152535;--dark:#1B3A5C;
+ --t1:#C0392B;--t1b:#8B1A10;--t1g:rgba(192,57,43,0.15);
+ --t2:#C17D0A;--t2b:#7A4E00;--t2g:rgba(193,125,10,0.15);
+ --t3:#1A7A40;--t3b:#0D4D27;--t3g:rgba(26,122,64,0.15);
+ --t4:#2C3E50;--t4b:#1a252f;--t4g:rgba(44,62,80,0.3);
+ --t5:#1A5A8A;--t5b:#0D3A5C;
+ --white:#fff;--text:#C8D8E8;--muted:#7A9AB5;--border:rgba(255,255,255,0.08);
 }
 html,body{height:100%;overflow-x:hidden}
 body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse 70% 50% at 15% 10%,rgba(44,85,128,0.25) 0%,transparent 60%),
-             radial-gradient(ellipse 50% 40% at 85% 85%,rgba(192,57,43,0.1) 0%,transparent 55%)}
+ background:radial-gradient(ellipse 70% 50% at 15% 10%,rgba(44,85,128,0.25) 0%,transparent 60%),
+       radial-gradient(ellipse 50% 40% at 85% 85%,rgba(192,57,43,0.1) 0%,transparent 55%)}
 
 /* BACK BTN */
 .back-btn{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:12px 20px 0;transition:color 0.15s;position:relative;z-index:1}
@@ -90,13 +91,14 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 /* TAG CARDS – main mechanic */
 .tags-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;text-align:center}
-.tags-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:8px}
+.tags-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:8px}
 .tag-card{border-radius:8px 8px 6px 6px;padding:16px 8px 12px;text-align:center;cursor:pointer;position:relative;border:2px solid transparent;transition:all 0.18s;-webkit-tap-highlight-color:transparent;user-select:none}
 .tag-card::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);background:rgba(0,0,0,0.25)}
 .tag-card.t1c{background:var(--t1b);border-color:var(--t1)}
 .tag-card.t2c{background:var(--t2b);border-color:var(--t2)}
 .tag-card.t3c{background:var(--t3b);border-color:var(--t3)}
 .tag-card.t4c{background:var(--t4b);border-color:rgba(255,255,255,0.2)}
+.tag-card.t5c{background:#0D3A5C;border-color:#1A5A8A}
 .tag-card:hover:not(.used):not(.locked){transform:translateY(-4px) rotate(-1deg);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
 .tag-card:active:not(.used):not(.locked){transform:scale(0.97)}
 .tag-card.selected{transform:translateY(-8px) scale(1.06);box-shadow:0 12px 30px rgba(0,0,0,0.5)}
@@ -152,108 +154,116 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 <!-- INTRO -->
 <div class="intro" id="INTRO">
-  <p class="intro-eyebrow">PNMP · Množične nesreče</p>
-  <h1 class="intro-title">TRIAŽNI<br><span>SIMULATOR</span></h1>
-  <p class="intro-sub">Izberi pravi barvni triažni kartonček za vsakega od 10 pacientov. Vsak odgovor razloži algoritem SIEVE korak za korakom.</p>
+ <p class="intro-eyebrow">PNMP · Množične nesreče</p>
+ <h1 class="intro-title">TRIAŽNI<br><span>SIMULATOR</span></h1>
+ <p class="intro-sub">Izberi pravi barvni triažni kartonček za vsakega od 10 pacientov. Vsak odgovor razloži algoritem SIEVE korak za korakom.</p>
 
-  <div class="tags-preview">
-    <div class="tag-demo" style="background:#8B1A10;border:2px solid #C0392B;color:#fff;--rot:-4deg">
-      <div class="tag-code">T1</div><div class="tag-name">Rdeča</div>
-    </div>
-    <div class="tag-demo" style="background:#7A4E00;border:2px solid #C17D0A;color:#fff;--rot:2deg">
-      <div class="tag-code">T2</div><div class="tag-name">Rumena</div>
-    </div>
-    <div class="tag-demo" style="background:#0D4D27;border:2px solid #1A7A40;color:#fff;--rot:-2deg">
-      <div class="tag-code">T3</div><div class="tag-name">Zelena</div>
-    </div>
-    <div class="tag-demo" style="background:#1a252f;border:2px solid #4A5568;color:#fff;--rot:3deg">
-      <div class="tag-code">T4</div><div class="tag-name">Črna</div>
-    </div>
+ <div class="tags-preview">
+  <div class="tag-demo" style="background:#8B1A10;border:2px solid #C0392B;color:#fff;--rot:-4deg">
+   <div class="tag-code">T1</div><div class="tag-name">Rdeča</div>
   </div>
+  <div class="tag-demo" style="background:#7A4E00;border:2px solid #C17D0A;color:#fff;--rot:2deg">
+   <div class="tag-code">T2</div><div class="tag-name">Rumena</div>
+  </div>
+  <div class="tag-demo" style="background:#0D4D27;border:2px solid #1A7A40;color:#fff;--rot:-2deg">
+   <div class="tag-code">T3</div><div class="tag-name">Zelena</div>
+  </div>
+  <div class="tag-demo" style="background:#1a252f;border:2px solid #4A5568;color:#fff;--rot:3deg">
+   <div class="tag-code">T4</div><div class="tag-name">Črna</div>
+  </div>
+  <div class="tag-demo" style="background:#0D3A5C;border:2px solid #1A5A8A;color:#fff;--rot:-3deg">
+   <div class="tag-code">T4*</div><div class="tag-name">Modra</div>
+  </div>
+ </div>
 
-  <button class="btn-start" onclick="zacniIgro()">Začni →</button>
+ <button class="btn-start" onclick="zacniIgro()">Začni →</button>
 </div>
 
 <!-- GAME -->
 <div class="game" id="GAME">
 
-  <div class="game-top">
-    <div class="prog-wrap">
-      <div class="prog-label">
-        <span>NAPREDEK</span>
-        <span id="prog-txt">0 / 10</span>
-      </div>
-      <div class="prog-bar-bg">
-        <div class="prog-bar-fill" id="prog-bar" style="width:0%"></div>
-      </div>
-    </div>
-    <div class="score-chips">
-      <div class="chip ok" id="chip-ok">✓ 0</div>
-      <div class="chip nok" id="chip-nok">✗ 0</div>
-    </div>
+ <div class="game-top">
+  <div class="prog-wrap">
+   <div class="prog-label">
+    <span>NAPREDEK</span>
+    <span id="prog-txt">0 / 10</span>
+   </div>
+   <div class="prog-bar-bg">
+    <div class="prog-bar-fill" id="prog-bar" style="width:0%"></div>
+   </div>
   </div>
+  <div class="score-chips">
+   <div class="chip ok" id="chip-ok">✓ 0</div>
+   <div class="chip nok" id="chip-nok">✗ 0</div>
+  </div>
+ </div>
 
-  <!-- Patient -->
-  <div class="patient-area animate-in" id="patient-area">
-    <div class="patient-num" id="p-num">Pacient 1 / 10</div>
-    <div class="patient-figure">
-      <div class="figure-icon" id="fig-icon">
-        🧑
-        <div class="figure-tag-slot" id="tag-slot">?</div>
-      </div>
-      <div class="patient-info">
-        <div class="patient-scenario" id="p-scenario"></div>
-        <div class="vitals" id="p-vitals"></div>
-      </div>
-    </div>
-    <div class="attached-tag" id="attached-tag"></div>
-    <div class="feedback" id="p-fb"></div>
+ <!-- Patient -->
+ <div class="patient-area animate-in" id="patient-area">
+  <div class="patient-num" id="p-num">Pacient 1 / 10</div>
+  <div class="patient-figure">
+   <div class="figure-icon" id="fig-icon">
+    🧑
+    <div class="figure-tag-slot" id="tag-slot">?</div>
+   </div>
+   <div class="patient-info">
+    <div class="patient-scenario" id="p-scenario"></div>
+    <div class="vitals" id="p-vitals"></div>
+   </div>
   </div>
+  <div class="attached-tag" id="attached-tag"></div>
+  <div class="feedback" id="p-fb"></div>
+ </div>
 
-  <!-- TAG CARDS -->
-  <div class="tags-label">Izberi triažni kartonček:</div>
-  <div class="tags-grid">
-    <div class="tag-card t1c" id="tagT1" onclick="selectTag('T1')">
-      <div class="tag-code-big">T1</div>
-      <div class="tag-name-big">Rdeča</div>
-      <div class="tag-hint">ogroža življenje</div>
-    </div>
-    <div class="tag-card t2c" id="tagT2" onclick="selectTag('T2')">
-      <div class="tag-code-big">T2</div>
-      <div class="tag-name-big">Rumena</div>
-      <div class="tag-hint">nujna oskrba</div>
-    </div>
-    <div class="tag-card t3c" id="tagT3" onclick="selectTag('T3')">
-      <div class="tag-code-big">T3</div>
-      <div class="tag-name-big">Zelena</div>
-      <div class="tag-hint">odložena oskrba</div>
-    </div>
-    <div class="tag-card t4c" id="tagT4" onclick="selectTag('T4')">
-      <div class="tag-code-big">T4</div>
-      <div class="tag-name-big">Črna</div>
-      <div class="tag-hint">ne diha</div>
-    </div>
+ <!-- TAG CARDS -->
+ <div class="tags-label">Izberi triažni kartonček:</div>
+ <div class="tags-grid">
+  <div class="tag-card t1c" id="tagT1" onclick="selectTag('T1')">
+   <div class="tag-code-big">T1</div>
+   <div class="tag-name-big">Rdeča</div>
+   <div class="tag-hint">ogroža življenje</div>
   </div>
+  <div class="tag-card t2c" id="tagT2" onclick="selectTag('T2')">
+   <div class="tag-code-big">T2</div>
+   <div class="tag-name-big">Rumena</div>
+   <div class="tag-hint">nujna oskrba</div>
+  </div>
+  <div class="tag-card t3c" id="tagT3" onclick="selectTag('T3')">
+   <div class="tag-code-big">T3</div>
+   <div class="tag-name-big">Zelena</div>
+   <div class="tag-hint">odložena oskrba</div>
+  </div>
+  <div class="tag-card t4c" id="tagT4" onclick="selectTag('T4')">
+   <div class="tag-code-big">T4</div>
+   <div class="tag-name-big">Črna</div>
+   <div class="tag-hint">ne diha</div>
+  </div>
+  <div class="tag-card t5c" id="tagT5" onclick="selectTag('T5')">
+   <div class="tag-code-big">T4*</div>
+   <div class="tag-name-big">Modra</div>
+   <div class="tag-hint">negativna triaža</div>
+  </div>
+ </div>
 
-  <div class="confirm-row">
-    <button class="btn-confirm" id="btn-confirm" onclick="potrdi()">Priloži kartonček →</button>
-  </div>
+ <div class="confirm-row">
+  <button class="btn-confirm" id="btn-confirm" onclick="potrdi()">Priloži kartonček →</button>
+ </div>
 
 </div>
 
 <!-- RESULT -->
 <div class="result" id="RESULT">
-  <div class="result-tags" id="result-tags"></div>
-  <div class="result-score" id="r-score">0</div>
-  <div class="result-denom">/ 10 PACIENTOV</div>
-  <div class="result-title" id="r-title">—</div>
-  <div class="result-sub" id="r-sub">—</div>
-  <div class="result-stats">
-    <div class="rs"><div class="rs-num" id="rs-ok" style="color:#7FE8A8">0</div><div class="rs-lbl">Pravilno</div></div>
-    <div class="rs"><div class="rs-num" id="rs-nok" style="color:#F4A09A">0</div><div class="rs-lbl">Napačno</div></div>
-    <div class="rs"><div class="rs-num" id="rs-pct" style="color:var(--muted)">0%</div><div class="rs-lbl">Uspešnost</div></div>
-  </div>
-  <button class="btn-again" onclick="restart()">↺ &nbsp;Ponovi</button>
+ <div class="result-tags" id="result-tags"></div>
+ <div class="result-score" id="r-score">0</div>
+ <div class="result-denom">/ 10 PACIENTOV</div>
+ <div class="result-title" id="r-title">—</div>
+ <div class="result-sub" id="r-sub">—</div>
+ <div class="result-stats">
+  <div class="rs"><div class="rs-num" id="rs-ok" style="color:#7FE8A8">0</div><div class="rs-lbl">Pravilno</div></div>
+  <div class="rs"><div class="rs-num" id="rs-nok" style="color:#F4A09A">0</div><div class="rs-lbl">Napačno</div></div>
+  <div class="rs"><div class="rs-num" id="rs-pct" style="color:var(--muted)">0%</div><div class="rs-lbl">Uspešnost</div></div>
+ </div>
+ <button class="btn-again" onclick="restart()">↺ &nbsp;Ponovi</button>
 </div>
 
 <script>
@@ -261,270 +271,270 @@ firebase.initializeApp({apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",authDom
 const db = firebase.firestore();
 
 const PATIENTS = [
-  {
-    icon:'🧑‍🦳', scenario:'Ženska, ~45 let, sama hodi. Pritoži se nad bolečino v kolku.',
-    vitals:[{l:'Hoja',v:'DA',s:'ok'},{l:'Zavest',v:'Jasna',s:'ok'},{l:'Poškodba',v:'Bolečina v kolku',s:'warn'}],
-    correct:'T3',
-    why:'Pacientka HODI → takoj T3 ZELENA. Pokretni hodijo sami v zeleni sektor – jih ne nosimo!',
-    alg:'SIEVE: hodi? DA → T3 ZELENA'
-  },
-  {
-    icon:'👴', scenario:'Moški, ~60 let, leži na tleh, ne reagira. Ko sprostimo dihalno pot, ne začne dihati.',
-    vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Dihanje',v:'Odsotno',s:'crit'},{l:'Po sprostitvi DP',v:'Še vedno ne diha',s:'crit'}],
-    correct:'T4',
-    why:'Ne hodi, ne diha niti po sprostitvi dihalne poti → T4 ČRNA. Nadaljujemo z naslednjim pacientom.',
-    alg:'SIEVE: hodi? NE → diha? NE → sprosti DP → še vedno NE → T4 ČRNA'
-  },
-  {
-    icon:'🧑', scenario:'Fant, ~20 let, leži in hlapi. Ko sprostimo dihalno pot, začne dihati s frekvenco 36/min. Kapilarna polnitev 4 sekunde.',
-    vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Dihanje po sprostitvi DP',v:'36 / min',s:'crit'},{l:'Kapilarna polnitev',v:'4 sek',s:'crit'}],
-    correct:'T1',
-    why:'Ne hodi, po sprostitvi DP diha, ampak frekvenca 36/min presega 29 → T1 RDEČA. Kapilarna polnitev >2 sek prav tako kaže na šok.',
-    alg:'SIEVE: hodi? NE → fr. 36/min > 29 → T1 RDEČA'
-  },
-  {
-    icon:'👩', scenario:'Ženska, ~35 let, sedi ob vozilu, zmešana. Diha 22/min. Kapilarna polnitev je 1,5 sekunde.',
-    vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Frekvenca dihanja',v:'22 / min',s:'ok'},{l:'Kapilarna polnitev',v:'1,5 sek',s:'ok'}],
-    correct:'T2',
-    why:'Ne hodi, diha 22/min (normalno 11–29), kapilarna polnitev 1,5 sek (< 2 sek) → T2 RUMENA. Ni šoka, dihanje zadovoljivo.',
-    alg:'SIEVE: hodi? NE → fr. 22/min ✓ → kap. pol. 1,5 sek < 2 sek ✓ → T2 RUMENA'
-  },
-  {
-    icon:'🧒', scenario:'Otrok, ~8 let, joka in kliče mamo. Ko ga nagovorimo, vstane in se zapleta pri hoji.',
-    vitals:[{l:'Hoja',v:'DA (otežena)',s:'warn'},{l:'Zavest',v:'Jasna, joka',s:'ok'},{l:'Vidne poškodbe',v:'Odrgnine',s:'ok'}],
-    correct:'T3',
-    why:'Otrok HODI, čeprav z oteženo hojo → T3 ZELENA. Usmerimo ga v zeleni sektor.',
-    alg:'SIEVE: hodi? DA → T3 ZELENA'
-  },
-  {
-    icon:'👨‍🦱', scenario:'Moški, ~50 let, leži, pri zavesti, a zmeden. Diha s frekvenco 8/min – počasi in plitvo. Pulz je tipen, kapilarna polnitev 1,8 sek.',
-    vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Frekvenca dihanja',v:'8 / min',s:'crit'},{l:'Kapilarna polnitev',v:'1,8 sek',s:'ok'}],
-    correct:'T1',
-    why:'Ne hodi, diha, ampak frekvenca 8/min je pod 10 – izven normalnega pasu 11–29 → T1 RDEČA.',
-    alg:'SIEVE: hodi? NE → fr. 8/min < 11 → T1 RDEČA'
-  },
-  {
-    icon:'👵', scenario:'Ženska, ~70 let, leži, ne reagira na klic. Diha 24/min. Kapilarna polnitev je 5 sekund, koža bleda in hladna.',
-    vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Frekvenca dihanja',v:'24 / min',s:'ok'},{l:'Kapilarna polnitev',v:'5 sek',s:'crit'}],
-    correct:'T1',
-    why:'Ne hodi, frekvenca 24/min je normalna, AMPAK kapilarna polnitev 5 sek > 2 sek → šok → T1 RDEČA.',
-    alg:'SIEVE: hodi? NE → fr. 24/min ✓ → kap. pol. 5 sek > 2 sek → T1 RDEČA'
-  },
-  {
-    icon:'👨', scenario:'Moški, ~30 let, sedi ob drevesu in drži glavo. Ko ga pokličemo, vstane. Manjša krvavitev iz čela.',
-    vitals:[{l:'Hoja',v:'DA',s:'ok'},{l:'Zavest',v:'Jasna',s:'ok'},{l:'Krvavitev',v:'Manjša, čelo',s:'warn'}],
-    correct:'T3',
-    why:'Vstane in hodi → T3 ZELENA. Manjša krvavitev ne spremeni kategorije pri SIEVE – usmerimo ga v zeleni sektor.',
-    alg:'SIEVE: hodi? DA → T3 ZELENA'
-  },
-  {
-    icon:'👧', scenario:'Deklica, ~12 let, leži, ne vstane. Ko sprostimo dihalno pot, začne dihati 18/min. Kapilarna polnitev 3,5 sekunde.',
-    vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Dihanje po sprostitvi DP',v:'18 / min',s:'ok'},{l:'Kapilarna polnitev',v:'3,5 sek',s:'crit'}],
-    correct:'T1',
-    why:'Ne hodi, po sprostitvi DP diha 18/min (normalno), ampak kapilarna polnitev 3,5 sek > 2 sek → šok → T1 RDEČA.',
-    alg:'SIEVE: hodi? NE → fr. 18/min ✓ → kap. pol. 3,5 sek > 2 sek → T1 RDEČA'
-  },
-  {
-    icon:'🧑‍🦲', scenario:'Moški, ~25 let, leži in kriči od bolečine v nogi. Ko ga prosimo, vstane in poskuša hoditi.',
-    vitals:[{l:'Hoja',v:'DA (s težavo)',s:'warn'},{l:'Frekvenca dihanja',v:'20 / min',s:'ok'},{l:'Poškodba',v:'Verjetni zlom noge',s:'warn'}],
-    correct:'T3',
-    why:'Kljub bolečini in verjetnem zlomu – HODI → T3 ZELENA. Zlom uda brez šoka ali dihalne stiske je zelena kategorija.',
-    alg:'SIEVE: hodi? DA → T3 ZELENA'
-  }
+ {
+  icon:'🧑‍🦳', scenario:'Ženska, ~45 let, sama hodi. Pritoži se nad bolečino v kolku.',
+  vitals:[{l:'Hoja',v:'DA',s:'ok'},{l:'Zavest',v:'Jasna',s:'ok'},{l:'Poškodba',v:'Bolečina v kolku',s:'warn'}],
+  correct:'T3',
+  why:'Pacientka HODI → takoj T3 ZELENA. Pokretni hodijo sami v zeleni sektor – jih ne nosimo!',
+  alg:'SIEVE: hodi? DA → T3 ZELENA'
+ },
+ {
+  icon:'👴', scenario:'Moški, ~60 let, leži na tleh, ne reagira. Ko sprostimo dihalno pot, ne začne dihati.',
+  vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Dihanje',v:'Odsotno',s:'crit'},{l:'Po sprostitvi DP',v:'Še vedno ne diha',s:'crit'}],
+  correct:'T4',
+  why:'Ne hodi, ne diha niti po sprostitvi dihalne poti → T4 ČRNA. Nadaljujemo z naslednjim pacientom.',
+  alg:'SIEVE: hodi? NE → diha? NE → sprosti DP → še vedno NE → T4 ČRNA'
+ },
+ {
+  icon:'🧑', scenario:'Fant, ~20 let, leži in hlapi. Ko sprostimo dihalno pot, začne dihati s frekvenco 36/min. Kapilarna polnitev 4 sekunde.',
+  vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Dihanje po sprostitvi DP',v:'36 / min',s:'crit'},{l:'Kapilarna polnitev',v:'4 sek',s:'crit'}],
+  correct:'T1',
+  why:'Ne hodi, po sprostitvi DP diha, ampak frekvenca 36/min presega 29 → T1 RDEČA. Kapilarna polnitev >2 sek prav tako kaže na šok.',
+  alg:'SIEVE: hodi? NE → fr. 36/min > 29 → T1 RDEČA'
+ },
+ {
+  icon:'👩', scenario:'Ženska, ~35 let, sedi ob vozilu, zmešana. Diha 22/min. Kapilarna polnitev je 1,5 sekunde.',
+  vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Frekvenca dihanja',v:'22 / min',s:'ok'},{l:'Kapilarna polnitev',v:'1,5 sek',s:'ok'}],
+  correct:'T2',
+  why:'Ne hodi, diha 22/min (normalno 11–29), kapilarna polnitev 1,5 sek (< 2 sek) → T2 RUMENA. Ni šoka, dihanje zadovoljivo.',
+  alg:'SIEVE: hodi? NE → fr. 22/min ✓ → kap. pol. 1,5 sek < 2 sek ✓ → T2 RUMENA'
+ },
+ {
+  icon:'🧒', scenario:'Otrok, ~8 let, joka in kliče mamo. Ko ga nagovorimo, vstane in se zapleta pri hoji.',
+  vitals:[{l:'Hoja',v:'DA (otežena)',s:'warn'},{l:'Zavest',v:'Jasna, joka',s:'ok'},{l:'Vidne poškodbe',v:'Odrgnine',s:'ok'}],
+  correct:'T3',
+  why:'Otrok HODI, čeprav z oteženo hojo → T3 ZELENA. Usmerimo ga v zeleni sektor.',
+  alg:'SIEVE: hodi? DA → T3 ZELENA'
+ },
+ {
+  icon:'👨‍🦱', scenario:'Moški, ~50 let, leži, pri zavesti, a zmeden. Diha s frekvenco 8/min – počasi in plitvo. Pulz je tipen, kapilarna polnitev 1,8 sek.',
+  vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Frekvenca dihanja',v:'8 / min',s:'crit'},{l:'Kapilarna polnitev',v:'1,8 sek',s:'ok'}],
+  correct:'T1',
+  why:'Ne hodi, diha, ampak frekvenca 8/min je pod 10 – izven normalnega pasu 11–29 → T1 RDEČA.',
+  alg:'SIEVE: hodi? NE → fr. 8/min < 11 → T1 RDEČA'
+ },
+ {
+  icon:'👵', scenario:'Ženska, ~70 let, leži, ne reagira na klic. Diha 24/min. Kapilarna polnitev je 5 sekund, koža bleda in hladna.',
+  vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Frekvenca dihanja',v:'24 / min',s:'ok'},{l:'Kapilarna polnitev',v:'5 sek',s:'crit'}],
+  correct:'T1',
+  why:'Ne hodi, frekvenca 24/min je normalna, AMPAK kapilarna polnitev 5 sek > 2 sek → šok → T1 RDEČA.',
+  alg:'SIEVE: hodi? NE → fr. 24/min ✓ → kap. pol. 5 sek > 2 sek → T1 RDEČA'
+ },
+ {
+  icon:'👨', scenario:'Moški, ~30 let, sedi ob drevesu in drži glavo. Ko ga pokličemo, vstane. Manjša krvavitev iz čela.',
+  vitals:[{l:'Hoja',v:'DA',s:'ok'},{l:'Zavest',v:'Jasna',s:'ok'},{l:'Krvavitev',v:'Manjša, čelo',s:'warn'}],
+  correct:'T3',
+  why:'Vstane in hodi → T3 ZELENA. Manjša krvavitev ne spremeni kategorije pri SIEVE – usmerimo ga v zeleni sektor.',
+  alg:'SIEVE: hodi? DA → T3 ZELENA'
+ },
+ {
+  icon:'👧', scenario:'Deklica, ~12 let, leži, ne vstane. Ko sprostimo dihalno pot, začne dihati 18/min. Kapilarna polnitev 3,5 sekunde.',
+  vitals:[{l:'Hoja',v:'NE',s:'crit'},{l:'Dihanje po sprostitvi DP',v:'18 / min',s:'ok'},{l:'Kapilarna polnitev',v:'3,5 sek',s:'crit'}],
+  correct:'T1',
+  why:'Ne hodi, po sprostitvi DP diha 18/min (normalno), ampak kapilarna polnitev 3,5 sek > 2 sek → šok → T1 RDEČA.',
+  alg:'SIEVE: hodi? NE → fr. 18/min ✓ → kap. pol. 3,5 sek > 2 sek → T1 RDEČA'
+ },
+ {
+  icon:'🧑‍🦲', scenario:'Moški, ~25 let, leži in kriči od bolečine v nogi. Ko ga prosimo, vstane in poskuša hoditi.',
+  vitals:[{l:'Hoja',v:'DA (s težavo)',s:'warn'},{l:'Frekvenca dihanja',v:'20 / min',s:'ok'},{l:'Poškodba',v:'Verjetni zlom noge',s:'warn'}],
+  correct:'T3',
+  why:'Kljub bolečini in verjetnem zlomu – HODI → T3 ZELENA. Zlom uda brez šoka ali dihalne stiske je zelena kategorija.',
+  alg:'SIEVE: hodi? DA → T3 ZELENA'
+ }
 ];
 
-const TAG_COLS = {T1:{bg:'#8B1A10',border:'#C0392B',text:'#fff'},T2:{bg:'#7A4E00',border:'#C17D0A',text:'#fff'},T3:{bg:'#0D4D27',border:'#1A7A40',text:'#fff'},T4:{bg:'#1a252f',border:'#4A5568',text:'#aaa'}};
+const TAG_COLS = {T1:{bg:'#8B1A10',border:'#C0392B',text:'#fff'},T2:{bg:'#7A4E00',border:'#C17D0A',text:'#fff'},T3:{bg:'#0D4D27',border:'#1A7A40',text:'#fff'},T4:{bg:'#1a252f',border:'#4A5568',text:'#aaa'},T5:{bg:'#0D3A5C',border:'#1A5A8A',text:'#fff'}};
 
 let cur=0,correct=0,wrong=0,selected=null,answered=false;
 let ghost=null,dragging=null,touchStartX=0,touchStartY=0;
 
 function zacniIgro(){
-  document.getElementById('INTRO').style.display='none';
-  document.getElementById('GAME').style.display='block';
-  render();
-  initDrag();
+ document.getElementById('INTRO').style.display='none';
+ document.getElementById('GAME').style.display='block';
+ render();
+ initDrag();
 }
 
 function initDrag(){
-  const tags=['T1','T2','T3','T4'];
-  tags.forEach(t=>{
-    const el=document.getElementById('tag'+t);
-    // Mouse
-    el.addEventListener('mousedown',e=>startDrag(e,t,false));
-    // Touch
-    el.addEventListener('touchstart',e=>startDrag(e,t,true),{passive:false});
-  });
+ const tags=['T1','T2','T3','T4','T5'];
+ tags.forEach(t=>{
+  const el=document.getElementById('tag'+t);
+  // Mouse
+  el.addEventListener('mousedown',e=>startDrag(e,t,false));
+  // Touch
+  el.addEventListener('touchstart',e=>startDrag(e,t,true),{passive:false});
+ });
 }
 
 function startDrag(e,t,isTouch){
-  if(answered)return;
-  e.preventDefault();
-  dragging=t;
-  const el=document.getElementById('tag'+t);
-  const col=TAG_COLS[t];
-  const code=t;
-  const names={T1:'Rdeča',T2:'Rumena',T3:'Zelena',T4:'Črna'};
+ if(answered)return;
+ e.preventDefault();
+ dragging=t;
+ const el=document.getElementById('tag'+t);
+ const col=TAG_COLS[t];
+ const code=t;
+ const names={T1:'Rdeča',T2:'Rumena',T3:'Zelena',T4:'Črna'};
 
-  // Create ghost
-  ghost=document.createElement('div');
-  ghost.className='drag-ghost';
-  ghost.style.cssText=`background:${col.bg};border:2px solid ${col.border};color:${col.text};width:72px`;
-  ghost.innerHTML=`<div class="tag-code-big">${code}</div><div class="tag-name-big">${names[t]}</div>`;
-  document.body.appendChild(ghost);
+ // Create ghost
+ ghost=document.createElement('div');
+ ghost.className='drag-ghost';
+ ghost.style.cssText=`background:${col.bg};border:2px solid ${col.border};color:${col.text};width:72px`;
+ ghost.innerHTML=`<div class="tag-code-big">${code}</div><div class="tag-name-big">${names[t]}</div>`;
+ document.body.appendChild(ghost);
 
-  el.classList.add('dragging');
-  // Select visually
-  selectTag(t);
+ el.classList.add('dragging');
+ // Select visually
+ selectTag(t);
 
-  const move=isTouch?
-    (ev=>{ev.preventDefault();const tc=ev.touches[0];moveGhost(tc.clientX,tc.clientY);}):
-    (ev=>moveGhost(ev.clientX,ev.clientY));
-  const up=isTouch?
-    (ev=>{ev.preventDefault();endDrag(ev.changedTouches[0].clientX,ev.changedTouches[0].clientY);}):
-    (ev=>endDrag(ev.clientX,ev.clientY));
+ const move=isTouch?
+  (ev=>{ev.preventDefault();const tc=ev.touches[0];moveGhost(tc.clientX,tc.clientY);}):
+  (ev=>moveGhost(ev.clientX,ev.clientY));
+ const up=isTouch?
+  (ev=>{ev.preventDefault();endDrag(ev.changedTouches[0].clientX,ev.changedTouches[0].clientY);}):
+  (ev=>endDrag(ev.clientX,ev.clientY));
 
-  const startPos=isTouch?{x:e.touches[0].clientX,y:e.touches[0].clientY}:{x:e.clientX,y:e.clientY};
-  moveGhost(startPos.x,startPos.y);
+ const startPos=isTouch?{x:e.touches[0].clientX,y:e.touches[0].clientY}:{x:e.clientX,y:e.clientY};
+ moveGhost(startPos.x,startPos.y);
 
-  document.addEventListener(isTouch?'touchmove':'mousemove',move,{passive:false});
-  document.addEventListener(isTouch?'touchend':'mouseup',function handler(ev){
-    document.removeEventListener(isTouch?'touchmove':'mousemove',move);
-    document.removeEventListener(isTouch?'touchend':'mouseup',handler);
-    up(ev);
-  },{once:true,passive:false});
+ document.addEventListener(isTouch?'touchmove':'mousemove',move,{passive:false});
+ document.addEventListener(isTouch?'touchend':'mouseup',function handler(ev){
+  document.removeEventListener(isTouch?'touchmove':'mousemove',move);
+  document.removeEventListener(isTouch?'touchend':'mouseup',handler);
+  up(ev);
+ },{once:true,passive:false});
 }
 
 function moveGhost(x,y){
-  if(!ghost)return;
-  ghost.style.left=x+'px';
-  ghost.style.top=y+'px';
-  // Highlight drop zone
-  const fig=document.getElementById('fig-icon');
-  const rect=fig.getBoundingClientRect();
-  const over=x>=rect.left&&x<=rect.right&&y>=rect.top&&y<=rect.bottom;
-  fig.classList.toggle('drag-over',over);
+ if(!ghost)return;
+ ghost.style.left=x+'px';
+ ghost.style.top=y+'px';
+ // Highlight drop zone
+ const fig=document.getElementById('fig-icon');
+ const rect=fig.getBoundingClientRect();
+ const over=x>=rect.left&&x<=rect.right&&y>=rect.top&&y<=rect.bottom;
+ fig.classList.toggle('drag-over',over);
 }
 
 function endDrag(x,y){
-  if(!ghost)return;
-  ghost.remove();ghost=null;
-  const el=document.getElementById('tag'+dragging);
-  if(el)el.classList.remove('dragging');
+ if(!ghost)return;
+ ghost.remove();ghost=null;
+ const el=document.getElementById('tag'+dragging);
+ if(el)el.classList.remove('dragging');
 
-  // Check if dropped on patient
-  const fig=document.getElementById('fig-icon');
-  fig.classList.remove('drag-over');
-  const rect=fig.getBoundingClientRect();
-  // Generous drop zone – whole patient area
-  const pa=document.getElementById('patient-area');
-  const par=pa.getBoundingClientRect();
-  if(x>=par.left&&x<=par.right&&y>=par.top&&y<=par.bottom&&selected){
-    potrdi();
-  }
-  dragging=null;
+ // Check if dropped on patient
+ const fig=document.getElementById('fig-icon');
+ fig.classList.remove('drag-over');
+ const rect=fig.getBoundingClientRect();
+ // Generous drop zone – whole patient area
+ const pa=document.getElementById('patient-area');
+ const par=pa.getBoundingClientRect();
+ if(x>=par.left&&x<=par.right&&y>=par.top&&y<=par.bottom&&selected){
+  potrdi();
+ }
+ dragging=null;
 }
 
 function selectTag(t){
-  if(answered)return;
-  selected=t;
-  ['T1','T2','T3','T4'].forEach(id=>{
-    document.getElementById('tag'+id).classList.toggle('selected',id===t);
-  });
-  updateConfirmBtn();
+ if(answered)return;
+ selected=t;
+ ['T1','T2','T3','T4','T5'].forEach(id=>{
+  document.getElementById('tag'+id).classList.toggle('selected',id===t);
+ });
+ updateConfirmBtn();
 }
 
 function render(){
-  const p=PATIENTS[cur];
-  document.getElementById('p-num').textContent='Pacient '+(cur+1)+' / '+PATIENTS.length;
-  document.getElementById('p-scenario').textContent=p.scenario;
-  document.getElementById('fig-icon').innerHTML=p.icon+'<div class="figure-tag-slot" id="tag-slot">?</div>';
-  document.getElementById('p-vitals').innerHTML=p.vitals.map(v=>`<div class="vital"><div class="vital-lbl">${v.l}</div><div class="vital-val ${v.s}">${v.v}</div></div>`).join('');
-  document.getElementById('p-fb').className='feedback';
-  document.getElementById('p-fb').innerHTML='';
-  document.getElementById('attached-tag').style.display='none';
-  ['T1','T2','T3','T4'].forEach(t=>{
-    const el=document.getElementById('tag'+t);
-    el.className=el.className.replace(/selected|locked|correct-used|wrong-used|reveal-correct|dragging/g,'').trim();
-  });
-  selected=null;answered=false;
-  updateConfirmBtn();updateProgress();
-  const pa=document.getElementById('patient-area');
-  pa.classList.remove('animate-in');void pa.offsetWidth;pa.classList.add('animate-in');
+ const p=PATIENTS[cur];
+ document.getElementById('p-num').textContent='Pacient '+(cur+1)+' / '+PATIENTS.length;
+ document.getElementById('p-scenario').textContent=p.scenario;
+ document.getElementById('fig-icon').innerHTML=p.icon+'<div class="figure-tag-slot" id="tag-slot">?</div>';
+ document.getElementById('p-vitals').innerHTML=p.vitals.map(v=>`<div class="vital"><div class="vital-lbl">${v.l}</div><div class="vital-val ${v.s}">${v.v}</div></div>`).join('');
+ document.getElementById('p-fb').className='feedback';
+ document.getElementById('p-fb').innerHTML='';
+ document.getElementById('attached-tag').style.display='none';
+ ['T1','T2','T3','T4','T5'].forEach(t=>{
+  const el=document.getElementById('tag'+t);
+  el.className=el.className.replace(/selected|locked|correct-used|wrong-used|reveal-correct|dragging/g,'').trim();
+ });
+ selected=null;answered=false;
+ updateConfirmBtn();updateProgress();
+ const pa=document.getElementById('patient-area');
+ pa.classList.remove('animate-in');void pa.offsetWidth;pa.classList.add('animate-in');
 }
 
 function updateConfirmBtn(){
-  document.getElementById('btn-confirm').classList.toggle('active',!!selected&&!answered);
+ document.getElementById('btn-confirm').classList.toggle('active',!!selected&&!answered);
 }
 
 function potrdi(){
-  if(!selected||answered)return;
-  answered=true;
-  const p=PATIENTS[cur];
-  const ok=selected===p.correct;
-  if(ok)correct++;else wrong++;
-  ['T1','T2','T3','T4'].forEach(t=>{
-    const el=document.getElementById('tag'+t);
-    el.classList.add('locked');el.classList.remove('selected');
-    if(t===selected)el.classList.add(ok?'correct-used':'wrong-used');
-    if(!ok&&t===p.correct)el.classList.add('reveal-correct');
-  });
-  const col=TAG_COLS[selected];
-  const at=document.getElementById('attached-tag');
-  at.textContent=selected;at.style.cssText=`display:block;background:${col.bg};border:2px solid ${col.border};color:${col.text}`;
-  const slot=document.getElementById('tag-slot');
-  slot.style.cssText=`background:${col.bg};border:2px solid ${col.border};color:${col.text};font-size:11px;border-style:solid`;
-  slot.textContent=selected;
-  const pa=document.getElementById('patient-area');
-  pa.classList.add(ok?'flash-ok':'flash-nok');
-  setTimeout(()=>pa.classList.remove('flash-ok','flash-nok'),800);
-  const fb=document.getElementById('p-fb');
-  fb.className='feedback show '+(ok?'ok':'nok');
-  fb.innerHTML=`<strong>${ok?'Pravilno! ✓':'Napačno. ✗'}</strong> ${p.why}<div class="fb-alg">${p.alg}</div>`;
-  updateConfirmBtn();
-  document.getElementById('chip-ok').textContent='✓ '+correct;
-  document.getElementById('chip-nok').textContent='✗ '+wrong;
-  setTimeout(()=>{if(cur<PATIENTS.length-1){cur++;render();}else showResult();},ok?2000:3000);
+ if(!selected||answered)return;
+ answered=true;
+ const p=PATIENTS[cur];
+ const ok=selected===p.correct;
+ if(ok)correct++;else wrong++;
+ ['T1','T2','T3','T4','T5'].forEach(t=>{
+  const el=document.getElementById('tag'+t);
+  el.classList.add('locked');el.classList.remove('selected');
+  if(t===selected)el.classList.add(ok?'correct-used':'wrong-used');
+  if(!ok&&t===p.correct)el.classList.add('reveal-correct');
+ });
+ const col=TAG_COLS[selected];
+ const at=document.getElementById('attached-tag');
+ at.textContent=selected;at.style.cssText=`display:block;background:${col.bg};border:2px solid ${col.border};color:${col.text}`;
+ const slot=document.getElementById('tag-slot');
+ slot.style.cssText=`background:${col.bg};border:2px solid ${col.border};color:${col.text};font-size:11px;border-style:solid`;
+ slot.textContent=selected;
+ const pa=document.getElementById('patient-area');
+ pa.classList.add(ok?'flash-ok':'flash-nok');
+ setTimeout(()=>pa.classList.remove('flash-ok','flash-nok'),800);
+ const fb=document.getElementById('p-fb');
+ fb.className='feedback show '+(ok?'ok':'nok');
+ fb.innerHTML=`<strong>${ok?'Pravilno! ✓':'Napačno. ✗'}</strong> ${p.why}<div class="fb-alg">${p.alg}</div>`;
+ updateConfirmBtn();
+ document.getElementById('chip-ok').textContent='✓ '+correct;
+ document.getElementById('chip-nok').textContent='✗ '+wrong;
+ setTimeout(()=>{if(cur<PATIENTS.length-1){cur++;render();}else showResult();},ok?2000:3000);
 }
 
 function updateProgress(){
-  document.getElementById('prog-bar').style.width=(cur/PATIENTS.length*100)+'%';
-  document.getElementById('prog-txt').textContent=cur+' / '+PATIENTS.length;
+ document.getElementById('prog-bar').style.width=(cur/PATIENTS.length*100)+'%';
+ document.getElementById('prog-txt').textContent=cur+' / '+PATIENTS.length;
 }
 
 function showResult(){
-  const raw=sessionStorage.getItem('pnmp_active_user');
-  const user=raw?JSON.parse(raw):{polnoIme:'Anonimno'};
-  const pct=Math.round(correct/PATIENTS.length*100);
-  db.collection('simulator').add({polnoIme:user.polnoIme||'Anonimno',pravilno:correct,napacno:wrong,skupaj:PATIENTS.length,procent:pct,cas:firebase.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
-  document.getElementById('GAME').style.display='none';
-  const r=document.getElementById('RESULT');r.classList.add('show');
-  document.getElementById('r-score').textContent=correct;
-  document.getElementById('rs-ok').textContent=correct;
-  document.getElementById('rs-nok').textContent=wrong;
-  document.getElementById('rs-pct').textContent=pct+'%';
-  const[title,sub]=pct>=90?['Odlično!','Triažo odlično obvladaš.']:pct>=70?['Dobro!','Večino pacientov si pravilno razvrstil.']:['Vaditi naprej','Priporočamo ponoven pregled algoritma SIEVE.'];
-  document.getElementById('r-title').textContent=title;
-  document.getElementById('r-sub').textContent=sub;
-  const colors={T1:'#8B1A10',T2:'#7A4E00',T3:'#0D4D27',T4:'#1a252f'};
-  const borders={T1:'#C0392B',T2:'#C17D0A',T3:'#1A7A40',T4:'#4A5568'};
-  const cnt={T1:0,T2:0,T3:0,T4:0};
-  PATIENTS.forEach(p=>cnt[p.correct]++);
-  let h='';
-  ['T1','T2','T3','T4'].forEach(t=>{for(let i=0;i<cnt[t];i++)h+=`<div class="result-tag-item" style="background:${colors[t]};border:2px solid ${borders[t]}">${t}</div>`;});
-  document.getElementById('result-tags').innerHTML=h;
-  document.querySelectorAll('.result-tag-item').forEach((el,i)=>{
-    el.style.opacity='0';el.style.transform='translateY(20px)';
-    setTimeout(()=>{el.style.transition='all 0.4s ease';el.style.opacity='1';el.style.transform='translateY(-4px)';},100+i*80);
-  });
+ const raw=sessionStorage.getItem('pnmp_active_user');
+ const user=raw?JSON.parse(raw):{polnoIme:'Anonimno'};
+ const pct=Math.round(correct/PATIENTS.length*100);
+ db.collection('simulator').add({polnoIme:user.polnoIme||'Anonimno',pravilno:correct,napacno:wrong,skupaj:PATIENTS.length,procent:pct,cas:firebase.firestore.FieldValue.serverTimestamp()}).catch(()=>{});
+ document.getElementById('GAME').style.display='none';
+ const r=document.getElementById('RESULT');r.classList.add('show');
+ document.getElementById('r-score').textContent=correct;
+ document.getElementById('rs-ok').textContent=correct;
+ document.getElementById('rs-nok').textContent=wrong;
+ document.getElementById('rs-pct').textContent=pct+'%';
+ const[title,sub]=pct>=90?['Odlično!','Triažo odlično obvladaš.']:pct>=70?['Dobro!','Večino pacientov si pravilno razvrstil.']:['Vaditi naprej','Priporočamo ponoven pregled algoritma SIEVE.'];
+ document.getElementById('r-title').textContent=title;
+ document.getElementById('r-sub').textContent=sub;
+ const colors={T1:'#8B1A10',T2:'#7A4E00',T3:'#0D4D27',T4:'#1a252f'};
+ const borders={T1:'#C0392B',T2:'#C17D0A',T3:'#1A7A40',T4:'#4A5568'};
+ const cnt={T1:0,T2:0,T3:0,T4:0};
+ PATIENTS.forEach(p=>cnt[p.correct]++);
+ let h='';
+ ['T1','T2','T3','T4'].forEach(t=>{for(let i=0;i<cnt[t];i++)h+=`<div class="result-tag-item" style="background:${colors[t]};border:2px solid ${borders[t]}">${t}</div>`;});
+ document.getElementById('result-tags').innerHTML=h;
+ document.querySelectorAll('.result-tag-item').forEach((el,i)=>{
+  el.style.opacity='0';el.style.transform='translateY(20px)';
+  setTimeout(()=>{el.style.transition='all 0.4s ease';el.style.opacity='1';el.style.transform='translateY(-4px)';},100+i*80);
+ });
 }
 
 function restart(){
-  cur=0;correct=0;wrong=0;selected=null;answered=false;
-  document.getElementById('RESULT').classList.remove('show');
-  document.getElementById('GAME').style.display='block';
-  document.getElementById('chip-ok').textContent='✓ 0';
-  document.getElementById('chip-nok').textContent='✗ 0';
-  render();
+ cur=0;correct=0;wrong=0;selected=null;answered=false;
+ document.getElementById('RESULT').classList.remove('show');
+ document.getElementById('GAME').style.display='block';
+ document.getElementById('chip-ok').textContent='✓ 0';
+ document.getElementById('chip-nok').textContent='✗ 0';
+ render();
 }
 </script>
 </body>

@@ -114,84 +114,84 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 
 <!-- Login gate – prikazano če ni prijave (QR dostop) -->
 <div class="login-gate" id="login-gate">
-  <div class="login-gate-box">
-    <div class="login-gate-eyebrow">PNMP · Prometna nesreča</div>
-    <h2>PROMETNA NESREČA<br><span>KVIZ</span></h2>
-    <p class="login-gate-sub">Pred začetkom kviza vpiši svoje ime in priimek. Rezultati bodo shranjeni za mentorja.</p>
-    <div class="login-gate-fields">
-      <div><div class="lg-label">Ime</div><input class="lg-input" type="text" id="lg-ime" placeholder="Janez" autocomplete="given-name"></div>
-      <div><div class="lg-label">Priimek</div><input class="lg-input" type="text" id="lg-priimek" placeholder="Novak" autocomplete="family-name"></div>
-    </div>
-    <button class="lg-btn" onclick="lgPrijava()">Začni kviz →</button>
-    <div class="lg-err" id="lg-err">Prosimo, vpiši ime in priimek.</div>
+ <div class="login-gate-box">
+  <div class="login-gate-eyebrow">PNMP · Prometna nesreča</div>
+  <h2>PROMETNA NESREČA<br><span>KVIZ</span></h2>
+  <p class="login-gate-sub">Pred začetkom kviza vpiši svoje ime in priimek. Rezultati bodo shranjeni za mentorja.</p>
+  <div class="login-gate-fields">
+   <div><div class="lg-label">Ime</div><input class="lg-input" type="text" id="lg-ime" placeholder="Janez" autocomplete="given-name"></div>
+   <div><div class="lg-label">Priimek</div><input class="lg-input" type="text" id="lg-priimek" placeholder="Novak" autocomplete="family-name"></div>
   </div>
+  <button class="lg-btn" onclick="lgPrijava()">Začni kviz →</button>
+  <div class="lg-err" id="lg-err">Prosimo, vpiši ime in priimek.</div>
+ </div>
 </div>
 
 <div class="wrap">
-  <div class="hero">
-    <p class="hero-eyebrow">Mentorji PNMP GZ Ljubljana</p>
-    <div id="user-chip-wrap"></div>
-    <h1>PNMP<br><span style="font-size:0.42em;letter-spacing:0.12em;color:rgba(255,255,255,0.55);display:block;margin:4px 0 2px;">PROMETNA NESREČA</span><span>KVIZ</span></h1>
-    <p class="hero-sub">8 vprašanj iz vadbenih sklopov prometnih nesreč.</p>
+ <div class="hero">
+  <p class="hero-eyebrow">Mentorji PNMP GZ Ljubljana</p>
+  <div id="user-chip-wrap"></div>
+  <h1>PNMP<br><span style="font-size:0.42em;letter-spacing:0.12em;color:rgba(255,255,255,0.55);display:block;margin:4px 0 2px;">PROMETNA NESREČA</span><span>KVIZ</span></h1>
+  <p class="hero-sub">8 vprašanj iz vadbenih sklopov prometnih nesreč.</p>
+ </div>
+
+ <div id="quiz-area">
+  <div class="progress-label"><span>NAPREDEK</span><span id="ptxt">0 / 8</span></div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="pbar" style="width:0%"></div></div>
+
+  <div class="section-header"><div class="section-header-line"></div><div class="section-header-badge">Iznos iz vozila</div><div class="section-header-line"></div></div>
+  <div class="q-card" id="qc1"><div class="q-header"><div class="q-num">01</div><div class="q-text">Kdaj je primeren čas za iznos poškodovanca z zajemalnimi nosili (hitri iznos) v primerjavi z urgentnim iznosom (Rautkov prijem)?</div></div><div class="opts"><button class="opt" onclick="ans(1,0)"><span class="opt-lbl">A</span><span class="opt-txt">Kadar je poškodovanec nezavesten in ga je treba takoj reanimirati.</span></button><button class="opt" onclick="ans(1,1)"><span class="opt-lbl">B</span><span class="opt-txt">Ko je na mestu nesreče aktivni požar ali neposredna grožnja za življenje poškodovanca ali ekipe.</span></button><button class="opt" onclick="ans(1,2)"><span class="opt-lbl">C</span><span class="opt-txt">Ko je poškodovanec stabilen in ni neposredne nevarnosti, je mogoče z zajemalnimi nosili opraviti nadzorovan, usklajeni iznos z minimalno rotacijo hrbtenice.</span></button><button class="opt" onclick="ans(1,3)"><span class="opt-lbl">D</span><span class="opt-txt">Zajemalna nosila se vedno uporabijo – ni razlike med urgentnim in hitrim iznosom.</span></button></div><div class="feedback" id="fb1"></div></div>
+  <div class="q-card" id="qc2"><div class="q-header"><div class="q-num">02</div><div class="q-text">Katero od spodnjega je PRAVILNO navodilo za nameščanje vratne opornice?</div></div><div class="opts"><button class="opt" onclick="ans(2,0)"><span class="opt-lbl">A</span><span class="opt-txt">Opornico odmeriš takoj po prihodu, še preden je glava v nevtralnem položaju.</span></button><button class="opt" onclick="ans(2,1)"><span class="opt-lbl">B</span><span class="opt-txt">Bradni del z dlanjo namestitiš najprej na prsa poškodovanca in ga podrsaš proti bradi; nato dodaš zadnji del in ga pritrdiš.</span></button><button class="opt" onclick="ans(2,2)"><span class="opt-lbl">C</span><span class="opt-txt">Zadnji del opornice namestitiš prvi, nato pa dodaš sprednji del in ga spenjaš od zadaj naprej.</span></button><button class="opt" onclick="ans(2,3)"><span class="opt-lbl">D</span><span class="opt-txt">Pred namestitvijo ni treba odstraniti ovratnikov ali kapuc – to narediš šele po namestitvi.</span></button></div><div class="feedback" id="fb2"></div></div>
+
+  <div class="section-header"><div class="section-header-line"></div><div class="section-header-badge">Hipoglikemija in poškodbe</div><div class="section-header-line"></div></div>
+  <div class="q-card" id="qc3"><div class="q-header"><div class="q-num">03</div><div class="q-text">Pri kateri vrednosti krvnega sladkorja govorimo o hipoglikemiji pri zdravem odraslem (ki ni dolgoletni sladkorni bolnik)?</div></div><div class="opts"><button class="opt" onclick="ans(3,0)"><span class="opt-lbl">A</span><span class="opt-txt">Pod 5,0 mmol/L – to je spodnja meja normalnega sladkorja.</span></button><button class="opt" onclick="ans(3,1)"><span class="opt-lbl">B</span><span class="opt-txt">Pod 4,0 mmol/L – ta vrednost je mejna za vse sladkorne bolnike.</span></button><button class="opt" onclick="ans(3,2)"><span class="opt-lbl">C</span><span class="opt-txt">Pod 3,5 mmol/L – pri kroničnih sladkornih bolnikih se znaki pojavijo že pri 4,0 mmol/L.</span></button><button class="opt" onclick="ans(3,3)"><span class="opt-lbl">D</span><span class="opt-txt">Pod 2,0 mmol/L – šele takrat so poškodovanci res ogroženi in je treba ukrepati.</span></button></div><div class="feedback" id="fb3"></div></div>
+  <div class="q-card" id="qc4"><div class="q-header"><div class="q-num">04</div><div class="q-text">V katerem primeru ustavimo inzulinsko črpalko na terenu?</div></div><div class="opts"><button class="opt" onclick="ans(4,0)"><span class="opt-lbl">A</span><span class="opt-txt">Vedno, ko poškodovanec dobi poškodbo – da se izognemo kakršnim koli zapletom med oskrbo.</span></button><button class="opt" onclick="ans(4,1)"><span class="opt-lbl">B</span><span class="opt-txt">Le v primeru hipoglikemije; ob normalnih vrednostih sladkorja črpalke ne ustavljamo.</span></button><button class="opt" onclick="ans(4,2)"><span class="opt-lbl">C</span><span class="opt-txt">Ko prevažamo poškodovanca – gibanje med prevozom lahko pokvari delovanje črpalke.</span></button><button class="opt" onclick="ans(4,3)"><span class="opt-lbl">D</span><span class="opt-txt">Kadarkoli poškodovanec ni zavesten, ne glede na vrednost sladkorja.</span></button></div><div class="feedback" id="fb4"></div></div>
+
+  <div class="section-header"><div class="section-header-line"></div><div class="section-header-badge">Motorist in čelada</div><div class="section-header-line"></div></div>
+  <div class="q-card" id="qc5"><div class="q-header"><div class="q-num">05</div><div class="q-text">Kdaj čelade motorista NE snemamo?</div></div><div class="opts"><button class="opt" onclick="ans(5,0)"><span class="opt-lbl">A</span><span class="opt-txt">Kadar je poškodovanec nezavesten – nezavestnega ne premikamo, dokler ni na kraju ekipa NMP.</span></button><button class="opt" onclick="ans(5,1)"><span class="opt-lbl">B</span><span class="opt-txt">Kadar ima poškodovanec integralno čelado – ta je pretesna in jo je nevarno sneti brez posebnih orodij.</span></button><button class="opt" onclick="ans(5,2)"><span class="opt-lbl">C</span><span class="opt-txt">Kadar je tujek zaboden skozi čelado – snemanje bi povzročilo dodatno poškodbo.</span></button><button class="opt" onclick="ans(5,3)"><span class="opt-lbl">D</span><span class="opt-txt">Kadar je poškodovanec pri zavesti in se pogovarja z nami – v tem primeru čelada ne moti.</span></button></div><div class="feedback" id="fb5"></div></div>
+  <div class="q-card" id="qc6"><div class="q-header"><div class="q-num">06</div><div class="q-text">Katera od naslednjih je NAPAČNA trditev o snemanju motoristične čelade?</div></div><div class="opts"><button class="opt" onclick="ans(6,0)"><span class="opt-lbl">A</span><span class="opt-txt">Odprta (jet) čelada se snema najlažje, ker nima obrazne zaščite.</span></button><button class="opt" onclick="ans(6,1)"><span class="opt-lbl">B</span><span class="opt-txt">Modularna (preklopna) čelada se po odprtju sprednjega dela obnaša kot odprta čelada.</span></button><button class="opt" onclick="ans(6,2)"><span class="opt-lbl">C</span><span class="opt-txt">Integralna čelada se snema enako enostavno kot odprta – razlikujeta se le po barvi in obliki.</span></button><button class="opt" onclick="ans(6,3)"><span class="opt-lbl">D</span><span class="opt-txt">Integralna čelada velja za najvarnejšo, a jo je najtežje sneti zaradi dobrega oprijema okoli glave.</span></button></div><div class="feedback" id="fb6"></div></div>
+
+  <div class="section-header"><div class="section-header-line"></div><div class="section-header-badge">Imobilizacija stoječega poškodovanca</div><div class="section-header-line"></div></div>
+  <div class="q-card" id="qc7"><div class="q-header"><div class="q-num">07</div><div class="q-text">Motorist vstane po padcu in se pritožuje nad mravljinčenjem v prstih rok in bolečino v vratu. Kaj to pomeni glede imobilizacije?</div></div><div class="opts"><button class="opt" onclick="ans(7,0)"><span class="opt-lbl">A</span><span class="opt-txt">Ker stoji in govori, je hrbtenica verjetno nepoškodovana – imobilizacija ni potrebna.</span></button><button class="opt" onclick="ans(7,1)"><span class="opt-lbl">B</span><span class="opt-txt">Mravljinčenje in bolečina v vratu sta indikaciji za sum poškodbe hrbtenice – izvedemo stoječo imobilizacijo z zajemanjem.</span></button><button class="opt" onclick="ans(7,2)"><span class="opt-lbl">C</span><span class="opt-txt">Poškodovanca najprej posedemo na tla, nato ga položimo in šele nato namestimo vratno opornico.</span></button><button class="opt" onclick="ans(7,3)"><span class="opt-lbl">D</span><span class="opt-txt">Imobiliziramo samo roke, ker je mravljinčenje simptom poškodbe zgornjih udov.</span></button></div><div class="feedback" id="fb7"></div></div>
+  <div class="q-card" id="qc8"><div class="q-header"><div class="q-num">08</div><div class="q-text">Kaj je treba preveriti PRED nameščanjem zajemalnih nosil na stoječega poškodovanca?</div></div><div class="opts"><button class="opt" onclick="ans(8,0)"><span class="opt-lbl">A</span><span class="opt-txt">Samo vrednost krvnega tlaka in srčni utrip – vitalni parametri so edino merilo pripravljenosti.</span></button><button class="opt" onclick="ans(8,1)"><span class="opt-lbl">B</span><span class="opt-txt">Nosila je treba nastaviti na ustrezno dolžino; reševalci ob nosili naj bodo pribl. enake konstitucije.</span></button><button class="opt" onclick="ans(8,2)"><span class="opt-lbl">C</span><span class="opt-txt">Poškodovanca je treba najprej položiti na tla, tek preveriti hrbtenico in šele nato namestiti nosila.</span></button><button class="opt" onclick="ans(8,3)"><span class="opt-lbl">D</span><span class="opt-txt">Dolžina nosil ni pomembna – pasovi in trakovi se prilagodijo kateri koli dolžini brez predhodnih nastavitev.</span></button></div><div class="feedback" id="fb8"></div></div>
+ </div>
+
+ <div class="result" id="result">
+  <div class="result-ring"><div class="result-score" id="res-score">0</div><div class="result-denom">/ 8</div></div>
+  <div class="result-title" id="res-title">—</div>
+  <div class="result-sub" id="res-sub">—</div>
+  <div class="result-breakdown" id="res-breakdown"></div>
+  <div class="save-status" id="save-status"></div>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+   <button class="btn btn-primary" onclick="restart()">↺ &nbsp;Ponovi kviz</button>
+   <button class="btn btn-ghost" onclick="toggleReview()">Pregled odgovorov</button>
+   <button class="btn btn-ghost" onclick="window.location.href='index.html'">← Portal</button>
   </div>
-
-  <div id="quiz-area">
-    <div class="progress-label"><span>NAPREDEK</span><span id="ptxt">0 / 8</span></div>
-    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="pbar" style="width:0%"></div></div>
-
-    <div class="section-header"><div class="section-header-line"></div><div class="section-header-badge">Iznos iz vozila</div><div class="section-header-line"></div></div>
-    <div class="q-card" id="qc1"><div class="q-header"><div class="q-num">01</div><div class="q-text">Kdaj je primeren čas za iznos poškodovanca z zajemalnimi nosili (hitri iznos) v primerjavi z urgentnim iznosom (Rautkov prijem)?</div></div><div class="opts"><button class="opt" onclick="ans(1,0)"><span class="opt-lbl">A</span><span class="opt-txt">Kadar je poškodovanec nezavesten in ga je treba takoj reanimirati.</span></button><button class="opt" onclick="ans(1,1)"><span class="opt-lbl">B</span><span class="opt-txt">Ko je na mestu nesreče aktivni požar ali neposredna grožnja za življenje poškodovanca ali ekipe.</span></button><button class="opt" onclick="ans(1,2)"><span class="opt-lbl">C</span><span class="opt-txt">Ko je poškodovanec stabilen in ni neposredne nevarnosti, je mogoče z zajemalnimi nosili opraviti nadzorovan, usklajeni iznos z minimalno rotacijo hrbtenice.</span></button><button class="opt" onclick="ans(1,3)"><span class="opt-lbl">D</span><span class="opt-txt">Zajemalna nosila se vedno uporabijo – ni razlike med urgentnim in hitrim iznosom.</span></button></div><div class="feedback" id="fb1"></div></div>
-    <div class="q-card" id="qc2"><div class="q-header"><div class="q-num">02</div><div class="q-text">Katero od spodnjega je PRAVILNO navodilo za nameščanje vratne opornice?</div></div><div class="opts"><button class="opt" onclick="ans(2,0)"><span class="opt-lbl">A</span><span class="opt-txt">Opornico odmeriš takoj po prihodu, še preden je glava v nevtralnem položaju.</span></button><button class="opt" onclick="ans(2,1)"><span class="opt-lbl">B</span><span class="opt-txt">Bradni del z dlanjo namestitiš najprej na prsa poškodovanca in ga podrsaš proti bradi; nato dodaš zadnji del in ga pritrdiš.</span></button><button class="opt" onclick="ans(2,2)"><span class="opt-lbl">C</span><span class="opt-txt">Zadnji del opornice namestitiš prvi, nato pa dodaš sprednji del in ga spenjaš od zadaj naprej.</span></button><button class="opt" onclick="ans(2,3)"><span class="opt-lbl">D</span><span class="opt-txt">Pred namestitvijo ni treba odstraniti ovratnikov ali kapuc – to narediš šele po namestitvi.</span></button></div><div class="feedback" id="fb2"></div></div>
-
-    <div class="section-header"><div class="section-header-line"></div><div class="section-header-badge">Hipoglikemija in poškodbe</div><div class="section-header-line"></div></div>
-    <div class="q-card" id="qc3"><div class="q-header"><div class="q-num">03</div><div class="q-text">Pri kateri vrednosti krvnega sladkorja govorimo o hipoglikemiji pri zdravem odraslem (ki ni dolgoletni sladkorni bolnik)?</div></div><div class="opts"><button class="opt" onclick="ans(3,0)"><span class="opt-lbl">A</span><span class="opt-txt">Pod 5,0 mmol/L – to je spodnja meja normalnega sladkorja.</span></button><button class="opt" onclick="ans(3,1)"><span class="opt-lbl">B</span><span class="opt-txt">Pod 4,0 mmol/L – ta vrednost je mejna za vse sladkorne bolnike.</span></button><button class="opt" onclick="ans(3,2)"><span class="opt-lbl">C</span><span class="opt-txt">Pod 3,5 mmol/L – pri kroničnih sladkornih bolnikih se znaki pojavijo že pri 4,0 mmol/L.</span></button><button class="opt" onclick="ans(3,3)"><span class="opt-lbl">D</span><span class="opt-txt">Pod 2,0 mmol/L – šele takrat so poškodovanci res ogroženi in je treba ukrepati.</span></button></div><div class="feedback" id="fb3"></div></div>
-    <div class="q-card" id="qc4"><div class="q-header"><div class="q-num">04</div><div class="q-text">V katerem primeru ustavimo inzulinsko črpalko na terenu?</div></div><div class="opts"><button class="opt" onclick="ans(4,0)"><span class="opt-lbl">A</span><span class="opt-txt">Vedno, ko poškodovanec dobi poškodbo – da se izognemo kakršnim koli zapletom med oskrbo.</span></button><button class="opt" onclick="ans(4,1)"><span class="opt-lbl">B</span><span class="opt-txt">Le v primeru hipoglikemije; ob normalnih vrednostih sladkorja črpalke ne ustavljamo.</span></button><button class="opt" onclick="ans(4,2)"><span class="opt-lbl">C</span><span class="opt-txt">Ko prevažamo poškodovanca – gibanje med prevozom lahko pokvari delovanje črpalke.</span></button><button class="opt" onclick="ans(4,3)"><span class="opt-lbl">D</span><span class="opt-txt">Kadarkoli poškodovanec ni zavesten, ne glede na vrednost sladkorja.</span></button></div><div class="feedback" id="fb4"></div></div>
-
-    <div class="section-header"><div class="section-header-line"></div><div class="section-header-badge">Motorist in čelada</div><div class="section-header-line"></div></div>
-    <div class="q-card" id="qc5"><div class="q-header"><div class="q-num">05</div><div class="q-text">Kdaj čelade motorista NE snemamo?</div></div><div class="opts"><button class="opt" onclick="ans(5,0)"><span class="opt-lbl">A</span><span class="opt-txt">Kadar je poškodovanec nezavesten – nezavestnega ne premikamo, dokler ni na kraju ekipa NMP.</span></button><button class="opt" onclick="ans(5,1)"><span class="opt-lbl">B</span><span class="opt-txt">Kadar ima poškodovanec integralno čelado – ta je pretesna in jo je nevarno sneti brez posebnih orodij.</span></button><button class="opt" onclick="ans(5,2)"><span class="opt-lbl">C</span><span class="opt-txt">Kadar je tujek zaboden skozi čelado – snemanje bi povzročilo dodatno poškodbo.</span></button><button class="opt" onclick="ans(5,3)"><span class="opt-lbl">D</span><span class="opt-txt">Kadar je poškodovanec pri zavesti in se pogovarja z nami – v tem primeru čelada ne moti.</span></button></div><div class="feedback" id="fb5"></div></div>
-    <div class="q-card" id="qc6"><div class="q-header"><div class="q-num">06</div><div class="q-text">Katera od naslednjih je NAPAČNA trditev o snemanju motoristične čelade?</div></div><div class="opts"><button class="opt" onclick="ans(6,0)"><span class="opt-lbl">A</span><span class="opt-txt">Odprta (jet) čelada se snema najlažje, ker nima obrazne zaščite.</span></button><button class="opt" onclick="ans(6,1)"><span class="opt-lbl">B</span><span class="opt-txt">Modularna (preklopna) čelada se po odprtju sprednjega dela obnaša kot odprta čelada.</span></button><button class="opt" onclick="ans(6,2)"><span class="opt-lbl">C</span><span class="opt-txt">Integralna čelada se snema enako enostavno kot odprta – razlikujeta se le po barvi in obliki.</span></button><button class="opt" onclick="ans(6,3)"><span class="opt-lbl">D</span><span class="opt-txt">Integralna čelada velja za najvarnejšo, a jo je najtežje sneti zaradi dobrega oprijema okoli glave.</span></button></div><div class="feedback" id="fb6"></div></div>
-
-    <div class="section-header"><div class="section-header-line"></div><div class="section-header-badge">Imobilizacija stoječega poškodovanca</div><div class="section-header-line"></div></div>
-    <div class="q-card" id="qc7"><div class="q-header"><div class="q-num">07</div><div class="q-text">Motorist vstane po padcu in se pritožuje nad mravljinčenjem v prstih rok in bolečino v vratu. Kaj to pomeni glede imobilizacije?</div></div><div class="opts"><button class="opt" onclick="ans(7,0)"><span class="opt-lbl">A</span><span class="opt-txt">Ker stoji in govori, je hrbtenica verjetno nepoškodovana – imobilizacija ni potrebna.</span></button><button class="opt" onclick="ans(7,1)"><span class="opt-lbl">B</span><span class="opt-txt">Mravljinčenje in bolečina v vratu sta indikaciji za sum poškodbe hrbtenice – izvedemo stoječo imobilizacijo z zajemanjem.</span></button><button class="opt" onclick="ans(7,2)"><span class="opt-lbl">C</span><span class="opt-txt">Poškodovanca najprej posedemo na tla, nato ga položimo in šele nato namestimo vratno opornico.</span></button><button class="opt" onclick="ans(7,3)"><span class="opt-lbl">D</span><span class="opt-txt">Imobiliziramo samo roke, ker je mravljinčenje simptom poškodbe zgornjih udov.</span></button></div><div class="feedback" id="fb7"></div></div>
-    <div class="q-card" id="qc8"><div class="q-header"><div class="q-num">08</div><div class="q-text">Kaj je treba preveriti PRED nameščanjem zajemalnih nosil na stoječega poškodovanca?</div></div><div class="opts"><button class="opt" onclick="ans(8,0)"><span class="opt-lbl">A</span><span class="opt-txt">Samo vrednost krvnega tlaka in srčni utrip – vitalni parametri so edino merilo pripravljenosti.</span></button><button class="opt" onclick="ans(8,1)"><span class="opt-lbl">B</span><span class="opt-txt">Nosila je treba nastaviti na ustrezno dolžino; reševalci ob nosili naj bodo pribl. enake konstitucije.</span></button><button class="opt" onclick="ans(8,2)"><span class="opt-lbl">C</span><span class="opt-txt">Poškodovanca je treba najprej položiti na tla, tek preveriti hrbtenico in šele nato namestiti nosila.</span></button><button class="opt" onclick="ans(8,3)"><span class="opt-lbl">D</span><span class="opt-txt">Dolžina nosil ni pomembna – pasovi in trakovi se prilagodijo kateri koli dolžini brez predhodnih nastavitev.</span></button></div><div class="feedback" id="fb8"></div></div>
-  </div>
-
-  <div class="result" id="result">
-    <div class="result-ring"><div class="result-score" id="res-score">0</div><div class="result-denom">/ 8</div></div>
-    <div class="result-title" id="res-title">—</div>
-    <div class="result-sub" id="res-sub">—</div>
-    <div class="result-breakdown" id="res-breakdown"></div>
-    <div class="save-status" id="save-status"></div>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <button class="btn btn-primary" onclick="restart()">↺ &nbsp;Ponovi kviz</button>
-      <button class="btn btn-ghost" onclick="toggleReview()">Pregled odgovorov</button>
-      <button class="btn btn-ghost" onclick="window.location.href='index.html'">← Portal</button>
-    </div>
-    <div class="review-panel"><div class="review-list" id="review-list"></div></div>
-  </div>
+  <div class="review-panel"><div class="review-list" id="review-list"></div></div>
+ </div>
 </div>
 
 <script>
 firebase.initializeApp({
-  apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",
-  authDomain:"pnmp-kviz.firebaseapp.com",
-  projectId:"pnmp-kviz",
-  storageBucket:"pnmp-kviz.firebasestorage.app",
-  messagingSenderId:"907229581116",
-  appId:"1:907229581116:web:831cad9f6749bfb1015839"
+ apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",
+ authDomain:"pnmp-kviz.firebaseapp.com",
+ projectId:"pnmp-kviz",
+ storageBucket:"pnmp-kviz.firebasestorage.app",
+ messagingSenderId:"907229581116",
+ appId:"1:907229581116:web:831cad9f6749bfb1015839"
 });
 const db = firebase.firestore();
 
 const TOTAL=8;
 const DATA={
-  1:{c:2,ok:"Ko je poškodovanec stabilen in ni neposredne nevarnosti, izvedemo nadzorovani hitri iznos z zajemalnimi nosili z minimalno rotacijo hrbtenice.",nok:"Urgentni iznos (Rautkov prijem) se uporablja ob neposredni nevarnosti za življenje. Ko je situacija stabilna, uporabimo zajemalna nosila."},
-  2:{c:1,ok:"Bradni del z dlanjo namestiš na prsa in podrsaš proti bradi – nato pritrdiš zadnji del. Pred namestitvijo obvezno umakni ovratnike, kapuce, dolge lase in uhane.",nok:"Odmera se opravi šele, ko je glava v nevtralnem položaju. Sprednji del gre PRVI – pod brado, zadnji del se pritrdi nazadnje."},
-  3:{c:2,ok:"O hipoglikemiji govorimo pri vrednosti pod 3,5 mmol/L. Pri kroničnih sladkornih bolnikih se znaki pojavijo že pri 4,0 mmol/L.",nok:"Meja za zdravega odraslega je 3,5 mmol/L. Pri kroničnih bolnikih je meja višja (4,0 mmol/L) – niso enaki!"},
-  4:{c:1,ok:"Inzulinsko črpalko ustavimo LE v primeru hipoglikemije. Ob normalnih vrednostih jo pustimo delovati.",nok:"Napačno bi bilo ustavljati črpalko rutinsko. Ukrepamo samo pri hipoglikemiji."},
-  5:{c:2,ok:"Čelade NE snemamo SAMO kadar je tujek zaboden skozi njo – snemanje bi povzročilo dodatno, potencialno usodno poškodbo.",nok:"Nezavest, krvavitev, TPO – to so vse indikacije ZA snemanje. Edina izjema je tujek, zaboden skozi čelado."},
-  6:{c:2,ok:"To je NAPAČNA trditev. Integralna čelada je NAJTEŽJA za snemanje – velja za najvarnejšo prav zato, ker dobro objame glavo.",nok:"Odprta in modularna sta opisani pravilno. Napaka je pri integralni – ta je najtežje snemljiva, ne enako enostavna!"},
-  7:{c:1,ok:"Mravljinčenje v prstih in bolečina v vratu po padcu sta jasni indikaciji za sum poškodbe hrbtenice. Dejstvo, da poškodovanec stoji, tega suma ne izključuje.",nok:"Stoja ne pomeni, da hrbtenica ni poškodovana. Mravljinčenje je nevrološki znak, ki zahteva takojšnjo imobilizacijo."},
-  8:{c:1,ok:"Pred nameščanjem nastavimo nosila na ustrezno dolžino. Reševalci ob nosili naj bodo pribl. enake konstitucije – to zmanjša tveganje zdrsa.",nok:"Pravilna dolžina nosil in enakovredna konstitucija reševalcev sta obe obvezni pred začetkom imobilizacije stoječega."}
+ 1:{c:2,ok:"Ko je poškodovanec stabilen in ni neposredne nevarnosti, izvedemo nadzorovani hitri iznos z zajemalnimi nosili z minimalno rotacijo hrbtenice.",nok:"Urgentni iznos (Rautkov prijem) se uporablja ob neposredni nevarnosti za življenje. Ko je situacija stabilna, uporabimo zajemalna nosila."},
+ 2:{c:1,ok:"Bradni del z dlanjo namestiš na prsa in podrsaš proti bradi – nato pritrdiš zadnji del. Pred namestitvijo obvezno umakni ovratnike, kapuce, dolge lase in uhane.",nok:"Odmera se opravi šele, ko je glava v nevtralnem položaju. Sprednji del gre PRVI – pod brado, zadnji del se pritrdi nazadnje."},
+ 3:{c:2,ok:"O hipoglikemiji govorimo pri vrednosti pod 3,5 mmol/L. Pri kroničnih sladkornih bolnikih se znaki pojavijo že pri 4,0 mmol/L.",nok:"Meja za zdravega odraslega je 3,5 mmol/L. Pri kroničnih bolnikih je meja višja (4,0 mmol/L) – niso enaki!"},
+ 4:{c:1,ok:"Inzulinsko črpalko ustavimo LE v primeru hipoglikemije. Ob normalnih vrednostih jo pustimo delovati.",nok:"Napačno bi bilo ustavljati črpalko rutinsko. Ukrepamo samo pri hipoglikemiji."},
+ 5:{c:2,ok:"Čelade NE snemamo SAMO kadar je tujek zaboden skozi njo – snemanje bi povzročilo dodatno, potencialno usodno poškodbo.",nok:"Nezavest, krvavitev, TPO – to so vse indikacije ZA snemanje. Edina izjema je tujek, zaboden skozi čelado."},
+ 6:{c:2,ok:"To je NAPAČNA trditev. Integralna čelada je NAJTEŽJA za snemanje – velja za najvarnejšo prav zato, ker dobro objame glavo.",nok:"Odprta in modularna sta opisani pravilno. Napaka je pri integralni – ta je najtežje snemljiva, ne enako enostavna!"},
+ 7:{c:1,ok:"Mravljinčenje v prstih in bolečina v vratu po padcu sta jasni indikaciji za sum poškodbe hrbtenice. Dejstvo, da poškodovanec stoji, tega suma ne izključuje.",nok:"Stoja ne pomeni, da hrbtenica ni poškodovana. Mravljinčenje je nevrološki znak, ki zahteva takojšnjo imobilizacijo."},
+ 8:{c:1,ok:"Pred nameščanjem nastavimo nosila na ustrezno dolžino. Reševalci ob nosili naj bodo pribl. enake konstitucije – to zmanjša tveganje zdrsa.",nok:"Pravilna dolžina nosil in enakovredna konstitucija reševalcev sta obe obvezni pred začetkom imobilizacije stoječega."}
 };
 const SECTIONS=[{label:'Iznos iz vozila',qs:[1,2]},{label:'Hipoglikemija in poškodbe',qs:[3,4]},{label:'Motorist in čelada',qs:[5,6]},{label:'Imobilizacija stoječega',qs:[7,8]}];
 
@@ -200,138 +200,138 @@ let activeUser=null;
 
 // Login gate
 function lgPrijava(){
-  const ime=document.getElementById('lg-ime').value.trim();
-  const priimek=document.getElementById('lg-priimek').value.trim();
-  if(!ime||!priimek){document.getElementById('lg-err').style.display='block';return;}
-  const user={ime,priimek,polnoIme:ime+' '+priimek};
-  sessionStorage.setItem('pnmp_active_user',JSON.stringify(user));
-  activeUser=user;
-  document.getElementById('login-gate').style.display='none';
-  document.getElementById('user-chip-wrap').innerHTML='<div class="user-chip">Prijavljen: <strong>'+user.polnoIme+'</strong></div>';
+ const ime=document.getElementById('lg-ime').value.trim();
+ const priimek=document.getElementById('lg-priimek').value.trim();
+ if(!ime||!priimek){document.getElementById('lg-err').style.display='block';return;}
+ const user={ime,priimek,polnoIme:ime+' '+priimek};
+ sessionStorage.setItem('pnmp_active_user',JSON.stringify(user));
+ activeUser=user;
+ document.getElementById('login-gate').style.display='none';
+ document.getElementById('user-chip-wrap').innerHTML='<div class="user-chip">Prijavljen: <strong>'+user.polnoIme+'</strong></div>';
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-  ['lg-ime','lg-priimek'].forEach(id=>{
-    document.getElementById(id)?.addEventListener('keydown',e=>{if(e.key==='Enter')lgPrijava();});
-  });
-  const raw=sessionStorage.getItem('pnmp_active_user');
-  if(raw){
-    activeUser=JSON.parse(raw);
-    document.getElementById('login-gate').style.display='none';
-    document.getElementById('user-chip-wrap').innerHTML='<div class="user-chip">Prijavljen: <strong>'+activeUser.polnoIme+'</strong></div>';
-  }
+ ['lg-ime','lg-priimek'].forEach(id=>{
+  document.getElementById(id)?.addEventListener('keydown',e=>{if(e.key==='Enter')lgPrijava();});
+ });
+ const raw=sessionStorage.getItem('pnmp_active_user');
+ if(raw){
+  activeUser=JSON.parse(raw);
+  document.getElementById('login-gate').style.display='none';
+  document.getElementById('user-chip-wrap').innerHTML='<div class="user-chip">Prijavljen: <strong>'+activeUser.polnoIme+'</strong></div>';
+ }
 });
 
 function ans(qn,chosen){
-  if(answered[qn]!==undefined)return;
-  answered[qn]=chosen;
-  const d=DATA[qn],correct=d.c,isOk=chosen===correct;
-  if(isOk)score++;
-  const card=document.getElementById('qc'+qn);
-  card.classList.add('answered');
-  card.querySelectorAll('.opt').forEach((o,i)=>{
-    o.classList.add('locked');
-    if(i===chosen&&i===correct)o.classList.add('correct-pick');
-    else if(i===chosen&&i!==correct)o.classList.add('wrong-pick');
-    else if(i===correct)o.classList.add('reveal-correct');
-  });
-  const fb=document.getElementById('fb'+qn);
-  fb.className='feedback show '+(isOk?'ok':'nok');
-  fb.innerHTML=(isOk?'<strong>Pravilno!</strong> ':'<strong>Napačno.</strong> ')+(isOk?d.ok:d.nok);
-  const n=Object.keys(answered).length;
-  document.getElementById('pbar').style.width=(n/TOTAL*100)+'%';
-  document.getElementById('ptxt').textContent=n+' / '+TOTAL;
-  if(n===TOTAL)setTimeout(showResult,700);
+ if(answered[qn]!==undefined)return;
+ answered[qn]=chosen;
+ const d=DATA[qn],correct=d.c,isOk=chosen===correct;
+ if(isOk)score++;
+ const card=document.getElementById('qc'+qn);
+ card.classList.add('answered');
+ card.querySelectorAll('.opt').forEach((o,i)=>{
+  o.classList.add('locked');
+  if(i===chosen&&i===correct)o.classList.add('correct-pick');
+  else if(i===chosen&&i!==correct)o.classList.add('wrong-pick');
+  else if(i===correct)o.classList.add('reveal-correct');
+ });
+ const fb=document.getElementById('fb'+qn);
+ fb.className='feedback show '+(isOk?'ok':'nok');
+ fb.innerHTML=(isOk?'<strong>Pravilno!</strong> ':'<strong>Napačno.</strong> ')+(isOk?d.ok:d.nok);
+ const n=Object.keys(answered).length;
+ document.getElementById('pbar').style.width=(n/TOTAL*100)+'%';
+ document.getElementById('ptxt').textContent=n+' / '+TOTAL;
+ if(n===TOTAL)setTimeout(showResult,700);
 }
 
 async function shraniRezultate(){
-  const ss=document.getElementById('save-status');
-  ss.className='save-status saving';
-  ss.textContent='Shranjujem rezultate...';
-  const user=activeUser||{ime:'Neznano',priimek:'',polnoIme:'Neznano'};
-  const odgovoriPodrobno={};
-  for(let q=1;q<=TOTAL;q++){
-    const card=document.getElementById('qc'+q);
-    const opts=card.querySelectorAll('.opt-txt');
-    odgovoriPodrobno['v'+q]={
-      vprasanje:card.querySelector('.q-text').textContent.trim(),
-      izbran:answered[q]!==undefined?opts[answered[q]].textContent.trim():'–',
-      pravilen:opts[DATA[q].c].textContent.trim(),
-      pravilno:answered[q]===DATA[q].c
-    };
-  }
-  try{
-    await db.collection('rezultati').add({
-      ime:user.ime,
-      priimek:user.priimek,
-      polnoIme:user.polnoIme,
-      kviz:'prometna-nesreca',
-      kvizNaziv:'Prometna nesreča',
-      tocke:score,
-      skupaj:TOTAL,
-      procent:Math.round(score/TOTAL*100),
-      odgovori:odgovoriPodrobno,
-      cas:firebase.firestore.FieldValue.serverTimestamp()
-    });
-    ss.className='save-status saved';
-    ss.textContent='✓ Rezultati shranjeni';
-  }catch(e){
-    ss.className='save-status error';
-    ss.textContent='Napaka pri shranjevanju – preverite povezavo.';
-    console.error(e);
-  }
+ const ss=document.getElementById('save-status');
+ ss.className='save-status saving';
+ ss.textContent='Shranjujem rezultate...';
+ const user=activeUser||{ime:'Neznano',priimek:'',polnoIme:'Neznano'};
+ const odgovoriPodrobno={};
+ for(let q=1;q<=TOTAL;q++){
+  const card=document.getElementById('qc'+q);
+  const opts=card.querySelectorAll('.opt-txt');
+  odgovoriPodrobno['v'+q]={
+   vprasanje:card.querySelector('.q-text').textContent.trim(),
+   izbran:answered[q]!==undefined?opts[answered[q]].textContent.trim():'–',
+   pravilen:opts[DATA[q].c].textContent.trim(),
+   pravilno:answered[q]===DATA[q].c
+  };
+ }
+ try{
+  await db.collection('rezultati').add({
+   ime:user.ime,
+   priimek:user.priimek,
+   polnoIme:user.polnoIme,
+   kviz:'prometna-nesreca',
+   kvizNaziv:'Prometna nesreča',
+   tocke:score,
+   skupaj:TOTAL,
+   procent:Math.round(score/TOTAL*100),
+   odgovori:odgovoriPodrobno,
+   cas:firebase.firestore.FieldValue.serverTimestamp()
+  });
+  ss.className='save-status saved';
+  ss.textContent='✓ Rezultati shranjeni';
+ }catch(e){
+  ss.className='save-status error';
+  ss.textContent='Napaka pri shranjevanju – preverite povezavo.';
+  console.error(e);
+ }
 }
 
 function showResult(){
-  document.getElementById('quiz-area').style.display='none';
-  document.getElementById('result').classList.add('show');
-  document.getElementById('res-score').textContent=score;
-  const pct=Math.round(score/TOTAL*100);
-  const[title,sub]=pct>=87?['Odlično!','Snov odlično obvladaš. Si pripravljen za teren.']:pct>=62?['Dobro!','Večino snovi obvladaš. Ponovi napačne odgovore.']:['Ponovi gradivo.','Priporoča se ponoven pregled učnih načrtov.'];
-  document.getElementById('res-title').textContent=title;
-  document.getElementById('res-sub').textContent=sub;
-  const bd=document.getElementById('res-breakdown');
-  bd.innerHTML='';
-  SECTIONS.forEach(s=>{
-    const c=s.qs.filter(q=>answered[q]===DATA[q].c).length;
-    const cls=c===2?'full':c===1?'partial':'low';
-    bd.innerHTML+='<div class="rb-card"><div class="rb-label">'+s.label+'</div><div class="rb-val '+cls+'">'+c+' / 2</div></div>';
-  });
-  const rl=document.getElementById('review-list');
-  rl.innerHTML='';
-  for(let q=1;q<=TOTAL;q++){
-    const isOk=answered[q]===DATA[q].c;
-    const card=document.getElementById('qc'+q);
-    const qText=card.querySelector('.q-text').textContent.trim();
-    const opts=card.querySelectorAll('.opt-txt');
-    const chosenTxt=opts[answered[q]]?.textContent.trim()||'–';
-    const correctTxt=opts[DATA[q].c]?.textContent.trim()||'–';
-    rl.innerHTML+='<div class="ri"><div class="ri-dot '+(isOk?'ok':'nok')+'"></div><div class="ri-content"><div class="ri-q">'+q+'. '+qText+'</div><div class="ri-a">Tvoj odgovor: <span class="'+(isOk?'ok-txt':'nok-txt')+'">'+chosenTxt+'</span>'+((!isOk)?'<br>Pravilno: <span class="ok-txt">'+correctTxt+'</span>':'')+'</div></div></div>';
-  }
-  shraniRezultate();
+ document.getElementById('quiz-area').style.display='none';
+ document.getElementById('result').classList.add('show');
+ document.getElementById('res-score').textContent=score;
+ const pct=Math.round(score/TOTAL*100);
+ const[title,sub]=pct>=87?['Odlično!','Snov odlično obvladaš. Si pripravljen za teren.']:pct>=62?['Dobro!','Večino snovi obvladaš. Ponovi napačne odgovore.']:['Ponovi gradivo.','Priporoča se ponoven pregled učnih načrtov.'];
+ document.getElementById('res-title').textContent=title;
+ document.getElementById('res-sub').textContent=sub;
+ const bd=document.getElementById('res-breakdown');
+ bd.innerHTML='';
+ SECTIONS.forEach(s=>{
+  const c=s.qs.filter(q=>answered[q]===DATA[q].c).length;
+  const cls=c===2?'full':c===1?'partial':'low';
+  bd.innerHTML+='<div class="rb-card"><div class="rb-label">'+s.label+'</div><div class="rb-val '+cls+'">'+c+' / 2</div></div>';
+ });
+ const rl=document.getElementById('review-list');
+ rl.innerHTML='';
+ for(let q=1;q<=TOTAL;q++){
+  const isOk=answered[q]===DATA[q].c;
+  const card=document.getElementById('qc'+q);
+  const qText=card.querySelector('.q-text').textContent.trim();
+  const opts=card.querySelectorAll('.opt-txt');
+  const chosenTxt=opts[answered[q]]?.textContent.trim()||'–';
+  const correctTxt=opts[DATA[q].c]?.textContent.trim()||'–';
+  rl.innerHTML+='<div class="ri"><div class="ri-dot '+(isOk?'ok':'nok')+'"></div><div class="ri-content"><div class="ri-q">'+q+'. '+qText+'</div><div class="ri-a">Tvoj odgovor: <span class="'+(isOk?'ok-txt':'nok-txt')+'">'+chosenTxt+'</span>'+((!isOk)?'<br>Pravilno: <span class="ok-txt">'+correctTxt+'</span>':'')+'</div></div></div>';
+ }
+ shraniRezultate();
 }
 
 function toggleReview(){
-  reviewOpen=!reviewOpen;
-  document.getElementById('review-list').classList.toggle('open',reviewOpen);
+ reviewOpen=!reviewOpen;
+ document.getElementById('review-list').classList.toggle('open',reviewOpen);
 }
 
 function restart(){
-  answered={};score=0;reviewOpen=false;
-  document.getElementById('quiz-area').style.display='block';
-  document.getElementById('result').classList.remove('show');
-  document.getElementById('pbar').style.width='0%';
-  document.getElementById('ptxt').textContent='0 / '+TOTAL;
-  document.getElementById('review-list').classList.remove('open');
-  document.getElementById('save-status').textContent='';
-  for(let q=1;q<=TOTAL;q++){
-    const card=document.getElementById('qc'+q);
-    card.classList.remove('answered');
-    card.querySelectorAll('.opt').forEach(o=>{o.className='opt';});
-    const fb=document.getElementById('fb'+q);
-    fb.className='feedback';fb.innerHTML='';
-  }
-  window.scrollTo({top:0,behavior:'smooth'});
+ answered={};score=0;reviewOpen=false;
+ document.getElementById('quiz-area').style.display='block';
+ document.getElementById('result').classList.remove('show');
+ document.getElementById('pbar').style.width='0%';
+ document.getElementById('ptxt').textContent='0 / '+TOTAL;
+ document.getElementById('review-list').classList.remove('open');
+ document.getElementById('save-status').textContent='';
+ for(let q=1;q<=TOTAL;q++){
+  const card=document.getElementById('qc'+q);
+  card.classList.remove('answered');
+  card.querySelectorAll('.opt').forEach(o=>{o.className='opt';});
+  const fb=document.getElementById('fb'+q);
+  fb.className='feedback';fb.innerHTML='';
+ }
+ window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
 </body>

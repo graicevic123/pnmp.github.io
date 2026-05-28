@@ -106,92 +106,92 @@ tr:hover td{background:rgba(255,255,255,0.025)}
 
 <!-- PIN -->
 <div class="pin-wrap" id="PIN">
-  <h1>PNMP <em>ADMIN</em></h1>
-  <p>Inštruktorska stran · vnesi PIN za dostop</p>
-  <div class="pin-box">
-    <div class="pin-lbl">PIN koda</div>
-    <input class="pin-inp" type="password" id="pi" maxlength="6" placeholder="••••">
-    <button class="pin-btn" onclick="checkPin()">Vstopi →</button>
-    <div class="pin-err" id="pe">Napačen PIN.</div>
-  </div>
+ <h1>PNMP <em>ADMIN</em></h1>
+ <p>Inštruktorska stran · vnesi PIN za dostop</p>
+ <div class="pin-box">
+  <div class="pin-lbl">PIN koda</div>
+  <input class="pin-inp" type="password" id="pi" maxlength="6" placeholder="••••">
+  <button class="pin-btn" onclick="checkPin()">Vstopi →</button>
+  <div class="pin-err" id="pe">Napačen PIN.</div>
+ </div>
 </div>
 
 <!-- HEADER (sticky) -->
 <div class="hdr" id="HDR" style="display:none">
-  <div class="hdr-inner">
-    <h1>PNMP <em>ADMIN</em></h1>
-    <div class="hdr-right">
-      <button class="tab on" id="tK" onclick="tab('k')">Kvizi</button>
-      <button class="tab" id="tA" onclick="tab('a')">Ankete</button>
-      <button class="tab" id="tS" onclick="tab('s')">Simulator</button>
-      <select class="sel" id="fK" onchange="filtriraj()">
-        <option value="">Vsi kvizi</option>
-        <option value="prometna-nesreca">Prometna nesreča</option>
-        <option value="mnozicne-nesrece">Množične nesreče</option>
-      </select>
-      <button class="act" onclick="reload()">↻</button>
-      <button class="act" onclick="location.href='index.html'">← Portal</button>
-    </div>
+ <div class="hdr-inner">
+  <h1>PNMP <em>ADMIN</em></h1>
+  <div class="hdr-right">
+   <button class="tab on" id="tK" onclick="tab('k')">Kvizi</button>
+   <button class="tab" id="tA" onclick="tab('a')">Ankete</button>
+   <button class="tab" id="tS" onclick="tab('s')">Simulator</button>
+   <select class="sel" id="fK" onchange="filtriraj()">
+    <option value="">Vsi kvizi</option>
+    <option value="prometna-nesreca">Prometna nesreča</option>
+    <option value="mnozicne-nesrece">Množične nesreče</option>
+   </select>
+   <button class="act" onclick="reload()">↻</button>
+   <button class="act" onclick="location.href='index.html'">← Portal</button>
   </div>
+ </div>
 </div>
 
 <!-- MAIN -->
 <div class="main" id="MAIN">
-  <div class="page">
+ <div class="page">
 
-    <!-- Stats – always visible -->
-    <div class="stats">
-      <div class="stat"><div class="stat-n" id="sN">—</div><div class="stat-l" id="lN">Skupaj rešitev</div></div>
-      <div class="stat"><div class="stat-n" id="sU">—</div><div class="stat-l" id="lU">Tečajnikov</div></div>
-      <div class="stat"><div class="stat-n" id="sP">—</div><div class="stat-l" id="lP">Povp. rezultat</div></div>
-      <div class="stat"><div class="stat-n" id="sO">—</div><div class="stat-l" id="lO">Odličnih (≥87%)</div></div>
-    </div>
-
-    <!-- Tab panels – rendered together, opacity toggle = NO JUMP -->
-    <div class="panels" id="PANELS">
-
-      <!-- Kvizi -->
-      <div class="panel" id="pK">
-        <div class="tbl-wrap">
-          <div class="tbl-hdr">
-            <span class="tbl-lbl">Rezultati tečajnikov</span>
-            <span class="tbl-lbl" id="cntK">—</span>
-          </div>
-          <div id="tblK"><div class="loading">Nalagam...</div></div>
-        </div>
-      </div>
-
-      <!-- Ankete -->
-      <div class="panel off" id="pA">
-        <div class="tbl-wrap">
-          <div class="tbl-hdr">
-            <span class="tbl-lbl">Ankete tečajnikov</span>
-            <span class="tbl-lbl" id="cntA">—</span>
-          </div>
-          <div id="tblA"><div class="loading">Nalagam...</div></div>
-        </div>
-      </div>
-
-      <!-- Simulator -->
-      <div class="panel off" id="pS">
-        <div class="tbl-wrap">
-          <div class="tbl-hdr">
-            <span class="tbl-lbl">Triažni laboratorij – rezultati</span>
-            <span class="tbl-lbl" id="cntS">—</span>
-          </div>
-          <div id="tblS"><div class="loading">Nalagam...</div></div>
-        </div>
-      </div>
-
-    </div>
+  <!-- Stats – always visible -->
+  <div class="stats">
+   <div class="stat"><div class="stat-n" id="sN">—</div><div class="stat-l" id="lN">Skupaj rešitev</div></div>
+   <div class="stat"><div class="stat-n" id="sU">—</div><div class="stat-l" id="lU">Tečajnikov</div></div>
+   <div class="stat"><div class="stat-n" id="sP">—</div><div class="stat-l" id="lP">Povp. rezultat</div></div>
+   <div class="stat"><div class="stat-n" id="sO">—</div><div class="stat-l" id="lO">Odličnih (≥87%)</div></div>
   </div>
+
+  <!-- Tab panels – rendered together, opacity toggle = NO JUMP -->
+  <div class="panels" id="PANELS">
+
+   <!-- Kvizi -->
+   <div class="panel" id="pK">
+    <div class="tbl-wrap">
+     <div class="tbl-hdr">
+      <span class="tbl-lbl">Rezultati tečajnikov</span>
+      <span class="tbl-lbl" id="cntK">—</span>
+     </div>
+     <div id="tblK"><div class="loading">Nalagam...</div></div>
+    </div>
+   </div>
+
+   <!-- Ankete -->
+   <div class="panel off" id="pA">
+    <div class="tbl-wrap">
+     <div class="tbl-hdr">
+      <span class="tbl-lbl">Ankete tečajnikov</span>
+      <span class="tbl-lbl" id="cntA">—</span>
+     </div>
+     <div id="tblA"><div class="loading">Nalagam...</div></div>
+    </div>
+   </div>
+
+   <!-- Simulator -->
+   <div class="panel off" id="pS">
+    <div class="tbl-wrap">
+     <div class="tbl-hdr">
+      <span class="tbl-lbl">Triažni laboratorij – rezultati</span>
+      <span class="tbl-lbl" id="cntS">—</span>
+     </div>
+     <div id="tblS"><div class="loading">Nalagam...</div></div>
+    </div>
+   </div>
+
+  </div>
+ </div>
 </div>
 
 <!-- Drawer -->
 <div class="ovl" id="OVL" onclick="closeDrawer()"></div>
 <div class="drw" id="DRW">
-  <button class="drw-x" onclick="closeDrawer()">✕</button>
-  <div id="DRW_C"></div>
+ <button class="drw-x" onclick="closeDrawer()">✕</button>
+ <div id="DRW_C"></div>
 </div>
 
 <script>
@@ -203,224 +203,224 @@ let kvizi=[],filtrirani=[],ankete=[],simulatorji=[],anketeOk=false,simulatorOk=f
 
 /* PIN */
 function checkPin(){
-  const v=document.getElementById('pi').value;
-  if(v===PIN){
-    document.getElementById('PIN').style.display='none';
-    document.getElementById('HDR').style.display='block';
-    document.getElementById('MAIN').style.display='block';
-    reload();
-  }else{
-    document.getElementById('pe').style.display='block';
-    document.getElementById('pi').value='';
-    document.getElementById('pi').focus();
-  }
+ const v=document.getElementById('pi').value;
+ if(v===PIN){
+  document.getElementById('PIN').style.display='none';
+  document.getElementById('HDR').style.display='block';
+  document.getElementById('MAIN').style.display='block';
+  reload();
+ }else{
+  document.getElementById('pe').style.display='block';
+  document.getElementById('pi').value='';
+  document.getElementById('pi').focus();
+ }
 }
 document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('pi').addEventListener('keydown',e=>{if(e.key==='Enter')checkPin();});
+ document.getElementById('pi').addEventListener('keydown',e=>{if(e.key==='Enter')checkPin();});
 });
 
 /* Tabs – opacity toggle, NO layout shift */
 function tab(t){
-  curTab=t;
-  document.getElementById('tK').classList.toggle('on',t==='k');
-  document.getElementById('tA').classList.toggle('on',t==='a');
-  document.getElementById('tS').classList.toggle('on',t==='s');
-  document.getElementById('fK').disabled=t!=='k';
-  document.getElementById('fK').style.opacity=t!=='k'?'0.3':'1';
-  document.getElementById('pK').classList.toggle('off',t!=='k');
-  document.getElementById('pA').classList.toggle('off',t!=='a');
-  document.getElementById('pS').classList.toggle('off',t!=='s');
+ curTab=t;
+ document.getElementById('tK').classList.toggle('on',t==='k');
+ document.getElementById('tA').classList.toggle('on',t==='a');
+ document.getElementById('tS').classList.toggle('on',t==='s');
+ document.getElementById('fK').disabled=t!=='k';
+ document.getElementById('fK').style.opacity=t!=='k'?'0.3':'1';
+ document.getElementById('pK').classList.toggle('off',t!=='k');
+ document.getElementById('pA').classList.toggle('off',t!=='a');
+ document.getElementById('pS').classList.toggle('off',t!=='s');
 
-  const active=document.getElementById(t==='k'?'pK':t==='a'?'pA':'pS');
-  document.getElementById('PANELS').style.height=active.scrollHeight+'px';
+ const active=document.getElementById(t==='k'?'pK':t==='a'?'pA':'pS');
+ document.getElementById('PANELS').style.height=active.scrollHeight+'px';
 
-  if(t==='k') statsKvizi();
-  if(t==='a'){
-    if(!anketeOk) loadAnkete();
-    else statsAnkete();
-  }
-  if(t==='s'){
-    if(!simulatorOk) loadSimulator();
-    else statsSimulator();
-  }
+ if(t==='k') statsKvizi();
+ if(t==='a'){
+  if(!anketeOk) loadAnkete();
+  else statsAnkete();
+ }
+ if(t==='s'){
+  if(!simulatorOk) loadSimulator();
+  else statsSimulator();
+ }
 }
 
 /* Reload */
 async function reload(){
-  document.getElementById('tblK').innerHTML='<div class="loading">Nalagam...</div>';
-  try{
-    const s=await db.collection('rezultati').orderBy('cas','desc').limit(500).get();
-    kvizi=[];
-    s.forEach(d=>{const x=d.data();x._id=d.id;kvizi.push(x);});
-    filtriraj();
-  }catch(e){
-    document.getElementById('tblK').innerHTML='<div class="loading">Napaka – preverite pravice Firestore.</div>';
-  }
+ document.getElementById('tblK').innerHTML='<div class="loading">Nalagam...</div>';
+ try{
+  const s=await db.collection('rezultati').orderBy('cas','desc').limit(500).get();
+  kvizi=[];
+  s.forEach(d=>{const x=d.data();x._id=d.id;kvizi.push(x);});
+  filtriraj();
+ }catch(e){
+  document.getElementById('tblK').innerHTML='<div class="loading">Napaka – preverite pravice Firestore.</div>';
+ }
 }
 
 /* Filter */
 function filtriraj(){
-  const f=document.getElementById('fK').value;
-  filtrirani=f?kvizi.filter(r=>r.kviz===f):kvizi;
-  statsKvizi();
-  renderKvizi();
+ const f=document.getElementById('fK').value;
+ filtrirani=f?kvizi.filter(r=>r.kviz===f):kvizi;
+ statsKvizi();
+ renderKvizi();
 }
 
 /* Stats – kvizi */
 function statsKvizi(){
-  const n=filtrirani.length;
-  const u=new Set(filtrirani.map(r=>r.polnoIme)).size;
-  const p=n>0?Math.round(filtrirani.reduce((a,r)=>a+(r.procent||0),0)/n):0;
-  const o=filtrirani.filter(r=>(r.procent||0)>=87).length;
-  set('sN',n,'lN','Skupaj rešitev');
-  set('sU',u,'lU','Tečajnikov');
-  set('sP',p+'%','lP','Povp. rezultat');
-  set('sO',o,'lO','Odličnih (≥87%)');
-  document.getElementById('cntK').textContent=n+' zapisov';
+ const n=filtrirani.length;
+ const u=new Set(filtrirani.map(r=>r.polnoIme)).size;
+ const p=n>0?Math.round(filtrirani.reduce((a,r)=>a+(r.procent||0),0)/n):0;
+ const o=filtrirani.filter(r=>(r.procent||0)>=87).length;
+ set('sN',n,'lN','Skupaj rešitev');
+ set('sU',u,'lU','Tečajnikov');
+ set('sP',p+'%','lP','Povp. rezultat');
+ set('sO',o,'lO','Odličnih (≥87%)');
+ document.getElementById('cntK').textContent=n+' zapisov';
 }
 
 /* Stats – ankete */
 function statsAnkete(){
-  const n=ankete.length;
-  const u=new Set(ankete.map(a=>a.polnoIme)).size;
-  const p=n>0?(ankete.reduce((a,x)=>a+(x.ocena||0),0)/n).toFixed(1)+' ★':0;
-  const o=ankete.filter(a=>a.izboljsaj&&a.izboljsaj!=='—').length;
-  set('sN',n,'lN','Skupaj anket');
-  set('sU',u,'lU','Tečajnikov');
-  set('sP',p,'lP','Povp. ocena');
-  set('sO',o,'lO','S predlogi');
-  document.getElementById('cntA').textContent=n+' odgovorov';
+ const n=ankete.length;
+ const u=new Set(ankete.map(a=>a.polnoIme)).size;
+ const p=n>0?(ankete.reduce((a,x)=>a+(x.ocena||0),0)/n).toFixed(1)+' ★':0;
+ const o=ankete.filter(a=>a.izboljsaj&&a.izboljsaj!=='—').length;
+ set('sN',n,'lN','Skupaj anket');
+ set('sU',u,'lU','Tečajnikov');
+ set('sP',p,'lP','Povp. ocena');
+ set('sO',o,'lO','S predlogi');
+ document.getElementById('cntA').textContent=n+' odgovorov';
 }
 
 function set(nId,nVal,lId,lVal){
-  document.getElementById(nId).textContent=nVal;
-  document.getElementById(lId).textContent=lVal;
+ document.getElementById(nId).textContent=nVal;
+ document.getElementById(lId).textContent=lVal;
 }
 
 /* Format timestamp */
 function fCas(ts){
-  if(!ts||!ts.toDate)return'—';
-  const d=ts.toDate();
-  return d.toLocaleDateString('sl-SI',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('sl-SI',{hour:'2-digit',minute:'2-digit'});
+ if(!ts||!ts.toDate)return'—';
+ const d=ts.toDate();
+ return d.toLocaleDateString('sl-SI',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('sl-SI',{hour:'2-digit',minute:'2-digit'});
 }
 
 /* Render kvizi */
 function renderKvizi(){
-  const el=document.getElementById('tblK');
-  if(!filtrirani.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
-  let h='<table><thead><tr><th>Ime in priimek</th><th>Kviz</th><th>Rezultat</th><th>Čas</th><th></th></tr></thead><tbody>';
-  filtrirani.forEach(r=>{
-    const pct=r.procent||0,cls=pct>=87?'hi':pct>=62?'md':'lo';
-    const kc=r.kviz==='prometna-nesreca'?'p':'m';
-    h+=`<tr><td class="n">${r.polnoIme||'—'}</td><td><span class="kv ${kc}">${r.kvizNaziv||r.kviz||'—'}</span></td><td><span class="sc ${cls}">${r.tocke||0}/${r.skupaj||8}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td><td class="tm">${fCas(r.cas)}</td><td><button class="dbtn" onclick="openDrawer('${r._id}')">Pregled</button></td></tr>`;
-  });
-  h+='</tbody></table>';
-  el.innerHTML=h;
-  syncH();
+ const el=document.getElementById('tblK');
+ if(!filtrirani.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
+ let h='<table><thead><tr><th>Ime in priimek</th><th>Kviz</th><th>Rezultat</th><th>Čas</th><th></th></tr></thead><tbody>';
+ filtrirani.forEach(r=>{
+  const pct=r.procent||0,cls=pct>=87?'hi':pct>=62?'md':'lo';
+  const kc=r.kviz==='prometna-nesreca'?'p':'m';
+  h+=`<tr><td class="n">${r.polnoIme||'—'}</td><td><span class="kv ${kc}">${r.kvizNaziv||r.kviz||'—'}</span></td><td><span class="sc ${cls}">${r.tocke||0}/${r.skupaj||8}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td><td class="tm">${fCas(r.cas)}</td><td><button class="dbtn" onclick="openDrawer('${r._id}')">Pregled</button></td></tr>`;
+ });
+ h+='</tbody></table>';
+ el.innerHTML=h;
+ syncH();
 }
 
 /* Render ankete */
 function renderAnkete(){
-  const el=document.getElementById('tblA');
-  if(!ankete.length){el.innerHTML='<div class="empty">Ni anket za prikaz.</div>';syncH();return;}
-  let h='<table><thead><tr><th>Ime</th><th>Kviz</th><th>Ocena</th><th>Težavnost</th><th>Všeč mi je</th><th>Izboljšave</th><th>Naslednjič</th><th>Čas</th></tr></thead><tbody>';
-  ankete.forEach(a=>{
-    const s='★'.repeat(a.ocena||0)+'☆'.repeat(5-(a.ocena||0));
-    h+=`<tr><td class="n">${a.polnoIme||'—'}</td><td style="font-size:12px;color:var(--muted)">${a.kviz||'—'}</td><td><span class="stars">${s}</span></td><td style="font-size:12px;color:var(--muted)">${a.tezavnost||'—'}</td><td style="font-size:12px;max-width:150px">${a.vsec||'—'}</td><td style="font-size:12px;max-width:150px">${a.izboljsaj||'—'}</td><td style="font-size:12px;max-width:130px">${a.naslednjic||'—'}</td><td class="tm">${fCas(a.cas)}</td></tr>`;
-  });
-  h+='</tbody></table>';
-  el.innerHTML=h;
-  syncH();
+ const el=document.getElementById('tblA');
+ if(!ankete.length){el.innerHTML='<div class="empty">Ni anket za prikaz.</div>';syncH();return;}
+ let h='<table><thead><tr><th>Ime</th><th>Kviz</th><th>Ocena</th><th>Težavnost</th><th>Všeč mi je</th><th>Izboljšave</th><th>Naslednjič</th><th>Čas</th></tr></thead><tbody>';
+ ankete.forEach(a=>{
+  const s='★'.repeat(a.ocena||0)+'☆'.repeat(5-(a.ocena||0));
+  h+=`<tr><td class="n">${a.polnoIme||'—'}</td><td style="font-size:12px;color:var(--muted)">${a.kviz||'—'}</td><td><span class="stars">${s}</span></td><td style="font-size:12px;color:var(--muted)">${a.tezavnost||'—'}</td><td style="font-size:12px;max-width:150px">${a.vsec||'—'}</td><td style="font-size:12px;max-width:150px">${a.izboljsaj||'—'}</td><td style="font-size:12px;max-width:130px">${a.naslednjic||'—'}</td><td class="tm">${fCas(a.cas)}</td></tr>`;
+ });
+ h+='</tbody></table>';
+ el.innerHTML=h;
+ syncH();
 }
 
 /* Sync panels wrapper height */
 function syncH(){
-  const active=document.getElementById(curTab==='k'?'pK':curTab==='a'?'pA':'pS');
-  document.getElementById('PANELS').style.height=active.scrollHeight+'px';
+ const active=document.getElementById(curTab==='k'?'pK':curTab==='a'?'pA':'pS');
+ document.getElementById('PANELS').style.height=active.scrollHeight+'px';
 }
 
 /* Load ankete */
 async function loadAnkete(){
-  document.getElementById('tblA').innerHTML='<div class="loading">Nalagam...</div>';
-  try{
-    const s=await db.collection('ankete').orderBy('cas','desc').limit(200).get();
-    ankete=[];
-    s.forEach(d=>ankete.push(d.data()));
-    anketeOk=true;
-    statsAnkete();
-    renderAnkete();
-  }catch(e){
-    document.getElementById('tblA').innerHTML='<div class="loading">Napaka pri nalaganju anket.</div>';
-  }
+ document.getElementById('tblA').innerHTML='<div class="loading">Nalagam...</div>';
+ try{
+  const s=await db.collection('ankete').orderBy('cas','desc').limit(200).get();
+  ankete=[];
+  s.forEach(d=>ankete.push(d.data()));
+  anketeOk=true;
+  statsAnkete();
+  renderAnkete();
+ }catch(e){
+  document.getElementById('tblA').innerHTML='<div class="loading">Napaka pri nalaganju anket.</div>';
+ }
 }
 
 /* Stats – simulator */
 function statsSimulator(){
-  const n=simulatorji.length;
-  const u=new Set(simulatorji.map(r=>r.polnoIme)).size;
-  const p=n>0?Math.round(simulatorji.reduce((a,r)=>a+(r.procent||0),0)/n):0;
-  const o=simulatorji.filter(r=>(r.procent||0)>=90).length;
-  set('sN',n,'lN','Skupaj rešitev');
-  set('sU',u,'lU','Tečajnikov');
-  set('sP',p+'%','lP','Povp. uspešnost');
-  set('sO',o,'lO','Odličnih (≥90%)');
-  document.getElementById('cntS').textContent=n+' zapisov';
+ const n=simulatorji.length;
+ const u=new Set(simulatorji.map(r=>r.polnoIme)).size;
+ const p=n>0?Math.round(simulatorji.reduce((a,r)=>a+(r.procent||0),0)/n):0;
+ const o=simulatorji.filter(r=>(r.procent||0)>=90).length;
+ set('sN',n,'lN','Skupaj rešitev');
+ set('sU',u,'lU','Tečajnikov');
+ set('sP',p+'%','lP','Povp. uspešnost');
+ set('sO',o,'lO','Odličnih (≥90%)');
+ document.getElementById('cntS').textContent=n+' zapisov';
 }
 
 /* Render simulator */
 function renderSimulator(){
-  const el=document.getElementById('tblS');
-  if(!simulatorji.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
-  let h='<table><thead><tr><th>Ime in priimek</th><th>Rezultat</th><th>Pravilno</th><th>Napačno</th><th>Čas</th></tr></thead><tbody>';
-  simulatorji.forEach(r=>{
-    const pct=r.procent||0,cls=pct>=90?'hi':pct>=60?'md':'lo';
-    h+=`<tr>
-      <td class="n">${r.polnoIme||'—'}</td>
-      <td><span class="sc ${cls}">${r.pravilno||0}/${r.skupaj||10}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td>
-      <td style="color:#7FE8A8;font-weight:600">${r.pravilno||0}</td>
-      <td style="color:#F4A09A;font-weight:600">${r.napacno||0}</td>
-      <td class="tm">${fCas(r.cas)}</td>
-    </tr>`;
-  });
-  h+='</tbody></table>';
-  el.innerHTML=h;
-  syncH();
+ const el=document.getElementById('tblS');
+ if(!simulatorji.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
+ let h='<table><thead><tr><th>Ime in priimek</th><th>Rezultat</th><th>Pravilno</th><th>Napačno</th><th>Čas</th></tr></thead><tbody>';
+ simulatorji.forEach(r=>{
+  const pct=r.procent||0,cls=pct>=90?'hi':pct>=60?'md':'lo';
+  h+=`<tr>
+   <td class="n">${r.polnoIme||'—'}</td>
+   <td><span class="sc ${cls}">${r.pravilno||0}/${r.skupaj||10}</span> <span style="font-size:11px;color:var(--muted)">${pct}%</span></td>
+   <td style="color:#7FE8A8;font-weight:600">${r.pravilno||0}</td>
+   <td style="color:#F4A09A;font-weight:600">${r.napacno||0}</td>
+   <td class="tm">${fCas(r.cas)}</td>
+  </tr>`;
+ });
+ h+='</tbody></table>';
+ el.innerHTML=h;
+ syncH();
 }
 
 /* Load simulator */
 async function loadSimulator(){
-  document.getElementById('tblS').innerHTML='<div class="loading">Nalagam...</div>';
-  try{
-    const s=await db.collection('simulator').orderBy('cas','desc').limit(300).get();
-    simulatorji=[];
-    s.forEach(d=>{const x=d.data();x._id=d.id;simulatorji.push(x);});
-    simulatorOk=true;
-    statsSimulator();
-    renderSimulator();
-  }catch(e){
-    document.getElementById('tblS').innerHTML='<div class="loading">Napaka pri nalaganju rezultatov simulatorja.</div>';
-  }
+ document.getElementById('tblS').innerHTML='<div class="loading">Nalagam...</div>';
+ try{
+  const s=await db.collection('simulator').orderBy('cas','desc').limit(300).get();
+  simulatorji=[];
+  s.forEach(d=>{const x=d.data();x._id=d.id;simulatorji.push(x);});
+  simulatorOk=true;
+  statsSimulator();
+  renderSimulator();
+ }catch(e){
+  document.getElementById('tblS').innerHTML='<div class="loading">Napaka pri nalaganju rezultatov simulatorja.</div>';
+ }
 }
 
 /* Drawer */
 function openDrawer(id){
-  const r=kvizi.find(x=>x._id===id);
-  if(!r)return;
-  const pct=r.procent||0,col=pct>=87?'#1E8449':pct>=62?'#D68910':'#C0392B';
-  let h=`<div class="drw-nm">${r.polnoIme||'—'}</div><div class="drw-mt">${r.kvizNaziv||r.kviz} · ${fCas(r.cas)}</div><div class="drw-sc" style="color:${col}">${r.tocke||0}/${r.skupaj||8}</div><div class="drw-pct">${pct}% pravilnih</div>`;
-  if(r.odgovori){
-    Object.keys(r.odgovori).sort((a,b)=>+a.slice(1)-+b.slice(1)).forEach(k=>{
-      const o=r.odgovori[k];
-      h+=`<div class="drw-q ${o.pravilno?'ok':'nok'}"><div class="drw-qt">${k.replace('v','')}. ${o.vprasanje}</div><div class="drw-qa">Izbral: <span class="${o.pravilno?'ok-t':'nok-t'}">${o.izbran}</span>${!o.pravilno?'<br>Pravilno: <span class="ok-t">'+o.pravilen+'</span>':''}</div></div>`;
-    });
-  }
-  document.getElementById('DRW_C').innerHTML=h;
-  document.getElementById('DRW').classList.add('on');
-  document.getElementById('OVL').classList.add('on');
+ const r=kvizi.find(x=>x._id===id);
+ if(!r)return;
+ const pct=r.procent||0,col=pct>=87?'#1E8449':pct>=62?'#D68910':'#C0392B';
+ let h=`<div class="drw-nm">${r.polnoIme||'—'}</div><div class="drw-mt">${r.kvizNaziv||r.kviz} · ${fCas(r.cas)}</div><div class="drw-sc" style="color:${col}">${r.tocke||0}/${r.skupaj||8}</div><div class="drw-pct">${pct}% pravilnih</div>`;
+ if(r.odgovori){
+  Object.keys(r.odgovori).sort((a,b)=>+a.slice(1)-+b.slice(1)).forEach(k=>{
+   const o=r.odgovori[k];
+   h+=`<div class="drw-q ${o.pravilno?'ok':'nok'}"><div class="drw-qt">${k.replace('v','')}. ${o.vprasanje}</div><div class="drw-qa">Izbral: <span class="${o.pravilno?'ok-t':'nok-t'}">${o.izbran}</span>${!o.pravilno?'<br>Pravilno: <span class="ok-t">'+o.pravilen+'</span>':''}</div></div>`;
+  });
+ }
+ document.getElementById('DRW_C').innerHTML=h;
+ document.getElementById('DRW').classList.add('on');
+ document.getElementById('OVL').classList.add('on');
 }
 function closeDrawer(){
-  document.getElementById('DRW').classList.remove('on');
-  document.getElementById('OVL').classList.remove('on');
+ document.getElementById('DRW').classList.remove('on');
+ document.getElementById('OVL').classList.remove('on');
 }
 </script>
 </body>

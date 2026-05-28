@@ -100,191 +100,191 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 <body>
 
 <div class="login-gate" id="login-gate">
-  <div class="login-gate-box">
-    <div class="login-gate-eyebrow">PNMP · Množične nesreče</div>
-    <h2>MNOŽIČNE NESREČE<br><span>KVIZ</span></h2>
-    <p class="login-gate-sub">Pred začetkom kviza vpiši svoje ime in priimek. Rezultati bodo shranjeni za mentorja.</p>
-    <div class="login-gate-fields">
-      <div><div class="lg-label">Ime</div><input class="lg-input" type="text" id="lg-ime" placeholder="Janez" autocomplete="given-name"></div>
-      <div><div class="lg-label">Priimek</div><input class="lg-input" type="text" id="lg-priimek" placeholder="Novak" autocomplete="family-name"></div>
-    </div>
-    <button class="lg-btn" onclick="lgPrijava()">Začni kviz →</button>
-    <div class="lg-err" id="lg-err">Prosimo, vpiši ime in priimek.</div>
+ <div class="login-gate-box">
+  <div class="login-gate-eyebrow">PNMP · Množične nesreče</div>
+  <h2>MNOŽIČNE NESREČE<br><span>KVIZ</span></h2>
+  <p class="login-gate-sub">Pred začetkom kviza vpiši svoje ime in priimek. Rezultati bodo shranjeni za mentorja.</p>
+  <div class="login-gate-fields">
+   <div><div class="lg-label">Ime</div><input class="lg-input" type="text" id="lg-ime" placeholder="Janez" autocomplete="given-name"></div>
+   <div><div class="lg-label">Priimek</div><input class="lg-input" type="text" id="lg-priimek" placeholder="Novak" autocomplete="family-name"></div>
   </div>
+  <button class="lg-btn" onclick="lgPrijava()">Začni kviz →</button>
+  <div class="lg-err" id="lg-err">Prosimo, vpiši ime in priimek.</div>
+ </div>
 </div>
 
 <div class="wrap">
-  <div class="hero">
-    <p class="hero-eyebrow">Mentorji PNMP GZ Ljubljana</p>
-    <div id="user-chip-wrap"></div>
-    <h1>MNOŽIČNE NESREČE<br><span style="font-size:0.42em;letter-spacing:0.12em;color:rgba(255,255,255,0.55);display:block;margin:4px 0 2px;">VLOGA GASILCEV</span><span>KVIZ</span></h1>
-    <p class="hero-sub">8 vprašanj iz predbolnišnične ravni in vloge gasilcev ob množičnih nesrečah.</p>
-  </div>
+ <div class="hero">
+  <p class="hero-eyebrow">Mentorji PNMP GZ Ljubljana</p>
+  <div id="user-chip-wrap"></div>
+  <h1>MNOŽIČNE NESREČE<br><span style="font-size:0.42em;letter-spacing:0.12em;color:rgba(255,255,255,0.55);display:block;margin:4px 0 2px;">VLOGA GASILCEV</span><span>KVIZ</span></h1>
+  <p class="hero-sub">8 vprašanj iz predbolnišnične ravni in vloge gasilcev ob množičnih nesrečah.</p>
+ </div>
 
-  <div id="quiz-area">
-    <div class="progress-label"><span>NAPREDEK</span><span id="ptxt">0 / 8</span></div>
-    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="pbar" style="width:0%"></div></div>
+ <div id="quiz-area">
+  <div class="progress-label"><span>NAPREDEK</span><span id="ptxt">0 / 8</span></div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="pbar" style="width:0%"></div></div>
 
-    <div class="q-card" id="qc1"><div class="q-header"><div class="q-num">01</div><div class="q-text">Kaj je kratica METHANE?</div></div><div class="opts"><button class="opt" onclick="ans(1,0)"><span class="opt-lbl">A</span><span class="opt-txt">Vrsta nevarnega plina, ki se sprosti ob kemijski nesreči</span></button><button class="opt" onclick="ans(1,1)"><span class="opt-lbl">B</span><span class="opt-txt">Standardno poročilo prve ekipe na kraju množične nesreče</span></button><button class="opt" onclick="ans(1,2)"><span class="opt-lbl">C</span><span class="opt-txt">Triažni algoritem za primarne ponesrečence</span></button><button class="opt" onclick="ans(1,3)"><span class="opt-lbl">D</span><span class="opt-txt">Kratica za zdravstvene zmogljivosti bolnišnice</span></button></div><div class="feedback" id="fb1"></div></div>
-    <div class="q-card" id="qc2"><div class="q-header"><div class="q-num">02</div><div class="q-text">Katero OVO moramo imeti gasilci ob vsaki množični nesreči (ne kemijski)?</div></div><div class="opts"><button class="opt" onclick="ans(2,0)"><span class="opt-lbl">A</span><span class="opt-txt">Samostojni dihalni aparat (SCBA) in kemijska zaščitna obleka</span></button><button class="opt" onclick="ans(2,1)"><span class="opt-lbl">B</span><span class="opt-txt">Samo zaščitne rokavice in delovna obleka</span></button><button class="opt" onclick="ans(2,2)"><span class="opt-lbl">C</span><span class="opt-txt">Zaščitna čelada, zaščitna očala, rokavice in odsevni jopič z oznako funkcije</span></button><button class="opt" onclick="ans(2,3)"><span class="opt-lbl">D</span><span class="opt-txt">Plinska maska in ognjezaščitna obleka</span></button></div><div class="feedback" id="fb2"></div></div>
-    <div class="q-card" id="qc3"><div class="q-header"><div class="q-num">03</div><div class="q-text">Koliko sekund je na voljo za oceno enega pacienta pri primarni triaži SIEVE?</div></div><div class="opts"><button class="opt" onclick="ans(3,0)"><span class="opt-lbl">A</span><span class="opt-txt">60 sekund – da se opravi temeljit pregled</span></button><button class="opt" onclick="ans(3,1)"><span class="opt-lbl">B</span><span class="opt-txt">45 sekund</span></button><button class="opt" onclick="ans(3,2)"><span class="opt-lbl">C</span><span class="opt-txt">10 sekund – samo hiter pogled</span></button><button class="opt" onclick="ans(3,3)"><span class="opt-lbl">D</span><span class="opt-txt">Največ 30 sekund na pacienta</span></button></div><div class="feedback" id="fb3"></div></div>
-    <div class="q-card" id="qc4"><div class="q-header"><div class="q-num">04</div><div class="q-text">Katera dva posega sta dovoljena med izvajanjem primarne triaže SIEVE?</div></div><div class="opts"><button class="opt" onclick="ans(4,0)"><span class="opt-lbl">A</span><span class="opt-txt">Nastavitev IV kanile in aplikacija kisika</span></button><button class="opt" onclick="ans(4,1)"><span class="opt-lbl">B</span><span class="opt-txt">Intratrahealna intubacija in meritev krvnega tlaka</span></button><button class="opt" onclick="ans(4,2)"><span class="opt-lbl">C</span><span class="opt-txt">Zaustavljanje hudih krvavitev in sprostitev dihalne poti</span></button><button class="opt" onclick="ans(4,3)"><span class="opt-lbl">D</span><span class="opt-txt">Dajanje zdravil in vzpostavitev IO poti</span></button></div><div class="feedback" id="fb4"></div></div>
-    <div class="q-card" id="qc5"><div class="q-header"><div class="q-num">05</div><div class="q-text">Kaj pomeni triažna kategorija T1 RDEČA?</div></div><div class="opts"><button class="opt" onclick="ans(5,0)"><span class="opt-lbl">A</span><span class="opt-txt">Mrtev pacient – ne diha niti po sprostitvi dihalne poti</span></button><button class="opt" onclick="ans(5,1)"><span class="opt-lbl">B</span><span class="opt-txt">Lahke poškodbe – pacient lahko varno čaka do 4 ure</span></button><button class="opt" onclick="ans(5,2)"><span class="opt-lbl">C</span><span class="opt-txt">Življenjsko ogrožen, a rešljiv pacient – operacija mora biti v 2 urah</span></button><button class="opt" onclick="ans(5,3)"><span class="opt-lbl">D</span><span class="opt-txt">Nujna oskrba v 2–4 urah – dihanje zadovoljivo, ni šoka</span></button></div><div class="feedback" id="fb5"></div></div>
-    <div class="q-card" id="qc6"><div class="q-header"><div class="q-num">06</div><div class="q-text">Kdaj smemo premakniti truplo s kraja nesreče?</div></div><div class="opts"><button class="opt" onclick="ans(6,0)"><span class="opt-lbl">A</span><span class="opt-txt">Takoj, ko zdravnik potrdi smrt</span></button><button class="opt" onclick="ans(6,1)"><span class="opt-lbl">B</span><span class="opt-txt">Ko vodja gasilske intervencije to odredi</span></button><button class="opt" onclick="ans(6,2)"><span class="opt-lbl">C</span><span class="opt-txt">Ko koordinator prevozov sprosti prevozno sredstvo</span></button><button class="opt" onclick="ans(6,3)"><span class="opt-lbl">D</span><span class="opt-txt">Šele po soglasju preiskovalnih organov in sodnoizvedencev</span></button></div><div class="feedback" id="fb6"></div></div>
-    <div class="q-card" id="qc7"><div class="q-header"><div class="q-num">07</div><div class="q-text">Kateri 3 fiziološki parametri sestavljajo sekundarno triažo SORT?</div></div><div class="opts"><button class="opt" onclick="ans(7,0)"><span class="opt-lbl">A</span><span class="opt-txt">Telesna temperatura, pulzna oksimetrija in starost pacienta</span></button><button class="opt" onclick="ans(7,1)"><span class="opt-lbl">B</span><span class="opt-txt">Frekvenca dihanja, sistolični krvni tlak in glasgowska lestvica nezavesti</span></button><button class="opt" onclick="ans(7,2)"><span class="opt-lbl">C</span><span class="opt-txt">Srčna frekvenca, diastolični krvni tlak in prisotnost krvavitve</span></button><button class="opt" onclick="ans(7,3)"><span class="opt-lbl">D</span><span class="opt-txt">Barva kože, kapilarna polnitev in frekvenca dihanja</span></button></div><div class="feedback" id="fb7"></div></div>
-    <div class="q-card" id="qc8"><div class="q-header"><div class="q-num">08</div><div class="q-text">Kdo in kako aktivira helikopter NMP (HNMP)?</div></div><div class="opts"><button class="opt" onclick="ans(8,0)"><span class="opt-lbl">A</span><span class="opt-txt">Katerikoli reševalec na terenu – neposredno z radijsko postajo</span></button><button class="opt" onclick="ans(8,1)"><span class="opt-lbl">B</span><span class="opt-txt">Nadzorni zdravnik bolnišnice – prek telefona</span></button><button class="opt" onclick="ans(8,2)"><span class="opt-lbl">C</span><span class="opt-txt">Dispečer – brez posebnega dovoljenja vodje</span></button><button class="opt" onclick="ans(8,3)"><span class="opt-lbl">D</span><span class="opt-txt">Vodja intervencije ali vodja intervencije NMP – prek ReCO</span></button></div><div class="feedback" id="fb8"></div></div>
-  </div>
+  <div class="q-card" id="qc1"><div class="q-header"><div class="q-num">01</div><div class="q-text">Kaj je kratica METHANE?</div></div><div class="opts"><button class="opt" onclick="ans(1,0)"><span class="opt-lbl">A</span><span class="opt-txt">Vrsta nevarnega plina, ki se sprosti ob kemijski nesreči</span></button><button class="opt" onclick="ans(1,1)"><span class="opt-lbl">B</span><span class="opt-txt">Standardno poročilo prve ekipe na kraju množične nesreče</span></button><button class="opt" onclick="ans(1,2)"><span class="opt-lbl">C</span><span class="opt-txt">Triažni algoritem za primarne ponesrečence</span></button><button class="opt" onclick="ans(1,3)"><span class="opt-lbl">D</span><span class="opt-txt">Kratica za zdravstvene zmogljivosti bolnišnice</span></button></div><div class="feedback" id="fb1"></div></div>
+  <div class="q-card" id="qc2"><div class="q-header"><div class="q-num">02</div><div class="q-text">Katero OVO moramo imeti gasilci ob vsaki množični nesreči (ne kemijski)?</div></div><div class="opts"><button class="opt" onclick="ans(2,0)"><span class="opt-lbl">A</span><span class="opt-txt">Samostojni dihalni aparat (SCBA) in kemijska zaščitna obleka</span></button><button class="opt" onclick="ans(2,1)"><span class="opt-lbl">B</span><span class="opt-txt">Samo zaščitne rokavice in delovna obleka</span></button><button class="opt" onclick="ans(2,2)"><span class="opt-lbl">C</span><span class="opt-txt">Zaščitna čelada, zaščitna očala, rokavice in odsevni jopič z oznako funkcije</span></button><button class="opt" onclick="ans(2,3)"><span class="opt-lbl">D</span><span class="opt-txt">Plinska maska in ognjezaščitna obleka</span></button></div><div class="feedback" id="fb2"></div></div>
+  <div class="q-card" id="qc3"><div class="q-header"><div class="q-num">03</div><div class="q-text">Koliko sekund je na voljo za oceno enega pacienta pri primarni triaži SIEVE?</div></div><div class="opts"><button class="opt" onclick="ans(3,0)"><span class="opt-lbl">A</span><span class="opt-txt">60 sekund – da se opravi temeljit pregled</span></button><button class="opt" onclick="ans(3,1)"><span class="opt-lbl">B</span><span class="opt-txt">45 sekund</span></button><button class="opt" onclick="ans(3,2)"><span class="opt-lbl">C</span><span class="opt-txt">10 sekund – samo hiter pogled</span></button><button class="opt" onclick="ans(3,3)"><span class="opt-lbl">D</span><span class="opt-txt">Največ 30 sekund na pacienta</span></button></div><div class="feedback" id="fb3"></div></div>
+  <div class="q-card" id="qc4"><div class="q-header"><div class="q-num">04</div><div class="q-text">Katera dva posega sta dovoljena med izvajanjem primarne triaže SIEVE?</div></div><div class="opts"><button class="opt" onclick="ans(4,0)"><span class="opt-lbl">A</span><span class="opt-txt">Nastavitev IV kanile in aplikacija kisika</span></button><button class="opt" onclick="ans(4,1)"><span class="opt-lbl">B</span><span class="opt-txt">Intratrahealna intubacija in meritev krvnega tlaka</span></button><button class="opt" onclick="ans(4,2)"><span class="opt-lbl">C</span><span class="opt-txt">Zaustavljanje hudih krvavitev in sprostitev dihalne poti</span></button><button class="opt" onclick="ans(4,3)"><span class="opt-lbl">D</span><span class="opt-txt">Dajanje zdravil in vzpostavitev IO poti</span></button></div><div class="feedback" id="fb4"></div></div>
+  <div class="q-card" id="qc5"><div class="q-header"><div class="q-num">05</div><div class="q-text">Kaj pomeni triažna kategorija T1 RDEČA?</div></div><div class="opts"><button class="opt" onclick="ans(5,0)"><span class="opt-lbl">A</span><span class="opt-txt">Mrtev pacient – ne diha niti po sprostitvi dihalne poti</span></button><button class="opt" onclick="ans(5,1)"><span class="opt-lbl">B</span><span class="opt-txt">Lahke poškodbe – pacient lahko varno čaka do 4 ure</span></button><button class="opt" onclick="ans(5,2)"><span class="opt-lbl">C</span><span class="opt-txt">Življenjsko ogrožen, a rešljiv pacient – operacija mora biti v 2 urah</span></button><button class="opt" onclick="ans(5,3)"><span class="opt-lbl">D</span><span class="opt-txt">Nujna oskrba v 2–4 urah – dihanje zadovoljivo, ni šoka</span></button></div><div class="feedback" id="fb5"></div></div>
+  <div class="q-card" id="qc6"><div class="q-header"><div class="q-num">06</div><div class="q-text">Kdaj smemo premakniti truplo s kraja nesreče?</div></div><div class="opts"><button class="opt" onclick="ans(6,0)"><span class="opt-lbl">A</span><span class="opt-txt">Takoj, ko zdravnik potrdi smrt</span></button><button class="opt" onclick="ans(6,1)"><span class="opt-lbl">B</span><span class="opt-txt">Ko vodja gasilske intervencije to odredi</span></button><button class="opt" onclick="ans(6,2)"><span class="opt-lbl">C</span><span class="opt-txt">Ko koordinator prevozov sprosti prevozno sredstvo</span></button><button class="opt" onclick="ans(6,3)"><span class="opt-lbl">D</span><span class="opt-txt">Šele po soglasju preiskovalnih organov in sodnoizvedencev</span></button></div><div class="feedback" id="fb6"></div></div>
+  <div class="q-card" id="qc7"><div class="q-header"><div class="q-num">07</div><div class="q-text">Kateri 3 fiziološki parametri sestavljajo sekundarno triažo SORT?</div></div><div class="opts"><button class="opt" onclick="ans(7,0)"><span class="opt-lbl">A</span><span class="opt-txt">Telesna temperatura, pulzna oksimetrija in starost pacienta</span></button><button class="opt" onclick="ans(7,1)"><span class="opt-lbl">B</span><span class="opt-txt">Frekvenca dihanja, sistolični krvni tlak in glasgowska lestvica nezavesti</span></button><button class="opt" onclick="ans(7,2)"><span class="opt-lbl">C</span><span class="opt-txt">Srčna frekvenca, diastolični krvni tlak in prisotnost krvavitve</span></button><button class="opt" onclick="ans(7,3)"><span class="opt-lbl">D</span><span class="opt-txt">Barva kože, kapilarna polnitev in frekvenca dihanja</span></button></div><div class="feedback" id="fb7"></div></div>
+  <div class="q-card" id="qc8"><div class="q-header"><div class="q-num">08</div><div class="q-text">Kdo in kako aktivira helikopter NMP (HNMP)?</div></div><div class="opts"><button class="opt" onclick="ans(8,0)"><span class="opt-lbl">A</span><span class="opt-txt">Katerikoli reševalec na terenu – neposredno z radijsko postajo</span></button><button class="opt" onclick="ans(8,1)"><span class="opt-lbl">B</span><span class="opt-txt">Nadzorni zdravnik bolnišnice – prek telefona</span></button><button class="opt" onclick="ans(8,2)"><span class="opt-lbl">C</span><span class="opt-txt">Dispečer – brez posebnega dovoljenja vodje</span></button><button class="opt" onclick="ans(8,3)"><span class="opt-lbl">D</span><span class="opt-txt">Vodja intervencije ali vodja intervencije NMP – prek ReCO</span></button></div><div class="feedback" id="fb8"></div></div>
+ </div>
 
-  <div class="result" id="result">
-    <div class="result-ring"><div class="result-score" id="res-score">0</div><div class="result-denom">/ 8</div></div>
-    <div class="result-title" id="res-title">—</div>
-    <div class="result-sub" id="res-sub">—</div>
-    <div class="save-status" id="save-status"></div>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <button class="btn btn-primary" onclick="restart()">↺ &nbsp;Ponovi kviz</button>
-      <button class="btn btn-ghost" onclick="toggleReview()">Pregled odgovorov</button>
-      <button class="btn btn-ghost" onclick="window.location.href='index.html'">← Portal</button>
-    </div>
-    <div class="review-panel"><div class="review-list" id="review-list"></div></div>
+ <div class="result" id="result">
+  <div class="result-ring"><div class="result-score" id="res-score">0</div><div class="result-denom">/ 8</div></div>
+  <div class="result-title" id="res-title">—</div>
+  <div class="result-sub" id="res-sub">—</div>
+  <div class="save-status" id="save-status"></div>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+   <button class="btn btn-primary" onclick="restart()">↺ &nbsp;Ponovi kviz</button>
+   <button class="btn btn-ghost" onclick="toggleReview()">Pregled odgovorov</button>
+   <button class="btn btn-ghost" onclick="window.location.href='index.html'">← Portal</button>
   </div>
+  <div class="review-panel"><div class="review-list" id="review-list"></div></div>
+ </div>
 </div>
 
 <script>
 firebase.initializeApp({
-  apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",
-  authDomain:"pnmp-kviz.firebaseapp.com",
-  projectId:"pnmp-kviz",
-  storageBucket:"pnmp-kviz.firebasestorage.app",
-  messagingSenderId:"907229581116",
-  appId:"1:907229581116:web:831cad9f6749bfb1015839"
+ apiKey:"AIzaSyCXrItf0MFjLP0FiMqZSX-cAqcnvk4nPwA",
+ authDomain:"pnmp-kviz.firebaseapp.com",
+ projectId:"pnmp-kviz",
+ storageBucket:"pnmp-kviz.firebasestorage.app",
+ messagingSenderId:"907229581116",
+ appId:"1:907229581116:web:831cad9f6749bfb1015839"
 });
 const db=firebase.firestore();
 const TOTAL=8;
 const DATA={
-  1:{c:1,ok:"METHANE je standardno poročilo: Major incident, Exact location, Type, Hazards, Access, Number, Emergency services.",nok:"METHANE ni plin niti algoritem – je standardno poročilo prve ekipe."},
-  2:{c:2,ok:"Standardna OVO: čelada, očala, rokavice in odsevni jopič z oznako funkcije. SCBA in kemijska obleka sta za kemijske nesreče.",nok:"Ob splošni množični nesreči zadostuje čelada, očala, rokavice in odsevni jopič. SCBA je za kemijske nesreče."},
-  3:{c:3,ok:"SIEVE dovoljuje največ 30 sekund na pacienta. Med triaažo sta dovoljena samo zaustavljanje krvavitev in sprostitev dihalne poti.",nok:"Pravilen odgovor je največ 30 sekund. 60 sekund je preveč za množično nesrečo."},
-  4:{c:2,ok:"Med SIEVE sta dovoljena samo: (1) zaustavljanje hudih krvavitev in (2) sprostitev dihalne poti. Vse ostalo na MZO.",nok:"IV kanile, intubacija in zdravila so invazivni postopki – izvajajo se šele na mestu zdravstvene oskrbe."},
-  5:{c:2,ok:"T1 RDEČA (IMMEDIATE): pacient je v življenjski nevarnosti, a je rešljiv ob pravočasni oskrbi. Operacija v 2 urah.",nok:"T1 RDEČA je življenjsko ogrožen a REŠLJIV pacient. Mrtev = T4 ČRNA. Odložen = T3 ZELENA."},
-  6:{c:3,ok:"Premikanje trupel šele po soglasju preiskovalnih organov in sodnoizvedencev. Zdravnik pred tem potrdi smrt.",nok:"Samo zdravnikova potrditev ni dovolj. Preiskovalni organi morajo dati soglasje za premik."},
-  7:{c:1,ok:"SORT: (1) frekvenca dihanja, (2) sistolični krvni tlak, (3) glasgowska lestvica nezavesti (GCS). 1–10=T1, 11=T2, 12=T3.",nok:"Pravilni parametri so: frekvenca dihanja, sistolični krvni tlak in GCS. Ne temperatura, ne diastolični tlak."},
-  8:{c:3,ok:"HNMP aktivira vodja intervencije ali vodja NMP – prek ReCO. HNMP Brnik: celo leto, aktivacijski čas ~10 min.",nok:"Helikopter aktivira vodja intervencije – obvezno prek ReCO. Nobeden drug ne sme samostojno aktivirati HNMP."}
+ 1:{c:1,ok:"METHANE je standardno poročilo: Major incident, Exact location, Type, Hazards, Access, Number, Emergency services.",nok:"METHANE ni plin niti algoritem – je standardno poročilo prve ekipe."},
+ 2:{c:2,ok:"Standardna OVO: čelada, očala, rokavice in odsevni jopič z oznako funkcije. SCBA in kemijska obleka sta za kemijske nesreče.",nok:"Ob splošni množični nesreči zadostuje čelada, očala, rokavice in odsevni jopič. SCBA je za kemijske nesreče."},
+ 3:{c:3,ok:"SIEVE dovoljuje največ 30 sekund na pacienta. Med triaažo sta dovoljena samo zaustavljanje krvavitev in sprostitev dihalne poti.",nok:"Pravilen odgovor je največ 30 sekund. 60 sekund je preveč za množično nesrečo."},
+ 4:{c:2,ok:"Med SIEVE sta dovoljena samo: (1) zaustavljanje hudih krvavitev in (2) sprostitev dihalne poti. Vse ostalo na MZO.",nok:"IV kanile, intubacija in zdravila so invazivni postopki – izvajajo se šele na mestu zdravstvene oskrbe."},
+ 5:{c:2,ok:"T1 RDEČA (IMMEDIATE): pacient je v življenjski nevarnosti, a je rešljiv ob pravočasni oskrbi. Operacija v 2 urah.",nok:"T1 RDEČA je življenjsko ogrožen a REŠLJIV pacient. Mrtev = T4 ČRNA. Odložen = T3 ZELENA."},
+ 6:{c:3,ok:"Premikanje trupel šele po soglasju preiskovalnih organov in sodnoizvedencev. Zdravnik pred tem potrdi smrt.",nok:"Samo zdravnikova potrditev ni dovolj. Preiskovalni organi morajo dati soglasje za premik."},
+ 7:{c:1,ok:"SORT: (1) frekvenca dihanja, (2) sistolični krvni tlak, (3) glasgowska lestvica nezavesti (GCS). 1–10=T1, 11=T2, 12=T3.",nok:"Pravilni parametri so: frekvenca dihanja, sistolični krvni tlak in GCS. Ne temperatura, ne diastolični tlak."},
+ 8:{c:3,ok:"HNMP aktivira vodja intervencije ali vodja NMP – prek ReCO. HNMP Brnik: celo leto, aktivacijski čas ~10 min.",nok:"Helikopter aktivira vodja intervencije – obvezno prek ReCO. Nobeden drug ne sme samostojno aktivirati HNMP."}
 };
 
 let answered={},score=0,reviewOpen=false,activeUser=null;
 
 function lgPrijava(){
-  const ime=document.getElementById('lg-ime').value.trim();
-  const priimek=document.getElementById('lg-priimek').value.trim();
-  if(!ime||!priimek){document.getElementById('lg-err').style.display='block';return;}
-  const user={ime,priimek,polnoIme:ime+' '+priimek};
-  sessionStorage.setItem('pnmp_active_user',JSON.stringify(user));
-  activeUser=user;
-  document.getElementById('login-gate').style.display='none';
-  document.getElementById('user-chip-wrap').innerHTML='<div class="user-chip">Prijavljen: <strong>'+user.polnoIme+'</strong></div>';
+ const ime=document.getElementById('lg-ime').value.trim();
+ const priimek=document.getElementById('lg-priimek').value.trim();
+ if(!ime||!priimek){document.getElementById('lg-err').style.display='block';return;}
+ const user={ime,priimek,polnoIme:ime+' '+priimek};
+ sessionStorage.setItem('pnmp_active_user',JSON.stringify(user));
+ activeUser=user;
+ document.getElementById('login-gate').style.display='none';
+ document.getElementById('user-chip-wrap').innerHTML='<div class="user-chip">Prijavljen: <strong>'+user.polnoIme+'</strong></div>';
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-  ['lg-ime','lg-priimek'].forEach(id=>{
-    document.getElementById(id)?.addEventListener('keydown',e=>{if(e.key==='Enter')lgPrijava();});
-  });
-  const raw=sessionStorage.getItem('pnmp_active_user');
-  if(raw){
-    activeUser=JSON.parse(raw);
-    document.getElementById('login-gate').style.display='none';
-    document.getElementById('user-chip-wrap').innerHTML='<div class="user-chip">Prijavljen: <strong>'+activeUser.polnoIme+'</strong></div>';
-  }
+ ['lg-ime','lg-priimek'].forEach(id=>{
+  document.getElementById(id)?.addEventListener('keydown',e=>{if(e.key==='Enter')lgPrijava();});
+ });
+ const raw=sessionStorage.getItem('pnmp_active_user');
+ if(raw){
+  activeUser=JSON.parse(raw);
+  document.getElementById('login-gate').style.display='none';
+  document.getElementById('user-chip-wrap').innerHTML='<div class="user-chip">Prijavljen: <strong>'+activeUser.polnoIme+'</strong></div>';
+ }
 });
 
 function ans(qn,chosen){
-  if(answered[qn]!==undefined)return;
-  answered[qn]=chosen;
-  const d=DATA[qn],correct=d.c,isOk=chosen===correct;
-  if(isOk)score++;
-  const card=document.getElementById('qc'+qn);
-  card.classList.add('answered');
-  card.querySelectorAll('.opt').forEach((o,i)=>{
-    o.classList.add('locked');
-    if(i===chosen&&i===correct)o.classList.add('correct-pick');
-    else if(i===chosen&&i!==correct)o.classList.add('wrong-pick');
-    else if(i===correct)o.classList.add('reveal-correct');
-  });
-  const fb=document.getElementById('fb'+qn);
-  fb.className='feedback show '+(isOk?'ok':'nok');
-  fb.innerHTML=(isOk?'<strong>Pravilno!</strong> ':'<strong>Napačno.</strong> ')+(isOk?d.ok:d.nok);
-  const n=Object.keys(answered).length;
-  document.getElementById('pbar').style.width=(n/TOTAL*100)+'%';
-  document.getElementById('ptxt').textContent=n+' / '+TOTAL;
-  if(n===TOTAL)setTimeout(showResult,700);
+ if(answered[qn]!==undefined)return;
+ answered[qn]=chosen;
+ const d=DATA[qn],correct=d.c,isOk=chosen===correct;
+ if(isOk)score++;
+ const card=document.getElementById('qc'+qn);
+ card.classList.add('answered');
+ card.querySelectorAll('.opt').forEach((o,i)=>{
+  o.classList.add('locked');
+  if(i===chosen&&i===correct)o.classList.add('correct-pick');
+  else if(i===chosen&&i!==correct)o.classList.add('wrong-pick');
+  else if(i===correct)o.classList.add('reveal-correct');
+ });
+ const fb=document.getElementById('fb'+qn);
+ fb.className='feedback show '+(isOk?'ok':'nok');
+ fb.innerHTML=(isOk?'<strong>Pravilno!</strong> ':'<strong>Napačno.</strong> ')+(isOk?d.ok:d.nok);
+ const n=Object.keys(answered).length;
+ document.getElementById('pbar').style.width=(n/TOTAL*100)+'%';
+ document.getElementById('ptxt').textContent=n+' / '+TOTAL;
+ if(n===TOTAL)setTimeout(showResult,700);
 }
 
 async function shraniRezultate(){
-  const ss=document.getElementById('save-status');
-  ss.className='save-status saving';ss.textContent='Shranjujem rezultate...';
-  const user=activeUser||{ime:'Neznano',priimek:'',polnoIme:'Neznano'};
-  const odgovoriPodrobno={};
-  for(let q=1;q<=TOTAL;q++){
-    const card=document.getElementById('qc'+q);
-    const opts=card.querySelectorAll('.opt-txt');
-    odgovoriPodrobno['v'+q]={
-      vprasanje:card.querySelector('.q-text').textContent.trim(),
-      izbran:answered[q]!==undefined?opts[answered[q]].textContent.trim():'–',
-      pravilen:opts[DATA[q].c].textContent.trim(),
-      pravilno:answered[q]===DATA[q].c
-    };
-  }
-  try{
-    await db.collection('rezultati').add({
-      ime:user.ime,priimek:user.priimek,polnoIme:user.polnoIme,
-      kviz:'mnozicne-nesrece',kvizNaziv:'Množične nesreče',
-      tocke:score,skupaj:TOTAL,procent:Math.round(score/TOTAL*100),
-      odgovori:odgovoriPodrobno,
-      cas:firebase.firestore.FieldValue.serverTimestamp()
-    });
-    ss.className='save-status saved';ss.textContent='✓ Rezultati shranjeni';
-  }catch(e){
-    ss.className='save-status error';ss.textContent='Napaka pri shranjevanju – preverite povezavo.';
-  }
+ const ss=document.getElementById('save-status');
+ ss.className='save-status saving';ss.textContent='Shranjujem rezultate...';
+ const user=activeUser||{ime:'Neznano',priimek:'',polnoIme:'Neznano'};
+ const odgovoriPodrobno={};
+ for(let q=1;q<=TOTAL;q++){
+  const card=document.getElementById('qc'+q);
+  const opts=card.querySelectorAll('.opt-txt');
+  odgovoriPodrobno['v'+q]={
+   vprasanje:card.querySelector('.q-text').textContent.trim(),
+   izbran:answered[q]!==undefined?opts[answered[q]].textContent.trim():'–',
+   pravilen:opts[DATA[q].c].textContent.trim(),
+   pravilno:answered[q]===DATA[q].c
+  };
+ }
+ try{
+  await db.collection('rezultati').add({
+   ime:user.ime,priimek:user.priimek,polnoIme:user.polnoIme,
+   kviz:'mnozicne-nesrece',kvizNaziv:'Množične nesreče',
+   tocke:score,skupaj:TOTAL,procent:Math.round(score/TOTAL*100),
+   odgovori:odgovoriPodrobno,
+   cas:firebase.firestore.FieldValue.serverTimestamp()
+  });
+  ss.className='save-status saved';ss.textContent='✓ Rezultati shranjeni';
+ }catch(e){
+  ss.className='save-status error';ss.textContent='Napaka pri shranjevanju – preverite povezavo.';
+ }
 }
 
 function showResult(){
-  document.getElementById('quiz-area').style.display='none';
-  document.getElementById('result').classList.add('show');
-  document.getElementById('res-score').textContent=score;
-  const pct=Math.round(score/TOTAL*100);
-  const[title,sub]=pct>=88?['Odlično!','Snov odlično obvladaš. Si pripravljen za teren.']:pct>=62?['Dobro!','Večino snovi obvladaš. Ponovi napačne odgovore.']:['Ponovi gradivo.','Priporoča se ponoven pregled učnega gradiva.'];
-  document.getElementById('res-title').textContent=title;
-  document.getElementById('res-sub').textContent=sub;
-  const rl=document.getElementById('review-list');rl.innerHTML='';
-  for(let q=1;q<=TOTAL;q++){
-    const isOk=answered[q]===DATA[q].c;
-    const card=document.getElementById('qc'+q);
-    const qText=card.querySelector('.q-text').textContent.trim();
-    const opts=card.querySelectorAll('.opt-txt');
-    const chosenTxt=opts[answered[q]]?.textContent.trim()||'–';
-    const correctTxt=opts[DATA[q].c]?.textContent.trim()||'–';
-    rl.innerHTML+='<div class="ri"><div class="ri-dot '+(isOk?'ok':'nok')+'"></div><div class="ri-content"><div class="ri-q">'+q+'. '+qText+'</div><div class="ri-a">Tvoj odgovor: <span class="'+(isOk?'ok-txt':'nok-txt')+'">'+chosenTxt+'</span>'+((!isOk)?'<br>Pravilno: <span class="ok-txt">'+correctTxt+'</span>':'')+'</div></div></div>';
-  }
-  shraniRezultate();
+ document.getElementById('quiz-area').style.display='none';
+ document.getElementById('result').classList.add('show');
+ document.getElementById('res-score').textContent=score;
+ const pct=Math.round(score/TOTAL*100);
+ const[title,sub]=pct>=88?['Odlično!','Snov odlično obvladaš. Si pripravljen za teren.']:pct>=62?['Dobro!','Večino snovi obvladaš. Ponovi napačne odgovore.']:['Ponovi gradivo.','Priporoča se ponoven pregled učnega gradiva.'];
+ document.getElementById('res-title').textContent=title;
+ document.getElementById('res-sub').textContent=sub;
+ const rl=document.getElementById('review-list');rl.innerHTML='';
+ for(let q=1;q<=TOTAL;q++){
+  const isOk=answered[q]===DATA[q].c;
+  const card=document.getElementById('qc'+q);
+  const qText=card.querySelector('.q-text').textContent.trim();
+  const opts=card.querySelectorAll('.opt-txt');
+  const chosenTxt=opts[answered[q]]?.textContent.trim()||'–';
+  const correctTxt=opts[DATA[q].c]?.textContent.trim()||'–';
+  rl.innerHTML+='<div class="ri"><div class="ri-dot '+(isOk?'ok':'nok')+'"></div><div class="ri-content"><div class="ri-q">'+q+'. '+qText+'</div><div class="ri-a">Tvoj odgovor: <span class="'+(isOk?'ok-txt':'nok-txt')+'">'+chosenTxt+'</span>'+((!isOk)?'<br>Pravilno: <span class="ok-txt">'+correctTxt+'</span>':'')+'</div></div></div>';
+ }
+ shraniRezultate();
 }
 
 function toggleReview(){reviewOpen=!reviewOpen;document.getElementById('review-list').classList.toggle('open',reviewOpen);}
 
 function restart(){
-  answered={};score=0;reviewOpen=false;
-  document.getElementById('quiz-area').style.display='block';
-  document.getElementById('result').classList.remove('show');
-  document.getElementById('pbar').style.width='0%';
-  document.getElementById('ptxt').textContent='0 / '+TOTAL;
-  document.getElementById('review-list').classList.remove('open');
-  document.getElementById('save-status').textContent='';
-  for(let q=1;q<=TOTAL;q++){
-    const card=document.getElementById('qc'+q);
-    card.classList.remove('answered');
-    card.querySelectorAll('.opt').forEach(o=>{o.className='opt';});
-    const fb=document.getElementById('fb'+q);fb.className='feedback';fb.innerHTML='';
-  }
-  window.scrollTo({top:0,behavior:'smooth'});
+ answered={};score=0;reviewOpen=false;
+ document.getElementById('quiz-area').style.display='block';
+ document.getElementById('result').classList.remove('show');
+ document.getElementById('pbar').style.width='0%';
+ document.getElementById('ptxt').textContent='0 / '+TOTAL;
+ document.getElementById('review-list').classList.remove('open');
+ document.getElementById('save-status').textContent='';
+ for(let q=1;q<=TOTAL;q++){
+  const card=document.getElementById('qc'+q);
+  card.classList.remove('answered');
+  card.querySelectorAll('.opt').forEach(o=>{o.className='opt';});
+  const fb=document.getElementById('fb'+q);fb.className='feedback';fb.innerHTML='';
+ }
+ window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
 </body>
