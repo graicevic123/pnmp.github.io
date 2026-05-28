@@ -480,6 +480,21 @@ function openSimDrawer(id){
   <div class="drw-badge" style="background:${r._tipColor}22;color:${r._tipColor};border:0.5px solid ${r._tipColor}44">${r._tipLabel}</div>
   <div class="drw-sc" style="color:${col}">${r.pravilno||0}/${r.skupaj||10}</div>
   <div class="drw-pct">${pct}% pravilnih · ${r.napacno||0} napačnih</div>`;
+
+ if(r.odgovori&&r.odgovori.length){
+  r.odgovori.forEach(o=>{
+   h+=`<div class="drw-q ${o.pravilno?'ok':'nok'}">
+    <div class="drw-qt">${o.st}. ${o.scenario}</div>
+    <div class="drw-qa">
+     Izbral: <span class="${o.pravilno?'ok-t':'nok-t'}">${o.izbran}</span>
+     ${!o.pravilno?'<br>Pravilno: <span class="ok-t">'+o.pravilen+'</span>':''}
+    </div>
+   </div>`;
+  });
+ } else {
+  h+=`<div style="font-size:13px;color:var(--muted);margin-top:16px;padding:12px;background:rgba(255,255,255,0.04);border-radius:8px">Podrobni odgovori so na voljo za nove rešitve simulatorja.</div>`;
+ }
+
  document.getElementById('DRW_C').innerHTML=h;
  document.getElementById('DRW').classList.add('on');
  document.getElementById('OVL').classList.add('on');
