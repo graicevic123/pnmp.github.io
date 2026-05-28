@@ -74,10 +74,10 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .empty{text-align:center;padding:60px;color:var(--muted);font-size:14px}
 table{width:100%;border-collapse:collapse}
 th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding:10px 16px;text-align:left;border-bottom:0.5px solid var(--border);background:rgba(255,255,255,0.02);white-space:nowrap}
-td{padding:12px 16px;border-bottom:0.5px solid var(--border);font-size:13px;vertical-align:middle;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+td{padding:12px 16px;border-bottom:0.5px solid var(--border);font-size:13px;vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(255,255,255,0.025)}
-.n{font-weight:500;color:var(--white);white-space:normal}
+.n{font-weight:500;color:var(--white)}
 .sc{font-family:'Bebas Neue',sans-serif;font-size:20px}
 .sc.hi{color:var(--green)}.sc.md{color:var(--amber)}.sc.lo{color:var(--red)}
 .tm{font-size:12px;color:var(--muted);white-space:nowrap}
@@ -300,7 +300,7 @@ function statsKvizi(){
 function renderKvizi(){
  const el=document.getElementById('tblK');
  if(!filtrirani.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
- let h='<table><colgroup><col style="width:180px"><col style="width:140px"><col style="width:90px"><col style="width:100px"><col style="width:80px"></colgroup><thead><tr><th>Ime in priimek</th><th>Kviz</th><th>Rezultat</th><th>Čas</th><th>Pregled</th></tr></thead><tbody>';
+ let h='<table><thead><tr><th>Ime in priimek</th><th>Kviz</th><th>Rezultat</th><th>Čas</th><th>Pregled</th></tr></thead><tbody>';
  filtrirani.forEach(r=>{
   const pct=r.procent||0,cls=pct>=87?'hi':pct>=62?'md':'lo';
   const kv=r.kvizNaziv||r.kviz||'—';
@@ -350,7 +350,7 @@ function renderAnkete(data){
  data=data||ankete;
  const el=document.getElementById('tblA');
  if(!data.length){el.innerHTML='<div class="empty">Ni anket za prikaz.</div>';syncH();return;}
- let h='<table style="table-layout:fixed;width:100%"><colgroup><col><col style="width:160px"><col style="width:100px"><col style="width:110px"><col style="width:88px"></colgroup><thead><tr><th>Ime in priimek</th><th>Tema</th><th>Ocena</th><th>Čas</th><th>Pregled</th></tr></thead><tbody>';
+ let h='<table><thead><tr><th>Ime in priimek</th><th>Tema</th><th>Ocena</th><th>Čas</th><th>Pregled</th></tr></thead><tbody>';
  data.forEach((r,i)=>{
   const stars='★'.repeat(r.ocena||0)+'☆'.repeat(5-(r.ocena||0));
   h+=`<tr>
@@ -403,7 +403,7 @@ function statsSimulator(){
 function renderSimulator(data){
  const el=document.getElementById('tblS');
  if(!data||!data.length){el.innerHTML='<div class="empty">Ni rezultatov za prikaz.</div>';syncH();return;}
- let h='<table><colgroup><col style="width:180px"><col style="width:145px"><col style="width:90px"><col style="width:100px"><col style="width:80px"></colgroup><thead><tr><th>Ime in priimek</th><th>Simulator</th><th>Rezultat</th><th>Čas</th><th>Pregled</th></tr></thead><tbody>';
+ let h='<table><thead><tr><th>Ime in priimek</th><th>Simulator</th><th>Rezultat</th><th>Čas</th><th>Pregled</th></tr></thead><tbody>';
  data.forEach(r=>{
   const pct=r.procent||0,cls=pct>=90?'hi':pct>=60?'md':'lo';
   h+=`<tr>
