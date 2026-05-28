@@ -416,17 +416,16 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
   <div class="section-header-line"></div>
  </div>
 
- <div class="kviz-section">
+ <div class="kviz-section" style="background:rgba(193,125,10,0.1);border-color:rgba(193,125,10,0.35)">
   <div class="kviz-text">
    <div class="kviz-eyebrow">Simulator · 10 scenarijev</div>
    <div class="kviz-title">Prometni simulator</div>
    <div class="kviz-desc">Povleci pravi akcijski kartonček za vsakega od 10 poškodovancev. Odloči se med urgentnim iznosom, hitrim iznosom, imobilizacijo stoječega ali snemanjem čelade.</div>
    <a class="btn-kviz" style="background:#C17D0A" href="pn-simulator.html">Začni simulator →</a>
   </div>
-  <div style="flex-shrink:0;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:10px;padding:16px;text-align:center;min-width:130px">
-   <div style="font-size:42px;margin-bottom:8px">🚗</div>
-   <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)">Iznos · Čelada</div>
-   <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:4px">Imobilizacija</div>
+  <div class="qr-wrap">
+   <div id="qr-simulator"></div>
+   <div class="qr-label">Skeniraj za simulator</div>
   </div>
  </div>
 
@@ -437,7 +436,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
   <div class="section-header-line"></div>
  </div>
 
- <div class="kviz-section" style="background:rgba(192,57,43,0.08);border-color:rgba(192,57,43,0.25);flex-direction:column;gap:0">
+ <div class="kviz-section" style="background:rgba(20,143,119,0.08);border-color:rgba(20,143,119,0.25);flex-direction:column;gap:0">
 
   <!-- Login gate za anketo -->
   <div id="anketa-login" style="width:100%">
@@ -448,7 +447,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
     <div style="flex:1;min-width:140px"><div class="field-label">Ime</div><input class="lg-input" type="text" id="ank-ime" placeholder="Janez" autocomplete="given-name"></div>
     <div style="flex:1;min-width:140px"><div class="field-label">Priimek</div><input class="lg-input" type="text" id="ank-priimek" placeholder="Novak" autocomplete="family-name"></div>
    </div>
-   <button class="btn-kviz" onclick="odklenjiAnketo()">Naprej →</button>
+   <button class="btn-kviz" style="background:var(--teal)" onclick="odklenjiAnketo()">Naprej →</button>
    <div id="anketa-login-err" style="font-size:13px;color:#F4A09A;margin-top:8px;display:none">Prosimo, vpiši ime in priimek.</div>
   </div>
 
@@ -483,7 +482,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
        <div><div class="field-label">Katera tema te zanima za naslednjič?</div><textarea class="textarea-input" id="ankt-naslednjic" placeholder="Npr. reanimacija, opekline ..." style="min-height:70px"></textarea></div>
       </div>
       <div style="margin-top:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-       <button class="btn-kviz" onclick="posljiAnketo()">Pošlji anketo →</button>
+       <button class="btn-kviz" style="background:var(--teal)" onclick="posljiAnketo()">Pošlji anketo →</button>
        <span id="survey-error" style="font-size:13px;color:#F4A09A;display:none">Prosimo, oceni z zvezdicami.</span>
       </div>
      </div>
